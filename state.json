@@ -1,6 +1,6 @@
 {
   "_v": 1,
-  "_ts": "2026-06-02T14:31:59.493Z",
+  "_ts": "2026-06-02T14:32:02.130Z",
   "#import-file": "",
   "#in-usdc-amt": "70,000,000",
   "#in-usdc-y": "15",
@@ -147,7 +147,7 @@
   "edit_1": "オンチェーン<span class=\"accent\">資産運用計画</span>",
   "edit_2": "編集パネル",
   "edit_3": "配分・利回りを変更すると下が自動再計算",
-  "edit_4": "\n      資産配分 （<div class=\"badges\">\n        <span class=\"badge accent\" id=\"alloc-yield\">合計 α 13.25%</span>\n        <span class=\"badge\" style=\"background: var(--warn);\" id=\"alloc-beta\">合計 α+β 25.50%</span>\n        <span class=\"badge\" id=\"alloc-monthly\">月額 ¥442万</span>\n        <span class=\"badge\" id=\"alloc-total-badge\">¥4億</span>\n      </div>\n    ",
+  "edit_4": "\n      資産配分 （202<div class=\"badges\">\n        <span class=\"badge accent\" id=\"alloc-yield\">合計 α 13.25%</span>\n        <span class=\"badge\" style=\"background: var(--warn);\" id=\"alloc-beta\">合計 α+β 25.50%</span>\n        <span class=\"badge\" id=\"alloc-monthly\">月額 ¥442万</span>\n        <span class=\"badge\" id=\"alloc-total-badge\">¥4億</span>\n      </div>\n    ",
   "edit_5": "資産",
   "edit_6": "金額(円)",
   "edit_7": "α(%)",
