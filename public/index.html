@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treasury Dashboard / Rev.V</title>
+<title>Treasury Dashboard / Rev.W</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -956,7 +956,7 @@
 
 <header class="deck-header">
   <div>
-    <div class="eyebrow">Treasury Dashboard / Rev.V</div>
+    <div class="eyebrow">Treasury Dashboard / Rev.W</div>
     <h1 class="title">オンチェーン<span class="accent">資産運用計画</span></h1>
   </div>
   <div class="meta">
@@ -1979,11 +1979,13 @@
     e.target.value = '';
   });
 
-  // Load state from server on page load, then recalc
-  loadStateFromServer().then(() => recalc());
-
-    // Auto-load Polymarket β on page load (last, so it overrides restored β with fresh data)
-  loadAllPredictions(false);
+  // Page-load sequence: state.json must finish BEFORE Polymarket β fetch,
+  // otherwise stale saved β could overwrite fresh Polymarket data.
+  (async () => {
+    await loadStateFromServer();    // restore user edits (numbers, memos, text)
+    recalc();                        // initial calc with restored values
+    await loadAllPredictions(false); // overwrite β with fresh Polymarket data, then recalc
+  })();
 
   // contenteditable
   const EDITABLE = [
