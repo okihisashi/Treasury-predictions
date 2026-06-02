@@ -1,6 +1,6 @@
 {
   "_v": 1,
-  "_ts": "2026-06-02T14:38:15.675Z",
+  "_ts": "2026-06-02T14:38:41.906Z",
   "#import-file": "",
   "#in-usdc-amt": "70,000,000",
   "#in-usdc-y": "15",
@@ -178,7 +178,7 @@
   "edit_32": "Slash Earn",
   "edit_33": "HYPE",
   "edit_34": "Apyx",
-  "edit_35": "予備①",
+  "edit_35": "<span style=\"font-size: 12px;\">ハイリキ自動トレード</span>",
   "edit_36": "予備②",
   "edit_37": "PF 全体",
   "edit_38": "資金注入計画",
