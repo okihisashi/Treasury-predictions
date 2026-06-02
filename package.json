@@ -1,0 +1,17 @@
+{
+  "name": "treasury-predictions",
+  "version": "1.0.0",
+  "description": "Auto-update HYPE β from Polymarket prediction markets",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "smoke":    "node scripts/smoke-test.js",
+    "test":     "node scripts/test-method-b.js",
+    "dry-run":  "node scripts/update-hype-beta.js --dry-run",
+    "debug":    "node scripts/update-hype-beta.js --debug-json --dry-run",
+    "update":   "node scripts/update-hype-beta.js"
+  }
+}
