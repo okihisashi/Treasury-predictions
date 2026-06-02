@@ -1,6 +1,6 @@
 {
   "_v": 1,
-  "_ts": "2026-06-02T14:26:55.368Z",
+  "_ts": "2026-06-02T14:26:58.327Z",
   "#import-file": "",
   "#in-usdc-amt": "70,000,000",
   "#in-usdc-y": "15",
@@ -60,7 +60,7 @@
   "p4_pct_sol": "",
   "p4_pct_slash": "",
   "p4_pct_hype": "0",
-  "p4_pct_apyx": "25",
+  "p4_pct_apyx": "",
   "p4_memo": "",
   "p5_month": "2027年7月",
   "p5_amount": "",
