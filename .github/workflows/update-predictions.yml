@@ -1,4 +1,4 @@
-name: Update HYPE β from Polymarket
+name: Update HYPE & SOL β from Polymarket
 
 on:
   schedule:
@@ -21,8 +21,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run updater
+      - name: Update HYPE β
         run: node scripts/update-hype-beta.js
+
+      - name: Update SOL β
+        run: node scripts/update-sol-beta.js
 
       - name: Commit & push if changed
         run: |
@@ -32,6 +35,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: update HYPE β $(date -u +%Y-%m-%dT%H:%MZ)"
+            git commit -m "chore: update HYPE & SOL β $(date -u +%Y-%m-%dT%H:%MZ)"
             git push
           fi
