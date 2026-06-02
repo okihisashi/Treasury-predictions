@@ -1,6 +1,6 @@
 {
   "_v": 1,
-  "_ts": "2026-06-02T14:35:24.397Z",
+  "_ts": "2026-06-02T14:35:42.739Z",
   "#import-file": "",
   "#in-usdc-amt": "70,000,000",
   "#in-usdc-y": "15",
@@ -9,7 +9,7 @@
   "#in-sol-amt": "50,000,000",
   "#in-sol-y": "8",
   "#in-sol-b": "56",
-  "#memo-sol": "",
+  "#memo-sol": "https://polymarket.com/ja/event/what-price-will-solana-hit-before-2027",
   "#in-slash-amt": "20,000,000",
   "#in-slash-y": "50",
   "#in-slash-b": "0",
