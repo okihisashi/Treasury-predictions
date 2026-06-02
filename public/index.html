@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treasury Dashboard / Rev.W</title>
+<title>Treasury Dashboard / Rev.X</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -956,7 +956,7 @@
 
 <header class="deck-header">
   <div>
-    <div class="eyebrow">Treasury Dashboard / Rev.W</div>
+    <div class="eyebrow">Treasury Dashboard / Rev.X</div>
     <h1 class="title">オンチェーン<span class="accent">資産運用計画</span></h1>
   </div>
   <div class="meta">
@@ -1788,6 +1788,54 @@
   let isRestoring = false;
   let saveInFlight = false;
   let pendingSave = false;
+  let isReadonly = false;       // true for non-editors — disables saving & UI editing
+  let editorEmail = '';         // shown in the read-only banner
+
+  async function loadWhoAmI() {
+    try {
+      const r = await fetch('/api/whoami', { cache: 'no-cache' });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const data = await r.json();
+      editorEmail = data.editor_email || '';
+      isReadonly = !data.is_editor;
+      return data;
+    } catch (err) {
+      console.warn('whoami failed:', err);
+      isReadonly = true; // fail-closed: if we can't determine, assume readonly
+      return { is_editor: false };
+    }
+  }
+
+  function applyReadonlyMode() {
+    if (!isReadonly) return;
+    document.body.classList.add('readonly-mode');
+    // Disable all inputs (visually + functionally)
+    document.querySelectorAll('input, textarea').forEach(el => {
+      el.setAttribute('readonly', 'readonly');
+      el.setAttribute('tabindex', '-1');
+    });
+    // Strip contenteditable
+    document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+      el.setAttribute('contenteditable', 'false');
+    });
+    // Hide edit-only buttons
+    ['btn-import', 'btn-reset'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+    // Replace save status with read-only marker
+    const ss = document.getElementById('save-status');
+    if (ss) {
+      ss.textContent = '🔒 閲覧のみ';
+      ss.style.color = 'var(--ink-faint)';
+    }
+    // Banner at top of body
+    const banner = document.createElement('div');
+    banner.id = 'readonly-banner';
+    banner.style.cssText = 'background:#3a2a1a;color:#e8b886;padding:8px 20px;text-align:center;font-size:12px;font-family:"JetBrains Mono",monospace;border-bottom:1px solid #5c4332;letter-spacing:0.05em;';
+    banner.innerHTML = '🔒 READ ONLY — 編集権限なし(編集者: <strong>' + editorEmail + '</strong>)';
+    document.body.insertBefore(banner, document.body.firstChild);
+  }
 
   const SAVE_DEBOUNCE_MS = 2000;  // bunch up rapid edits before committing
 
@@ -1894,6 +1942,7 @@
 
   async function saveStateToServer() {
     if (isRestoring) return;
+    if (isReadonly) return;
     if (saveInFlight) { pendingSave = true; return; }
     saveInFlight = true;
     showSaveStatus('保存中...');
@@ -1926,7 +1975,7 @@
   }
 
   function debouncedSave() {
-    if (isRestoring) return;
+    if (isRestoring || isReadonly) return;
     clearTimeout(saveTimer);
     saveTimer = setTimeout(saveStateToServer, SAVE_DEBOUNCE_MS);
   }
@@ -1979,12 +2028,18 @@
     e.target.value = '';
   });
 
-  // Page-load sequence: state.json must finish BEFORE Polymarket β fetch,
-  // otherwise stale saved β could overwrite fresh Polymarket data.
+  // Page-load sequence:
+  //   1. whoami (decide editor vs readonly)
+  //   2. state.json restore (before Polymarket so saved values don't clobber fresh β)
+  //   3. recalc
+  //   4. Polymarket β (overrides saved β with latest data)
+  //   5. apply readonly mode AFTER all loads (so listeners are set up and DOM is final)
   (async () => {
-    await loadStateFromServer();    // restore user edits (numbers, memos, text)
-    recalc();                        // initial calc with restored values
-    await loadAllPredictions(false); // overwrite β with fresh Polymarket data, then recalc
+    await loadWhoAmI();
+    await loadStateFromServer();
+    recalc();
+    await loadAllPredictions(false);
+    applyReadonlyMode();
   })();
 
   // contenteditable
