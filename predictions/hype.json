@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-02T07:42:23.646Z",
+  "updated_at": "2026-06-02T08:25:10.916Z",
   "asset": "HYPE",
   "method": "B (probability-weighted, capped extremes)",
   "method_parameters": {
@@ -12,7 +12,7 @@
     "polymarket_event_title": "What price will Hyperliquid hit in 2026?",
     "coingecko_id": "hyperliquid"
   },
-  "current_price_usd": 72.28,
+  "current_price_usd": 71.59,
   "resolution_date": "2027-01-01T00:00:00.000Z",
   "months_to_resolution": 6.99,
   "raw_markets": [
@@ -20,7 +20,7 @@
       "question": "Will Hyperliquid reach $100 by December 31, 2026?",
       "slug": "will-hyperliquid-reach-100-by-december-31-2026",
       "yes_probability": 0.57,
-      "volume": 327062.32475999923,
+      "volume": 327244.14293999923,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 100,
       "direction": "up",
@@ -31,7 +31,7 @@
       "question": "Will Hyperliquid dip to $16 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-16-by-december-31-2026",
       "yes_probability": 0.095,
-      "volume": 129416.59802699999,
+      "volume": 129518.89472699998,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 16,
       "direction": "down",
@@ -42,7 +42,7 @@
       "question": "Will Hyperliquid dip to $8 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-8-by-december-31-2026",
       "yes_probability": 0.0475,
-      "volume": 190730.7521469997,
+      "volume": 190902.6521469997,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 8,
       "direction": "down",
@@ -53,7 +53,7 @@
       "question": "Will Hyperliquid reach $80 by December 31, 2026?",
       "slug": "will-hyperliquid-reach-80-by-december-31-2026",
       "yes_probability": 0.825,
-      "volume": 71707.27490800004,
+      "volume": 71713.47972500004,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 80,
       "direction": "up",
@@ -128,6 +128,6 @@
     }
   ],
   "expected_price_usd": 88.95,
-  "period_return_pct": 23.07,
-  "beta_annualized_pct": 39.62
+  "period_return_pct": 24.25,
+  "beta_annualized_pct": 41.66
 }
