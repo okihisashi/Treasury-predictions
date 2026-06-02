@@ -1,6 +1,6 @@
 {
   "_v": 1,
-  "_ts": "2026-06-02T14:30:17.998Z",
+  "_ts": "2026-06-02T14:30:32.451Z",
   "#import-file": "",
   "#in-usdc-amt": "70,000,000",
   "#in-usdc-y": "15",
@@ -169,8 +169,8 @@
   "edit_23": "Slash Earn",
   "edit_24": "HYPE",
   "edit_25": "Apyx",
-  "edit_26": "<br>",
-  "edit_27": "予備②",
+  "edit_26": "ハイリキ自動トレード",
+  "edit_27": "待機資金",
   "edit_28": "円建てインカム構成",
   "edit_29": "PF 全体 年率インカム (α + β）<span class=\"nt\">Total Annual Yield</span>",
   "edit_30": "USDC(ETHプット売り)",
