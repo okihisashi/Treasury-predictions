@@ -1,7 +1,9 @@
 {
   "name": "treasury-aainc",
   "compatibility_date": "2026-06-02",
+  "main": "src/index.js",
   "assets": {
-    "directory": "./public"
+    "directory": "./public",
+    "binding": "ASSETS"
   }
 }

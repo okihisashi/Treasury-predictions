@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treasury Dashboard / Rev.R</title>
+<title>Treasury Dashboard / Rev.V</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -483,7 +483,7 @@
   .actuals-section { margin-bottom: 26px; }
   .actuals-col-head, .actuals-row {
     display: grid;
-    grid-template-columns: 90px repeat(5, 1fr) 100px 90px 70px;
+    grid-template-columns: 80px repeat(7, 1fr) 100px 90px 70px;
     gap: 8px;
     padding: 6px 8px;
     align-items: center;
@@ -651,17 +651,11 @@
     font-size: 11.5px;
   }
   .planner-row .pct-warn {
-    background: rgba(157,44,44,0.15) !important;
-    border-color: var(--danger) !important;
-    color: var(--danger) !important;
+    /* visual highlight disabled per user preference */
   }
   .planner-row.empty {
-    opacity: 0.5;
-    border-left-color: var(--ink-faint);
+    /* visual treatment removed per user preference — empty rows look the same */
   }
-  .planner-row.empty .cumul,
-  .planner-row.empty .yield,
-  .planner-row.empty .monthly-cash { color: var(--ink-faint); }
 
   /* DDR sections */
   .ddr-block { margin-bottom: 20px; }
@@ -962,7 +956,7 @@
 
 <header class="deck-header">
   <div>
-    <div class="eyebrow">Treasury Dashboard / Rev.R</div>
+    <div class="eyebrow">Treasury Dashboard / Rev.V</div>
     <h1 class="title">オンチェーン<span class="accent">資産運用計画</span></h1>
   </div>
   <div class="meta">
@@ -981,6 +975,7 @@
     </div>
     <div class="editor-buttons">
       <button class="editor-btn" id="btn-refresh-pred" onclick="window.refreshPredictions && window.refreshPredictions()">↻ β 自動更新</button>
+      <span id="save-status" style="font-size: 10.5px; color: var(--accent-soft); margin-right: 10px; min-width: 180px; display: inline-block; text-align: right;">初期化中...</span>
       <button class="editor-btn" id="btn-export" title="現在の状態を JSON ファイルとして保存">⬇ Export</button>
       <button class="editor-btn" id="btn-import" title="保存した JSON を読み込み">⬆ Import</button>
       <input type="file" id="import-file" accept=".json" style="display:none">
@@ -1365,7 +1360,7 @@
 
     <div class="planner-row" data-row="6">
       <input type="text" class="p-month" value="2027年10月">
-      <input type="text" inputmode="numeric" class="p-amount money-input" value="50,000,000">
+      <input type="text" inputmode="numeric" class="p-amount money-input" value="0">
       <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
@@ -1378,7 +1373,7 @@
     </div>
     <div class="planner-row" data-row="7">
       <input type="text" class="p-month" value="2028年1月">
-      <input type="text" inputmode="numeric" class="p-amount money-input" value="50,000,000">
+      <input type="text" inputmode="numeric" class="p-amount money-input" value="0">
       <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
@@ -1391,7 +1386,7 @@
     </div>
     <div class="planner-row" data-row="8">
       <input type="text" class="p-month" value="2028年4月">
-      <input type="text" inputmode="numeric" class="p-amount money-input" value="50,000,000">
+      <input type="text" inputmode="numeric" class="p-amount money-input" value="0">
       <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
@@ -1420,19 +1415,21 @@
       <div>SOL 実績</div>
       <div>Slash 実績</div>
       <div>HYPE 実績</div>
-      <div>APYX 実績</div>
+      <div>Apyx 実績</div>
+      <div>予備① 実績</div>
+      <div>予備② 実績</div>
       <div>実績合計</div>
       <div>予想</div>
       <div>達成率</div>
     </div>
 
-    <div class="actuals-row" data-month="2026-06"><div class="month-label">2026年6月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-07"><div class="month-label">2026年7月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-08"><div class="month-label">2026年8月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-09"><div class="month-label">2026年9月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-10"><div class="month-label">2026年10月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-11"><div class="month-label">2026年11月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-12"><div class="month-label">2026年12月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-06"><div class="month-label">2026年6月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-07"><div class="month-label">2026年7月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-08"><div class="month-label">2026年8月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-09"><div class="month-label">2026年9月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-10"><div class="month-label">2026年10月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-11"><div class="month-label">2026年11月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-12"><div class="month-label">2026年12月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
   </div>
 </section>
 
@@ -1540,28 +1537,31 @@
     let totalBeta = 0;
     ASSETS.forEach(a => {
       const pct = total > 0 ? s[a].amt / total * 100 : 0;
-      const contrib = pct * s[a].y / 100;
-      const betaContrib = pct * s[a].b / 100;
-      totalContrib += contrib;
-      totalBeta += betaContrib;
+      const contribAlpha = pct * s[a].y / 100;
+      const contribBeta = pct * s[a].b / 100;
+      const contribTotal = contribAlpha + contribBeta;
+      totalContrib += contribAlpha;
+      totalBeta += contribBeta;
       const annualCash = s[a].amt * s[a].y / 100;
       const monthlyCash = annualCash / 12;
       document.getElementById(`leg-${a}-pct`).textContent = pct.toFixed(1) + '%';
       document.getElementById(`leg-${a}-amt`).textContent = fmtYen(s[a].amt);
-      document.getElementById(`row-${a}-calc`).textContent = `${pct.toFixed(1)}% × ${s[a].y}%`;
+      // Show "weight% × (α+β)%" — both α and β reflected in calc and contrib
+      const sumYB = s[a].y + s[a].b;
+      document.getElementById(`row-${a}-calc`).textContent = `${pct.toFixed(1)}% × (${s[a].y}+${s[a].b})%`;
       document.getElementById(`row-${a}-monthly`).textContent = fmtYen(monthlyCash) + '/月';
-      document.getElementById(`row-${a}-contrib`).textContent = '+' + fmtPct(contrib);
+      document.getElementById(`row-${a}-contrib`).textContent = '+' + fmtPct(contribTotal);
       const edMonthly = document.getElementById(`ed-${a}-monthly`);
       if (edMonthly) edMonthly.textContent = fmtYen(monthlyCash);
     });
     const totalCash = total * totalContrib / 100;
     const totalMonthly = totalCash / 12;
     const totalAlphaBeta = totalContrib + totalBeta;
-    document.getElementById('tot-yield').textContent = fmtPct(totalContrib);
-    document.getElementById('tot-cash').innerHTML = fmtYen(totalCash) + ' / 年 <span style="color: var(--accent); font-weight: 700;">(月 ' + fmtYen(totalMonthly) + ')</span>';
-    document.getElementById('row-total-calc').textContent = fmtYen(totalCash) + ' / 年';
+    document.getElementById('tot-yield').textContent = fmtPct(totalAlphaBeta);
+    document.getElementById('tot-cash').innerHTML = '実現 ' + fmtYen(totalCash) + ' / 年 <span style="color: var(--accent); font-weight: 700;">(月 ' + fmtYen(totalMonthly) + ')</span>';
+    document.getElementById('row-total-calc').textContent = '実現 ' + fmtYen(totalCash) + '/年 (α ' + fmtPct(totalContrib) + ')';
     document.getElementById('row-total-monthly').textContent = fmtYen(totalMonthly) + '/月';
-    document.getElementById('row-total-contrib').textContent = fmtPct(totalContrib);
+    document.getElementById('row-total-contrib').textContent = fmtPct(totalAlphaBeta);
     document.getElementById('alloc-yield').textContent = '合計 α ' + fmtPct(totalContrib);
     document.getElementById('alloc-beta').textContent = '合計 α+β ' + fmtPct(totalAlphaBeta);
     document.getElementById('alloc-monthly').textContent = '月額 ' + fmtYen(totalMonthly);
@@ -1590,15 +1590,21 @@
         inp.classList.toggle('pct-warn', amt > 0 && Math.abs(pctSum - 100) > 0.01);
       });
 
-      if (amt > 0 && Math.abs(pctSum - 100) < 0.01) {
+      // Status logic:
+      //   amt=0 OR pctSum=0          → "—" (not filled in)
+      //   amt>0 AND pctSum≈100        → compute
+      //   amt>0 AND pctSum>0 AND ≠100 → "合計≠100%" (partial / error)
+      const isComplete = amt > 0 && Math.abs(pctSum - 100) < 0.01;
+      const isPartial  = amt > 0 && pctSum > 0 && Math.abs(pctSum - 100) >= 0.01;
+      if (isComplete) {
         runningTotal += amt;
         ASSETS.forEach(a => {
-          runningAssets[a] += amt * pcts[a] / 100;
+          runningAssets[a] += amt * (pcts[a] || 0) / 100;
         });
         let newContrib = 0;
         ASSETS.forEach(a => {
           const w = runningAssets[a] / runningTotal * 100;
-          newContrib += w * s[a].y / 100;
+          newContrib += w * (s[a].y + s[a].b) / 100;
         });
         const newCash = runningTotal * newContrib / 100;
         const newMonthly = newCash / 12;
@@ -1606,8 +1612,13 @@
         row.querySelector('.yield').textContent = fmtPct(newContrib);
         row.querySelector('.monthly-cash').textContent = fmtYen(newMonthly);
         row.classList.remove('empty');
+      } else if (isPartial) {
+        row.querySelector('.cumul').textContent = '合計≠100%';
+        row.querySelector('.yield').textContent = '—';
+        row.querySelector('.monthly-cash').textContent = '—';
+        row.classList.add('empty');
       } else {
-        row.querySelector('.cumul').textContent = amt > 0 ? '合計≠100%' : '—';
+        row.querySelector('.cumul').textContent = '—';
         row.querySelector('.yield').textContent = '—';
         row.querySelector('.monthly-cash').textContent = '—';
         row.classList.add('empty');
@@ -1648,9 +1659,9 @@
     el.addEventListener('input', recalc);
   });
 
-  document.getElementById('btn-reset').addEventListener('click', () => {
-    if (!confirm('すべての金額・α・β・メモ・編集テキストをデフォルトに戻します。\n保存された localStorage も削除されます。\n本当に実行しますか?')) return;
-    localStorage.removeItem(STATE_KEY);
+  document.getElementById('btn-reset').addEventListener('click', async () => {
+    if (!confirm('全員の編集を初期化します。\n他のチームメンバーの編集も失われます。\n本当に実行しますか?')) return;
+    // Reset values locally
     setMoneyById('in-usdc-amt', 100000000);
     document.getElementById('in-usdc-y').value = 15;
     document.getElementById('in-usdc-b').value = 0;
@@ -1673,8 +1684,9 @@
     document.getElementById('in-spare2-y').value = 0;
     document.getElementById('in-spare2-b').value = 0;
     recalc();
-    // Reload after a short delay so contenteditable text reverts to HTML defaults
-    setTimeout(() => location.reload(), 100);
+    // Save reset state to server, then reload to also reset contenteditable text
+    await saveStateToServer();
+    setTimeout(() => location.reload(), 300);
   });
 
   document.getElementById('btn-print').addEventListener('click', () => window.print());
@@ -1770,52 +1782,46 @@
   }
 
 
-  // ====================== Persistence (localStorage) ======================
-  const STATE_KEY = 'treasury-dashboard-state-v1';
-  let saveTimer;
+  // ====================== Persistence (server-backed via /api/state) ======================
+  let currentSha = null;
+  let saveTimer  = null;
   let isRestoring = false;
+  let saveInFlight = false;
+  let pendingSave = false;
+
+  const SAVE_DEBOUNCE_MS = 2000;  // bunch up rapid edits before committing
+
+  function showSaveStatus(text, color = 'var(--accent-soft)') {
+    const el = document.getElementById('save-status');
+    if (!el) return;
+    el.textContent = text;
+    el.style.color = color;
+  }
 
   function captureState() {
     const state = { _v: 1, _ts: new Date().toISOString() };
-
-    // All <input> with id
     document.querySelectorAll('input[id]').forEach(el => {
       state[`#${el.id}`] = el.value;
     });
-
-    // Planner rows: data-row + class-based capture
     document.querySelectorAll('.planner-row').forEach(row => {
       const r = row.getAttribute('data-row');
       row.querySelectorAll('input').forEach(input => {
-        if (input.classList.contains('p-month')) state[`p${r}_month`] = input.value;
+        if (input.classList.contains('p-month'))       state[`p${r}_month`]  = input.value;
         else if (input.classList.contains('p-amount')) state[`p${r}_amount`] = input.value;
-        else if (input.classList.contains('p-memo')) state[`p${r}_memo`] = input.value;
-        else if (input.classList.contains('p-pct')) state[`p${r}_pct_${input.dataset.asset}`] = input.value;
+        else if (input.classList.contains('p-memo'))   state[`p${r}_memo`]   = input.value;
+        else if (input.classList.contains('p-pct'))    state[`p${r}_pct_${input.dataset.asset}`] = input.value;
       });
     });
-
-    // Actuals rows by data-month + data-asset
     document.querySelectorAll('.actuals-row').forEach(row => {
       const m = row.getAttribute('data-month');
       row.querySelectorAll('input.act-asset').forEach(input => {
         state[`act_${m}_${input.dataset.asset}`] = input.value;
       });
     });
-
-    // Contenteditable elements: index by their order in DOM
     document.querySelectorAll('[contenteditable="true"]').forEach((el, idx) => {
       state[`edit_${idx}`] = el.innerHTML;
     });
-
     return state;
-  }
-
-  function saveState() {
-    if (isRestoring) return;
-    try {
-      const state = captureState();
-      localStorage.setItem(STATE_KEY, JSON.stringify(state));
-    } catch (e) { console.warn('saveState failed:', e); }
   }
 
   function applyState(state) {
@@ -1823,21 +1829,16 @@
     try {
       Object.keys(state).forEach(key => {
         if (key.startsWith('_')) return;
-
-        // Plain <input> by id: key = "#id"
         if (key.startsWith('#')) {
           const el = document.getElementById(key.slice(1));
           if (el && 'value' in el) el.value = state[key];
           return;
         }
-
-        // Planner row entries
         let m = key.match(/^p(\d+)_(month|amount|memo)$/);
         if (m) {
           const row = document.querySelector(`.planner-row[data-row="${m[1]}"]`);
           if (row) {
-            const cls = '.p-' + m[2];
-            const el = row.querySelector(cls);
+            const el = row.querySelector('.p-' + m[2]);
             if (el) el.value = state[key];
           }
           return;
@@ -1851,63 +1852,91 @@
           }
           return;
         }
-
-        // Actuals row
         m = key.match(/^act_(\d{4}-\d{2})_(.+)$/);
         if (m) {
           const el = document.querySelector(`.actuals-row[data-month="${m[1]}"] input[data-asset="${m[2]}"]`);
           if (el) el.value = state[key];
           return;
         }
-
-        // Contenteditable by index
         m = key.match(/^edit_(\d+)$/);
         if (m) {
           const idx = parseInt(m[1], 10);
-          const elements = document.querySelectorAll('[contenteditable="true"]');
-          if (elements[idx]) elements[idx].innerHTML = state[key];
+          const els = document.querySelectorAll('[contenteditable="true"]');
+          if (els[idx]) els[idx].innerHTML = state[key];
           return;
         }
       });
-    } catch (e) {
-      console.warn('applyState failed:', e);
-    }
+    } catch (e) { console.warn('applyState failed:', e); }
     isRestoring = false;
   }
 
-  function restoreState() {
+  async function loadStateFromServer() {
+    showSaveStatus('読み込み中...');
     try {
-      const raw = localStorage.getItem(STATE_KEY);
-      if (!raw) return false;
-      const state = JSON.parse(raw);
-      applyState(state);
-      return true;
-    } catch (e) {
-      console.warn('restoreState failed:', e);
+      const r = await fetch('/api/state', { cache: 'no-cache' });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const data = await r.json();
+      currentSha = data.sha;
+      if (data.state) {
+        applyState(data.state);
+        showSaveStatus('✓ 最新を読み込み済み');
+        return true;
+      } else {
+        showSaveStatus('(初期状態 — まだ何も保存されていません)');
+        return false;
+      }
+    } catch (err) {
+      showSaveStatus(`読み込み失敗: ${err.message}`, 'var(--danger)');
+      console.warn('loadStateFromServer error:', err);
       return false;
     }
   }
 
-  // Hook every input event to debounced save (works for inputs AND contenteditable)
-  document.body.addEventListener('input', () => {
+  async function saveStateToServer() {
+    if (isRestoring) return;
+    if (saveInFlight) { pendingSave = true; return; }
+    saveInFlight = true;
+    showSaveStatus('保存中...');
+    try {
+      const state = captureState();
+      const r = await fetch('/api/state', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ state, sha: currentSha })
+      });
+      if (r.status === 409) {
+        showSaveStatus('⚠ 他の人が編集中。ページを再読み込みします...', 'var(--danger)');
+        setTimeout(() => location.reload(), 2000);
+        return;
+      }
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const data = await r.json();
+      currentSha = data.sha;
+      showSaveStatus(`✓ 保存済み ${new Date().toLocaleTimeString('ja-JP')}`);
+    } catch (err) {
+      showSaveStatus(`保存失敗: ${err.message}`, 'var(--danger)');
+      console.warn('saveStateToServer error:', err);
+    } finally {
+      saveInFlight = false;
+      if (pendingSave) {
+        pendingSave = false;
+        debouncedSave();
+      }
+    }
+  }
+
+  function debouncedSave() {
     if (isRestoring) return;
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveState, 300);
-  });
-  // Also catch blur on contenteditable (input event may not fire reliably)
-  document.body.addEventListener('blur', (e) => {
-    if (e.target.isContentEditable) {
-      clearTimeout(saveTimer);
-      saveTimer = setTimeout(saveState, 100);
-    }
-  }, true);
+    saveTimer = setTimeout(saveStateToServer, SAVE_DEBOUNCE_MS);
+  }
 
-  // ============ Export / Import ============
+  // ============ Export / Import (local file backup, independent of server) ============
   function exportState() {
     const state = captureState();
-    const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const blob  = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    const url   = URL.createObjectURL(blob);
+    const a     = document.createElement('a');
     const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
     a.href = url;
     a.download = `treasury-state-${stamp}.json`;
@@ -1923,15 +1952,23 @@
       try {
         const state = JSON.parse(e.target.result);
         applyState(state);
-        localStorage.setItem(STATE_KEY, JSON.stringify(state));
         recalc();
-        alert('インポート完了');
+        saveStateToServer();  // push to server immediately
+        alert('インポート完了 — サーバーに保存しました');
       } catch (err) {
         alert('インポート失敗: ' + err.message);
       }
     };
     reader.readAsText(file);
   }
+
+  document.body.addEventListener('input', () => {
+    if (isRestoring) return;
+    debouncedSave();
+  });
+  document.body.addEventListener('blur', (e) => {
+    if (e.target.isContentEditable && !isRestoring) debouncedSave();
+  }, true);
 
   document.getElementById('btn-export').addEventListener('click', exportState);
   document.getElementById('btn-import').addEventListener('click', () => {
@@ -1942,11 +1979,10 @@
     e.target.value = '';
   });
 
-  // Restore on page load (before recalc and before auto-fetch)
-  restoreState();
-  recalc();
+  // Load state from server on page load, then recalc
+  loadStateFromServer().then(() => recalc());
 
-  // Auto-load Polymarket β on page load (last, so it overrides restored β with fresh data)
+    // Auto-load Polymarket β on page load (last, so it overrides restored β with fresh data)
   loadAllPredictions(false);
 
   // contenteditable
@@ -1956,14 +1992,14 @@
     '.section-title > span:first-child', '.section-title .sub',
     '.income-headline .lbl',
     '.kgi-row .label-jp', '.kgi-row .target',
-    
-    
-    
     '.footer-band',
     '.editor-head h2', '.editor-head .sub',
     '.editor-section h3',
     '.field label', '.col-head div',
-    '.planner-col-head div'
+    '.planner-col-head div',
+    '.income-row .name',
+    '.alloc-item .name',
+    '.actuals-col-head div'
   ];
   EDITABLE.forEach(sel => {
     document.querySelectorAll(sel).forEach(el => {
