@@ -1,6 +1,6 @@
 {
   "_v": 1,
-  "_ts": "2026-06-02T14:32:14.189Z",
+  "_ts": "2026-06-02T14:35:24.397Z",
   "#import-file": "",
   "#in-usdc-amt": "70,000,000",
   "#in-usdc-y": "15",
@@ -17,7 +17,7 @@
   "#in-hype-amt": "50,000,000",
   "#in-hype-y": "3",
   "#in-hype-b": "42",
-  "#memo-hype": "",
+  "#memo-hype": "https://polymarket.com/ja/event/what-price-will-hyperliquid-hit-before-2027",
   "#in-apyx-amt": "180,000,000",
   "#in-apyx-y": "15",
   "#in-apyx-b": "0",
