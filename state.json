@@ -1,6 +1,6 @@
 {
   "_v": 1,
-  "_ts": "2026-06-02T13:14:23.628Z",
+  "_ts": "2026-06-02T13:14:35.850Z",
   "#import-file": "",
   "#in-usdc-amt": "100,000,000",
   "#in-usdc-y": "15",
@@ -172,7 +172,7 @@
   "edit_26": "予備①",
   "edit_27": "予備②",
   "edit_28": "円建てインカム構成",
-  "edit_29": "PF 全体 年率インカム<span class=\"nt\">Total Annual Yield</span>",
+  "edit_29": "PF 全体 年率インカム (α + β）<span class=\"nt\">Total Annual Yield</span>",
   "edit_30": "USDC(ETHプット売り)",
   "edit_31": "SOL ステーキング",
   "edit_32": "Slash Earn",
