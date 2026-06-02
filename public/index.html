@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treasury Dashboard / Rev.X</title>
+<title>Treasury Dashboard / Rev.Y</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -379,18 +379,20 @@
   /* Income headline */
   .income-headline {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     padding: 14px 16px;
     background: var(--paper);
     border-left: 4px solid var(--accent);
     margin-bottom: 12px;
+    gap: 16px;
   }
   .income-headline .lbl {
     font-family: "Shippori Mincho B1", serif;
     font-weight: 800;
     font-size: 14px;
     color: var(--ink);
+    flex-shrink: 0;
   }
   .income-headline .lbl .nt {
     display: block;
@@ -402,19 +404,47 @@
     font-weight: 700;
     text-transform: uppercase;
   }
-  .income-headline .val { text-align: right; }
-  .income-headline .val .pct {
+  .income-headline .val { flex-grow: 1; }
+  .income-headline .triplet {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.2fr;
+    gap: 10px;
+  }
+  .income-headline .cell {
+    padding: 8px 12px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.6);
+    border-left: 3px solid var(--ink-faint);
+  }
+  .income-headline .cell.alpha  { border-left-color: var(--ok); }
+  .income-headline .cell.beta   { border-left-color: var(--accent-soft); }
+  .income-headline .cell.total  {
+    background: rgba(157,71,44,0.08);
+    border-left-color: var(--accent);
+  }
+  .income-headline .cell-lbl {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .income-headline .cell-val {
     font-family: "Shippori Mincho B1", serif;
     font-weight: 800;
-    font-size: 32px;
+    font-size: 22px;
     line-height: 1;
-    color: var(--accent);
+    color: var(--ink);
   }
-  .income-headline .val .cash {
+  .income-headline .cell.total .cell-val { color: var(--accent); font-size: 26px; }
+  .income-headline .cell-cash {
     font-family: "JetBrains Mono", monospace;
-    font-size: 11px;
+    font-size: 10px;
     color: var(--ink-faint);
     margin-top: 4px;
+    white-space: nowrap;
   }
 
   .income-table {
@@ -956,7 +986,7 @@
 
 <header class="deck-header">
   <div>
-    <div class="eyebrow">Treasury Dashboard / Rev.X</div>
+    <div class="eyebrow">Treasury Dashboard / Rev.Y</div>
     <h1 class="title">オンチェーン<span class="accent">資産運用計画</span></h1>
   </div>
   <div class="meta">
@@ -1195,10 +1225,25 @@
       </div>
 
       <div class="income-headline">
-        <div class="lbl">PF 全体 年率インカム<span class="nt">Total Annual Yield</span></div>
+        <div class="lbl">PF 全体 年率<span class="nt">Total Annual Rate</span></div>
         <div class="val">
-          <div class="pct" id="tot-yield">15.23%</div>
-          <div class="cash" id="tot-cash">¥6,090万 / 年 <span style="color: var(--accent); font-weight: 700;">(月 ¥508万)</span></div>
+          <div class="triplet">
+            <div class="cell alpha">
+              <div class="cell-lbl">α のみ</div>
+              <div class="cell-val" id="tot-alpha">15.23%</div>
+              <div class="cell-cash" id="tot-alpha-cash">¥6,090万 / 年 (月 ¥508万)</div>
+            </div>
+            <div class="cell beta">
+              <div class="cell-lbl">β のみ</div>
+              <div class="cell-val" id="tot-beta">0.00%</div>
+              <div class="cell-cash" id="tot-beta-cash">¥0 / 年 (月 ¥0)</div>
+            </div>
+            <div class="cell total">
+              <div class="cell-lbl">α + β</div>
+              <div class="cell-val" id="tot-yield">15.23%</div>
+              <div class="cell-cash" id="tot-cash">¥6,090万 / 年 (月 ¥508万)</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1554,13 +1599,25 @@
       const edMonthly = document.getElementById(`ed-${a}-monthly`);
       if (edMonthly) edMonthly.textContent = fmtYen(monthlyCash);
     });
-    const totalCash = total * totalContrib / 100;
-    const totalMonthly = totalCash / 12;
-    const totalAlphaBeta = totalContrib + totalBeta;
-    document.getElementById('tot-yield').textContent = fmtPct(totalAlphaBeta);
-    document.getElementById('tot-cash').innerHTML = '実現 ' + fmtYen(totalCash) + ' / 年 <span style="color: var(--accent); font-weight: 700;">(月 ' + fmtYen(totalMonthly) + ')</span>';
-    document.getElementById('row-total-calc').textContent = '実現 ' + fmtYen(totalCash) + '/年 (α ' + fmtPct(totalContrib) + ')';
-    document.getElementById('row-total-monthly').textContent = fmtYen(totalMonthly) + '/月';
+    const totalCashAlpha   = total * totalContrib / 100;
+    const totalCashBeta    = total * totalBeta / 100;
+    const totalCashTotal   = totalCashAlpha + totalCashBeta;
+    const totalMonthlyAlpha = totalCashAlpha / 12;
+    const totalMonthlyBeta  = totalCashBeta / 12;
+    const totalMonthlyTotal = totalCashTotal / 12;
+    const totalAlphaBeta    = totalContrib + totalBeta;
+
+    // Three-cell headline
+    document.getElementById('tot-alpha').textContent     = fmtPct(totalContrib);
+    document.getElementById('tot-alpha-cash').textContent = fmtYen(totalCashAlpha) + ' / 年 (月 ' + fmtYen(totalMonthlyAlpha) + ')';
+    document.getElementById('tot-beta').textContent      = fmtPct(totalBeta);
+    document.getElementById('tot-beta-cash').textContent  = fmtYen(totalCashBeta) + ' / 年 (月 ' + fmtYen(totalMonthlyBeta) + ')';
+    document.getElementById('tot-yield').textContent     = fmtPct(totalAlphaBeta);
+    document.getElementById('tot-cash').textContent       = fmtYen(totalCashTotal) + ' / 年 (月 ' + fmtYen(totalMonthlyTotal) + ')';
+
+    // Income table total row (preserve readability)
+    document.getElementById('row-total-calc').textContent    = 'α ' + fmtPct(totalContrib) + ' + β ' + fmtPct(totalBeta);
+    document.getElementById('row-total-monthly').textContent = fmtYen(totalMonthlyAlpha) + '/月 (α実現)';
     document.getElementById('row-total-contrib').textContent = fmtPct(totalAlphaBeta);
     document.getElementById('alloc-yield').textContent = '合計 α ' + fmtPct(totalContrib);
     document.getElementById('alloc-beta').textContent = '合計 α+β ' + fmtPct(totalAlphaBeta);
