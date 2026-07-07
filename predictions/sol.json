@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-06T04:38:48.545Z",
+  "updated_at": "2026-07-07T04:16:30.117Z",
   "asset": "SOL",
   "method": "B (probability-weighted, capped extremes)",
   "method_parameters": {
@@ -12,9 +12,9 @@
     "polymarket_event_title": "What price will Solana hit in 2026?",
     "coingecko_id": "solana"
   },
-  "current_price_usd": 80.76,
+  "current_price_usd": 80.9,
   "resolution_date": "2027-01-01T00:00:00.000Z",
-  "months_to_resolution": 5.87,
+  "months_to_resolution": 5.84,
   "raw_markets": [
     {
       "question": "Will Solana reach $140 by December 31, 2026?",
@@ -41,8 +41,8 @@
     {
       "question": "Will Solana reach $100 by December 31, 2026?",
       "slug": "will-solana-reach-100-by-december-31-2026-from-june-8",
-      "yes_probability": 0.565,
-      "volume": 516.7752260000001,
+      "yes_probability": 0.55,
+      "volume": 539.2852260000001,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 100,
       "direction": "up",
@@ -52,8 +52,8 @@
     {
       "question": "Will Solana dip to $50 by December 31, 2026?",
       "slug": "will-solana-dip-to-50-by-december-31-2026-from-june-8",
-      "yes_probability": 0.45,
-      "volume": 28619.777999999995,
+      "yes_probability": 0.425,
+      "volume": 28621.737999999994,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 50,
       "direction": "down",
@@ -74,7 +74,7 @@
     {
       "question": "Will Solana reach $90 by December 31, 2026?",
       "slug": "will-solana-reach-90-by-december-31-2026-from-june-8",
-      "yes_probability": 0.795,
+      "yes_probability": 0.85,
       "volume": 728.758429,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 90,
@@ -83,10 +83,21 @@
       "closed": false
     },
     {
+      "question": "Will Solana dip to $70 by December 31, 2026?",
+      "slug": "will-solana-dip-to-70-by-december-31-2026-from-july-6",
+      "yes_probability": 0.5,
+      "volume": 0,
+      "end_date": "2027-01-01T05:00:00Z",
+      "target_price": 70,
+      "direction": "down",
+      "active": true,
+      "closed": false
+    },
+    {
       "question": "Will Solana reach $600 by December 31, 2026?",
       "slug": "will-solana-reach-600-by-december-31-2026",
-      "yes_probability": 0.0135,
-      "volume": 75854.41683900023,
+      "yes_probability": 0.0125,
+      "volume": 76365.08683900023,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 600,
       "direction": "up",
@@ -96,7 +107,7 @@
     {
       "question": "Will Solana reach $400 by December 31, 2026?",
       "slug": "will-solana-reach-400-by-december-31-2026",
-      "yes_probability": 0.0345,
+      "yes_probability": 0.032,
       "volume": 51045.93694999999,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 400,
@@ -107,7 +118,7 @@
     {
       "question": "Will Solana reach $320 by December 31, 2026?",
       "slug": "will-solana-reach-320-by-december-31-2026",
-      "yes_probability": 0.0345,
+      "yes_probability": 0.033,
       "volume": 103548.95008000001,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 320,
@@ -118,7 +129,7 @@
     {
       "question": "Will Solana reach $300 by December 31, 2026?",
       "slug": "will-solana-reach-300-by-december-31-2026",
-      "yes_probability": 0.0345,
+      "yes_probability": 0.0335,
       "volume": 22994.669294999992,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 300,
@@ -129,8 +140,8 @@
     {
       "question": "Will Solana reach $280 by December 31, 2026?",
       "slug": "will-solana-reach-280-by-december-31-2026",
-      "yes_probability": 0.035,
-      "volume": 18843.997299,
+      "yes_probability": 0.0335,
+      "volume": 18854.317202,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 280,
       "direction": "up",
@@ -140,7 +151,7 @@
     {
       "question": "Will Solana reach $260 by December 31, 2026?",
       "slug": "will-solana-reach-260-by-december-31-2026",
-      "yes_probability": 0.0295,
+      "yes_probability": 0.028,
       "volume": 16112.285192000001,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 260,
@@ -151,8 +162,8 @@
     {
       "question": "Will Solana reach $240 by December 31, 2026?",
       "slug": "will-solana-reach-240-by-december-31-2026",
-      "yes_probability": 0.0375,
-      "volume": 45225.70585,
+      "yes_probability": 0.0355,
+      "volume": 45281.84585,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 240,
       "direction": "up",
@@ -162,8 +173,8 @@
     {
       "question": "Will Solana reach $220 by December 31, 2026?",
       "slug": "will-solana-reach-220-by-december-31-2026",
-      "yes_probability": 0.055,
-      "volume": 20636.28866599999,
+      "yes_probability": 0.045,
+      "volume": 20641.65866599999,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 220,
       "direction": "up",
@@ -206,8 +217,8 @@
     {
       "question": "Will Solana dip to $60 by December 31, 2026?",
       "slug": "will-solana-dip-to-60-by-december-31-2026-249-524",
-      "yes_probability": 0.6185,
-      "volume": 168822.0024269996,
+      "yes_probability": 0.64,
+      "volume": 168938.0446309996,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 60,
       "direction": "down",
@@ -240,31 +251,31 @@
   "zones": [
     {
       "range": ">$600",
-      "probability": 0.0135,
+      "probability": 0.0125,
       "representative_usd": 660,
       "note": "cap × 1.1"
     },
     {
       "range": "$400-$600",
-      "probability": 0.021,
+      "probability": 0.0195,
       "representative_usd": 500,
       "note": "midpoint"
     },
     {
       "range": "$320-$400",
-      "probability": 0,
+      "probability": 0.001,
       "representative_usd": 360,
       "note": "midpoint"
     },
     {
       "range": "$300-$320",
-      "probability": 0,
+      "probability": 0.0005,
       "representative_usd": 310,
       "note": "midpoint"
     },
     {
       "range": "$280-$300",
-      "probability": 0.0005,
+      "probability": 0,
       "representative_usd": 290,
       "note": "midpoint"
     },
@@ -276,19 +287,19 @@
     },
     {
       "range": "$240-$260",
-      "probability": 0.008,
+      "probability": 0.0075,
       "representative_usd": 250,
       "note": "midpoint"
     },
     {
       "range": "$220-$240",
-      "probability": 0.0175,
+      "probability": 0.0095,
       "representative_usd": 230,
       "note": "midpoint"
     },
     {
       "range": "$200-$220",
-      "probability": 0.025,
+      "probability": 0.035,
       "representative_usd": 210,
       "note": "midpoint"
     },
@@ -318,31 +329,37 @@
     },
     {
       "range": "$100-$120",
-      "probability": 0.27,
+      "probability": 0.255,
       "representative_usd": 110,
       "note": "midpoint"
     },
     {
       "range": "$90-$100",
-      "probability": 0.23,
+      "probability": 0.3,
       "representative_usd": 95,
       "note": "midpoint"
     },
     {
-      "range": "$60-$90",
+      "range": "$70-$90",
       "probability": 0,
-      "representative_usd": 75,
+      "representative_usd": 80,
       "note": "midpoint (status quo zone)"
     },
     {
+      "range": "$60-$70",
+      "probability": 0,
+      "representative_usd": 65,
+      "note": "midpoint"
+    },
+    {
       "range": "$50-$60",
-      "probability": 0.1685,
+      "probability": 0.215,
       "representative_usd": 55,
       "note": "midpoint"
     },
     {
       "range": "$40-$50",
-      "probability": 0.125,
+      "probability": 0.1,
       "representative_usd": 45,
       "note": "midpoint"
     },
@@ -365,7 +382,7 @@
       "note": "cap × 0.75"
     }
   ],
-  "expected_price_usd": 140.65,
-  "period_return_pct": 74.15,
-  "beta_annualized_pct": 151.48
+  "expected_price_usd": 146.17,
+  "period_return_pct": 80.69,
+  "beta_annualized_pct": 165.73
 }
