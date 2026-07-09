@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>資産運用ポートフォリオ設計 / REV.KK</title>
+<title>資産運用ポートフォリオ設計 / REV.LL</title>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -93,7 +93,7 @@
 </head>
 <body>
 
-<div class="eyebrow">PORTFOLIO DESIGN / REV.KK <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
+<div class="eyebrow">PORTFOLIO DESIGN / REV.LL <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
 <h1 class="title">資産運用 <em>ポートフォリオ設計</em></h1>
 <div class="title-rule"></div>
 
@@ -336,10 +336,9 @@
   }
 
   // ====================== regime panel ======================
-  const REGIME_URL = 'https://raw.githubusercontent.com/okihisashi/Treasury-predictions/main/predictions/regime.json';
   async function loadRegime() {
     try {
-      const r = await fetch(REGIME_URL + '?t=' + Date.now(), { cache: 'no-cache' });
+      const r = await fetch('/api/regime', { cache: 'no-cache' });
       if (!r.ok) throw new Error('HTTP ' + r.status);
       const d = await r.json();
       $('rb-stage').textContent = d.regime;
