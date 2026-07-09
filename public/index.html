@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>資産運用ポートフォリオ設計 / REV.II</title>
+<title>資産運用ポートフォリオ設計 / REV.JJ</title>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -89,7 +89,7 @@
 </head>
 <body>
 
-<div class="eyebrow">PORTFOLIO DESIGN / REV.II <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
+<div class="eyebrow">PORTFOLIO DESIGN / REV.JJ <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
 <h1 class="title">資産運用 <em>ポートフォリオ設計</em></h1>
 <div class="title-rule"></div>
 
@@ -191,119 +191,65 @@
   </table>
 </section>
 
-<!-- ============ 4. 夏の時代ポートフォリオ(3段階制) ============ -->
+<!-- ============ 4. 冬 → 夏への移行方法 ============ -->
 <section class="block">
-  <div class="sec-title">4. 夏の時代ポートフォリオ(3段階制)</div>
-  <div class="sec-sub">Summer Allocation — Staged (L1 → L2 → L3)</div>
-  <p style="font-size:12px; color: var(--ink-faint); margin-bottom: 4px;">α は冬の表と共通(冬の表で編集)。ここでは各段階の配分のみ設定。</p>
+  <div class="sec-title">4. 冬 → 夏への移行方法</div>
+  <div class="sec-sub">Transition Plan</div>
+  <table style="max-width: 900px;">
+    <thead><tr><th style="width:80px;">段階</th><th style="width:130px;">トリガー(冬シグナル)</th><th style="width:150px;">オンチェーン配分</th><th style="text-align:left;">狙い</th></tr></thead>
+    <tbody style="font-size:12px;">
+      <tr><td>冬</td><td>5〜7/7</td><td>15%</td><td style="text-align:left; font-family:'Noto Sans JP'; line-height:1.7;">防御。α で経費を賄い、反転捕捉の最小ポジションのみ。</td></tr>
+      <tr><td>夏L1</td><td>4/7</td><td>50%</td><td style="text-align:left; font-family:'Noto Sans JP'; line-height:1.7;">初期投入。偽陽性(false start)ならここで止まる。</td></tr>
+      <tr><td>夏L2</td><td>2〜3/7</td><td>65%</td><td style="text-align:left; font-family:'Noto Sans JP'; line-height:1.7;">トレンド確立を確認して主力化。</td></tr>
+      <tr><td>夏L3</td><td>0〜1/7</td><td>80%</td><td style="text-align:left; font-family:'Noto Sans JP'; line-height:1.7;">全指標が夏。フル配分(=下の夏ポートフォリオ)。</td></tr>
+    </tbody>
+  </table>
+  <div class="result-line">
+    <strong>なぜ一括でなく段階か:</strong>過去のベア相場には 2014年・2021年型の「だまし反発(false start)」がある。一括で 80% に移すと、だましの場合オンチェーン全体で大きな DD を受ける。段階化すれば誤判定時の損失は投入済み分に限定され、本物の夏なら上昇の大部分を捕捉できる。<br>
+    <strong>実行方法:</strong>各段階 1〜2ヶ月かけて Apyx を段階売却($100 par 付近で流動性あり)→ オンチェーンをドルコスト平均で買い増し。<br>
+    <strong>夏 → 冬の撤退:</strong>冬シグナルが 5/7 以上に戻ったら、段階を踏まず<strong style="color:var(--danger);">即座に冬配分へ全量撤退</strong>。下落は上昇より速いため。
+  </div>
+</section>
 
-  <div class="lvl-head">夏L1(夏入りたて)</div>
+<!-- ============ 5. 夏の時代ポートフォリオ ============ -->
+<section class="block">
+  <div class="sec-title">5. 夏の時代ポートフォリオ</div>
+  <div class="sec-sub">Summer Allocation (Full)</div>
+  <p style="font-size:12px; color: var(--ink-faint); margin-bottom: 4px;">α は冬の表と共通(冬の表で編集)。移行完了時(夏L3)の最終配分。</p>
   <table>
     <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>年間α寄与</th></tr></thead>
     <tbody>
       <tr>
         <td><span class="asset-name-echo" data-a="a1">オンチェーン金融銘柄</span></td>
-        <td><input class="num" id="in-a1-l1" value="50"><span class="unit">%</span></td>
-        <td id="l1-a1-amt">—</td>
-        <td id="l1-a1-alphapct">—</td>
-        <td id="l1-a1-alpha">—</td>
+        <td><input class="num" id="in-a1-salloc" value="80"><span class="unit">%</span></td>
+        <td id="s-a1-amt">—</td>
+        <td id="s-a1-alphapct">—</td>
+        <td id="s-a1-alpha">—</td>
       </tr>
       <tr>
         <td><span class="asset-name-echo" data-a="a2">Slash Earn</span></td>
-        <td><input class="num" id="in-a2-l1" value="4"><span class="unit">%</span></td>
-        <td id="l1-a2-amt">—</td>
-        <td id="l1-a2-alphapct">—</td>
-        <td id="l1-a2-alpha">—</td>
+        <td><input class="num" id="in-a2-salloc" value="4"><span class="unit">%</span></td>
+        <td id="s-a2-amt">—</td>
+        <td id="s-a2-alphapct">—</td>
+        <td id="s-a2-alpha">—</td>
       </tr>
       <tr>
         <td><span class="asset-name-echo" data-a="a3">Apyx</span></td>
-        <td><input class="num" id="in-a3-l1" value="46"><span class="unit">%</span></td>
-        <td id="l1-a3-amt">—</td>
-        <td id="l1-a3-alphapct">—</td>
-        <td id="l1-a3-alpha">—</td>
+        <td><input class="num" id="in-a3-salloc" value="16"><span class="unit">%</span></td>
+        <td id="s-a3-amt">—</td>
+        <td id="s-a3-alphapct">—</td>
+        <td id="s-a3-alpha">—</td>
       </tr>
       <tr class="total">
-        <td>合計 <span class="warn-100" id="l1-alloc-warn"></span></td>
-        <td id="l1-alloc-sum">—</td>
-        <td id="l1-amt-sum">—</td>
+        <td>合計 <span class="warn-100" id="s-alloc-warn"></span></td>
+        <td id="s-alloc-sum">—</td>
+        <td id="s-amt-sum">—</td>
         <td></td>
-        <td id="l1-alpha-sum">—</td>
+        <td id="s-alpha-sum">—</td>
       </tr>
     </tbody>
   </table>
-  <div class="result-line" id="l1-result"></div>
-
-  <div class="lvl-head">夏L2(夏確信 中)</div>
-  <table>
-    <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>年間α寄与</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><span class="asset-name-echo" data-a="a1">オンチェーン金融銘柄</span></td>
-        <td><input class="num" id="in-a1-l2" value="65"><span class="unit">%</span></td>
-        <td id="l2-a1-amt">—</td>
-        <td id="l2-a1-alphapct">—</td>
-        <td id="l2-a1-alpha">—</td>
-      </tr>
-      <tr>
-        <td><span class="asset-name-echo" data-a="a2">Slash Earn</span></td>
-        <td><input class="num" id="in-a2-l2" value="4"><span class="unit">%</span></td>
-        <td id="l2-a2-amt">—</td>
-        <td id="l2-a2-alphapct">—</td>
-        <td id="l2-a2-alpha">—</td>
-      </tr>
-      <tr>
-        <td><span class="asset-name-echo" data-a="a3">Apyx</span></td>
-        <td><input class="num" id="in-a3-l2" value="31"><span class="unit">%</span></td>
-        <td id="l2-a3-amt">—</td>
-        <td id="l2-a3-alphapct">—</td>
-        <td id="l2-a3-alpha">—</td>
-      </tr>
-      <tr class="total">
-        <td>合計 <span class="warn-100" id="l2-alloc-warn"></span></td>
-        <td id="l2-alloc-sum">—</td>
-        <td id="l2-amt-sum">—</td>
-        <td></td>
-        <td id="l2-alpha-sum">—</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="result-line" id="l2-result"></div>
-
-  <div class="lvl-head">夏L3(夏確信 高)</div>
-  <table>
-    <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>年間α寄与</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><span class="asset-name-echo" data-a="a1">オンチェーン金融銘柄</span></td>
-        <td><input class="num" id="in-a1-l3" value="80"><span class="unit">%</span></td>
-        <td id="l3-a1-amt">—</td>
-        <td id="l3-a1-alphapct">—</td>
-        <td id="l3-a1-alpha">—</td>
-      </tr>
-      <tr>
-        <td><span class="asset-name-echo" data-a="a2">Slash Earn</span></td>
-        <td><input class="num" id="in-a2-l3" value="4"><span class="unit">%</span></td>
-        <td id="l3-a2-amt">—</td>
-        <td id="l3-a2-alphapct">—</td>
-        <td id="l3-a2-alpha">—</td>
-      </tr>
-      <tr>
-        <td><span class="asset-name-echo" data-a="a3">Apyx</span></td>
-        <td><input class="num" id="in-a3-l3" value="16"><span class="unit">%</span></td>
-        <td id="l3-a3-amt">—</td>
-        <td id="l3-a3-alphapct">—</td>
-        <td id="l3-a3-alpha">—</td>
-      </tr>
-      <tr class="total">
-        <td>合計 <span class="warn-100" id="l3-alloc-warn"></span></td>
-        <td id="l3-alloc-sum">—</td>
-        <td id="l3-amt-sum">—</td>
-        <td></td>
-        <td id="l3-alpha-sum">—</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="result-line" id="l3-result"></div>
+  <div class="result-line" id="s-result"></div>
 </section>
 
 <div class="footer-band" contenteditable="true" spellcheck="false">WINTER × SUMMER ◆ STAGED ALLOCATION ◆ EDITABLE</div>
@@ -383,9 +329,7 @@
       });
     });
     fillLevel('w', 'walloc');
-    fillLevel('l1', 'l1');
-    fillLevel('l2', 'l2');
-    fillLevel('l3', 'l3');
+    fillLevel('s', 'salloc');
   }
 
   // ====================== regime panel ======================
@@ -544,9 +488,7 @@
       'in-capital': '500,000,000', 'in-expense': '5,000,000', 'in-dd': '-30',
       'in-a1-walloc': '15', 'in-a2-walloc': '4', 'in-a3-walloc': '81',
       'in-a1-alpha': '6', 'in-a2-alpha': '30', 'in-a3-alpha': '13',
-      'in-a1-l1': '50', 'in-a2-l1': '4', 'in-a3-l1': '46',
-      'in-a1-l2': '65', 'in-a2-l2': '4', 'in-a3-l2': '31',
-      'in-a1-l3': '80', 'in-a2-l3': '4', 'in-a3-l3': '16'
+      'in-a1-salloc': '80', 'in-a2-salloc': '4', 'in-a3-salloc': '16'
     };
     Object.keys(defaults).forEach(id => { const el = $(id); if (el) el.value = defaults[id]; });
     recalc();
