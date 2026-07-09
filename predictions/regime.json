@@ -1,0 +1,52 @@
+{
+  "updated_at": "2026-07-09T00:21:18.501Z",
+  "indicators": [
+    {
+      "id": "ma200",
+      "name": "BTC vs 200日MA",
+      "value": "$62,135 vs MA $74,295",
+      "winter": true,
+      "ok": true
+    },
+    {
+      "id": "fng",
+      "name": "Fear & Greed",
+      "value": "22 (Extreme Fear)",
+      "winter": true,
+      "ok": true
+    },
+    {
+      "id": "funding",
+      "name": "BTC Funding Rate",
+      "value": "0.0068% / 8h",
+      "winter": true,
+      "ok": true
+    },
+    {
+      "id": "mnav",
+      "name": "MSTR mNAV",
+      "value": "0.54x",
+      "winter": true,
+      "ok": true
+    },
+    {
+      "id": "stable",
+      "name": "Stablecoin 時価総額",
+      "value": "$308B (30d -2.1%)",
+      "winter": true,
+      "ok": true
+    },
+    {
+      "id": "etf",
+      "name": "ETF 純フロー(5日平均)",
+      "value": "+$10348M/日",
+      "winter": false,
+      "ok": true
+    }
+  ],
+  "winter_count": 5,
+  "valid_count": 6,
+  "confidence_pct": 83,
+  "regime": "冬",
+  "recommended": "冬:オンチェーン15% / Slash4% / Apyx81%"
+}
