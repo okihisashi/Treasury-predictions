@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treasury Dashboard / Rev.Y</title>
+<title>Treasury Dashboard / Rev.AA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -513,7 +513,7 @@
   .actuals-section { margin-bottom: 26px; }
   .actuals-col-head, .actuals-row {
     display: grid;
-    grid-template-columns: 80px repeat(7, 1fr) 100px 90px 70px;
+    grid-template-columns: 90px repeat(5, 1fr) 100px 90px 70px;
     gap: 8px;
     padding: 6px 8px;
     align-items: center;
@@ -986,7 +986,7 @@
 
 <header class="deck-header">
   <div>
-    <div class="eyebrow">Treasury Dashboard / Rev.Y</div>
+    <div class="eyebrow">Treasury Dashboard / Rev.AA</div>
     <h1 class="title">オンチェーン<span class="accent">資産運用計画</span></h1>
   </div>
   <div class="meta">
@@ -1067,18 +1067,7 @@
       <span class="monthly-disp" id="ed-slash-monthly">¥83万</span>
     
       <div class="memo-cell"><input type="text" class="asset-memo" id="memo-slash" placeholder="メモ"></div>
-    </div>
-    <div class="field">
-      <label>HYPE</label>
-      <input type="text" inputmode="numeric" class="money-input" id="in-hype-amt" value="130,000,000">
-      <input type="number" id="in-hype-y" value="13" min="0" max="100" step="0.5">
-      <span class="unit">%</span>
-      <input type="number" id="in-hype-b" value="212" min="-100" max="500" step="1">
-      <span class="unit">%</span>
-      <span class="monthly-disp" id="ed-hype-monthly">¥141万</span>
-    
-      <div class="memo-cell"><input type="text" class="asset-memo" id="memo-hype" placeholder="メモ"></div>
-    </div>
+    </div></div>
     <div class="field">
       <label>Apyx</label>
       <input type="text" inputmode="numeric" class="money-input" id="in-apyx-amt" value="100,000,000">
@@ -1089,17 +1078,7 @@
       <span class="monthly-disp" id="ed-apyx-monthly">¥125万</span>
     
       <div class="memo-cell"><input type="text" class="asset-memo" id="memo-apyx" placeholder="メモ"></div>
-    </div>
-    <div class="field" id="spare1-row">
-      <label contenteditable="true" spellcheck="false">ハイリキ 自動トレード</label>
-      <input type="text" inputmode="numeric" class="money-input" id="in-spare1-amt" value="0">
-      <input type="number" id="in-spare1-y" value="0" min="0" max="100" step="0.5">
-      <span class="unit">%</span>
-      <input type="number" id="in-spare1-b" value="0" min="-100" max="500" step="1">
-      <span class="unit">%</span>
-      <span class="monthly-disp" id="ed-spare1-monthly">¥0</span>
-      <div class="memo-cell"><input type="text" class="asset-memo" id="memo-spare1" placeholder="メモ"></div>
-    </div>
+    </div></div>
     <div class="field" id="spare2-row">
       <label contenteditable="true" spellcheck="false">予備②(編集可)</label>
       <input type="text" inputmode="numeric" class="money-input" id="in-spare2-amt" value="0">
@@ -1130,17 +1109,21 @@
       <p style="margin-top: 6px; font-size: 10px; color: var(--ink-faint);">
         ※ <strong style="color:var(--paper-deep);">α</strong> = ネイティブインカム利回り(月額キャッシュフロー)。<strong style="color:var(--paper-deep);">α+β</strong> = 1年あたり期待トータルリターン。複利でなく線形換算(保守的)。
       </p>
-    </div>
-
-    <div style="margin-top: 10px; padding: 9px 12px; background: rgba(20,17,13,0.4); border-left: 2px solid var(--accent); font-size: 11px; color: var(--paper-deep); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-      <span><strong style="color: var(--paper);">HYPE β 自動更新:</strong> <span id="pred-status-hype">取得中…</span></span>
-      <span id="pred-timestamp-hype" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent-soft);"></span>
-    </div>
-    <div style="margin-top: 6px; padding: 9px 12px; background: rgba(20,17,13,0.4); border-left: 2px solid var(--accent); font-size: 11px; color: var(--paper-deep); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+    </div><div style="margin-top: 6px; padding: 9px 12px; background: rgba(20,17,13,0.4); border-left: 2px solid var(--accent); font-size: 11px; color: var(--paper-deep); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
       <span><strong style="color: var(--paper);">SOL β 自動更新:</strong> <span id="pred-status-sol">取得中…</span></span>
       <span id="pred-timestamp-sol" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent-soft);"></span>
     </div>
-  </div>
+
+    <!-- ============ 季節判定パネル (regime.json) ============ -->
+    <div style="margin-top: 6px; padding: 12px 14px; background: rgba(20,17,13,0.4); border-left: 2px solid var(--accent);">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+        <span style="font-size: 12px;"><strong style="color: var(--paper);">季節判定(冬/夏 自動検出):</strong> <span id="regime-headline" style="color: var(--accent-soft); font-weight: 700;">取得中…</span></span>
+        <span id="regime-timestamp" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent-soft);"></span>
+      </div>
+      <div id="regime-indicators" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 6px; font-size: 10.5px;"></div>
+      <div id="regime-recommend" style="margin-top: 8px; font-size: 11px; color: var(--paper-deep);"></div>
+    </div>
+    </div>
 
 </div>
 
@@ -1160,9 +1143,7 @@
             <circle id="seg-usdc" r="55" cx="80" cy="80" fill="transparent" stroke="#3a6a8a" stroke-width="26" />
             <circle id="seg-sol" r="55" cx="80" cy="80" fill="transparent" stroke="#1d4e89" stroke-width="26" />
             <circle id="seg-slash" r="55" cx="80" cy="80" fill="transparent" stroke="#6b3a8a" stroke-width="26" />
-            <circle id="seg-hype" r="55" cx="80" cy="80" fill="transparent" stroke="#d4663d" stroke-width="26" />
             <circle id="seg-apyx" r="55" cx="80" cy="80" fill="transparent" stroke="#7b8a3a" stroke-width="26" />
-            <circle id="seg-spare1" r="55" cx="80" cy="80" fill="transparent" stroke="#8a807a" stroke-width="26" />
             <circle id="seg-spare2" r="55" cx="80" cy="80" fill="transparent" stroke="#5e5550" stroke-width="26" />
           </svg>
           <div class="alloc-center">
@@ -1174,7 +1155,7 @@
         <div class="alloc-legend">
           <div class="alloc-item">
             <div class="dot" style="background: var(--usdc);"></div>
-            <div class="name">USDC(ETHプット担保)</div>
+            <div class="name">BTC/ETH スペクトラ運用</div>
             <div class="pct" id="leg-usdc-pct">25%</div>
             <div class="amt" id="leg-usdc-amt">¥1.0億</div>
           </div>
@@ -1191,26 +1172,14 @@
             <div class="amt" id="leg-slash-amt">¥0.2億</div>
           </div>
           <div class="alloc-item">
-            <div class="dot" style="background: var(--hype);"></div>
-            <div class="name">HYPE</div>
-            <div class="pct" id="leg-hype-pct">32.5%</div>
-            <div class="amt" id="leg-hype-amt">¥1.3億</div>
-          </div>
-          <div class="alloc-item">
             <div class="dot" style="background: var(--apyx);"></div>
             <div class="name">Apyx</div>
             <div class="pct" id="leg-apyx-pct">25%</div>
             <div class="amt" id="leg-apyx-amt">¥1.0億</div>
           </div>
           <div class="alloc-item">
-            <div class="dot" style="background: var(--spare1);"></div>
-            <div class="name">予備①</div>
-            <div class="pct" id="leg-spare1-pct">0%</div>
-            <div class="amt" id="leg-spare1-amt">¥0</div>
-          </div>
-          <div class="alloc-item">
             <div class="dot" style="background: var(--spare2);"></div>
-            <div class="name">予備②</div>
+            <div class="name">待機資金</div>
             <div class="pct" id="leg-spare2-pct">0%</div>
             <div class="amt" id="leg-spare2-amt">¥0</div>
           </div>
@@ -1269,13 +1238,6 @@
           <div class="monthly" id="row-slash-monthly">¥83万/月</div>
           <div class="contrib" id="row-slash-contrib">+2.50%</div>
         </div>
-        <div class="income-row hype">
-          <div class="dot hype"></div>
-          <div class="name">HYPE</div>
-          <div class="calc" id="row-hype-calc">32.5% × 13%</div>
-          <div class="monthly" id="row-hype-monthly">¥141万/月</div>
-          <div class="contrib" id="row-hype-contrib">+4.23%</div>
-        </div>
         <div class="income-row apyx">
           <div class="dot apyx"></div>
           <div class="name">Apyx</div>
@@ -1283,16 +1245,9 @@
           <div class="monthly" id="row-apyx-monthly">¥125万/月</div>
           <div class="contrib" id="row-apyx-contrib">+3.75%</div>
         </div>
-        <div class="income-row" style="border-left-color: var(--spare1);">
-          <div class="dot" style="background: var(--spare1);"></div>
-          <div class="name">予備①</div>
-          <div class="calc" id="row-spare1-calc">0% × 0%</div>
-          <div class="monthly" id="row-spare1-monthly">¥0/月</div>
-          <div class="contrib" id="row-spare1-contrib">+0.00%</div>
-        </div>
         <div class="income-row" style="border-left-color: var(--spare2);">
           <div class="dot" style="background: var(--spare2);"></div>
-          <div class="name">予備②</div>
+          <div class="name">待機資金</div>
           <div class="calc" id="row-spare2-calc">0% × 0%</div>
           <div class="monthly" id="row-spare2-monthly">¥0/月</div>
           <div class="contrib" id="row-spare2-contrib">+0.00%</div>
@@ -1339,7 +1294,6 @@
       <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="hype" value="100" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
       <div class="cumul">—</div>
       <div class="yield">—</div>
@@ -1353,7 +1307,6 @@
       <input type="number" class="p-pct" data-asset="usdc" value="100" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="hype" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
       <div class="cumul">—</div>
       <div class="yield">—</div>
@@ -1367,7 +1320,6 @@
       <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="sol" value="20" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="hype" value="30" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="apyx" value="50" min="0" max="100" step="5">
       <div class="cumul">—</div>
       <div class="yield">—</div>
@@ -1381,7 +1333,6 @@
       <input type="number" class="p-pct" data-asset="usdc" value="25" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="sol" value="15" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="slash" value="5" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="hype" value="30" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="apyx" value="25" min="0" max="100" step="5">
       <div class="cumul">—</div>
       <div class="yield">—</div>
@@ -1395,7 +1346,6 @@
       <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="hype" value="100" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
       <div class="cumul">—</div>
       <div class="yield">—</div>
@@ -1409,7 +1359,6 @@
       <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="hype" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
       <div class="cumul">—</div>
       <div class="yield">—</div>
@@ -1422,7 +1371,6 @@
       <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="hype" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
       <div class="cumul">—</div>
       <div class="yield">—</div>
@@ -1435,7 +1383,6 @@
       <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="hype" value="0" min="0" max="100" step="5">
       <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
       <div class="cumul">—</div>
       <div class="yield">—</div>
@@ -1459,22 +1406,20 @@
       <div>USDC 実績</div>
       <div>SOL 実績</div>
       <div>Slash 実績</div>
-      <div>HYPE 実績</div>
       <div>Apyx 実績</div>
-      <div>予備① 実績</div>
       <div>予備② 実績</div>
       <div>実績合計</div>
       <div>予想</div>
       <div>達成率</div>
     </div>
 
-    <div class="actuals-row" data-month="2026-06"><div class="month-label">2026年6月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-07"><div class="month-label">2026年7月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-08"><div class="month-label">2026年8月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-09"><div class="month-label">2026年9月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-10"><div class="month-label">2026年10月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-11"><div class="month-label">2026年11月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-12"><div class="month-label">2026年12月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="hype" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare1" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-06"><div class="month-label">2026年6月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-07"><div class="month-label">2026年7月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-08"><div class="month-label">2026年8月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-09"><div class="month-label">2026年9月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-10"><div class="month-label">2026年10月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-11"><div class="month-label">2026年11月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
+    <div class="actuals-row" data-month="2026-12"><div class="month-label">2026年12月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
   </div>
 </section>
 
@@ -1485,7 +1430,7 @@
 </div>
 
 <script>
-  const ASSETS = ['usdc', 'sol', 'slash', 'hype', 'apyx', 'spare1', 'spare2'];
+  const ASSETS = ['usdc', 'sol', 'slash', 'apyx', 'spare2'];
 
   function fmtYen(yen) {
     if (yen === 0) return "¥0";
@@ -1728,15 +1673,9 @@
     setMoneyById('in-slash-amt', 20000000);
     document.getElementById('in-slash-y').value = 50;
     document.getElementById('in-slash-b').value = 0;
-    setMoneyById('in-hype-amt', 130000000);
-    document.getElementById('in-hype-y').value = 13;
-    document.getElementById('in-hype-b').value = 212;
     setMoneyById('in-apyx-amt', 100000000);
     document.getElementById('in-apyx-y').value = 15;
     document.getElementById('in-apyx-b').value = 0;
-    setMoneyById('in-spare1-amt', 0);
-    document.getElementById('in-spare1-y').value = 0;
-    document.getElementById('in-spare1-b').value = 0;
     setMoneyById('in-spare2-amt', 0);
     document.getElementById('in-spare2-y').value = 0;
     document.getElementById('in-spare2-b').value = 0;
@@ -1752,7 +1691,6 @@
   // Set asset → URL mapping. Leave empty string '' to disable.
   // See treasury-predictions/README.md for setup.
   const PREDICTIONS = {
-    hype: 'https://raw.githubusercontent.com/okihisashi/Treasury-predictions/main/predictions/hype.json',
     sol:  'https://raw.githubusercontent.com/okihisashi/Treasury-predictions/main/predictions/sol.json'
   };
 
@@ -2085,6 +2023,44 @@
     e.target.value = '';
   });
 
+  // ============ 季節判定 (regime.json) ============
+  const REGIME_URL = 'https://raw.githubusercontent.com/okihisashi/Treasury-predictions/main/predictions/regime.json';
+
+  async function loadRegime() {
+    const headline = document.getElementById('regime-headline');
+    const grid = document.getElementById('regime-indicators');
+    const rec = document.getElementById('regime-recommend');
+    const ts = document.getElementById('regime-timestamp');
+    try {
+      const r = await fetch(REGIME_URL + '?t=' + Date.now(), { cache: 'no-cache' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const d = await r.json();
+
+      headline.textContent = `${d.regime}(冬シグナル ${d.winter_count}/${d.valid_count} → 冬確信度 ${d.confidence_pct}%)`;
+      headline.style.color = d.regime === '冬' ? '#7fb3d5' : 'var(--accent-soft)';
+
+      grid.innerHTML = '';
+      d.indicators.forEach(ind => {
+        const el = document.createElement('div');
+        el.style.cssText = 'padding:5px 8px;background:rgba(0,0,0,0.25);border-left:2px solid ' +
+          (ind.ok ? (ind.winter ? '#7fb3d5' : '#d4a04a') : '#666') + ';';
+        const tag = ind.ok ? (ind.winter ? '❄ 冬' : '☀ 夏') : '— N/A';
+        el.innerHTML = `<span style="color:var(--paper-deep);">${ind.name}</span><br>` +
+          `<span style="color:var(--paper);font-family:'JetBrains Mono',monospace;font-size:10px;">${ind.value}</span> ` +
+          `<strong style="float:right;">${tag}</strong>`;
+        grid.appendChild(el);
+      });
+
+      rec.innerHTML = `推奨: <strong style="color: var(--paper);">${d.recommended}</strong>`;
+      const upd = new Date(d.updated_at);
+      const ageH = ((Date.now() - upd.getTime()) / 3600000).toFixed(1);
+      ts.textContent = `データ更新: ${upd.toLocaleString('ja-JP')} (${ageH}h前)`;
+    } catch (e) {
+      headline.textContent = '取得失敗: ' + e.message + '(regime.json 未生成の可能性)';
+      headline.style.color = 'var(--danger)';
+    }
+  }
+
   // Page-load sequence:
   //   1. whoami (decide editor vs readonly)
   //   2. state.json restore (before Polymarket so saved values don't clobber fresh β)
@@ -2096,6 +2072,7 @@
     await loadStateFromServer();
     recalc();
     await loadAllPredictions(false);
+    loadRegime();
     applyReadonlyMode();
   })();
 
