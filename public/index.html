@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>資産運用ポートフォリオ設計 / REV.EE</title>
+<title>資産運用ポートフォリオ設計 / REV.GG</title>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -15,7 +15,6 @@
     --accent-soft: #d4663d;
     --divider: #d8d0c2;
     --dark: #16120e;
-    --dark-card: #201b15;
     --paper-deep: #cfc7b8;
     --ok: #3f7a4f;
     --danger: #9d2c2c;
@@ -50,7 +49,8 @@
   td:first-child { text-align: left; font-family: "Noto Sans JP", sans-serif; font-weight: 500; }
   tr.total td { font-weight: 700; border-top: 2px solid var(--ink); border-bottom: none; background: rgba(0,0,0,0.03); }
   section.dark td { border-bottom-color: #3a332a; }
-  section.dark tr.total td { border-top-color: var(--paper-deep); background: rgba(255,255,255,0.04); }
+  section.dark th { border-bottom-color: #3a332a; }
+  section.dark td:first-child { color: var(--paper); }
 
   input.num { width: 76px; padding: 5px 7px; text-align: right; font-family: "JetBrains Mono", monospace; font-size: 12.5px; border: 1px solid var(--divider); background: #fffdf8; color: var(--ink); }
   input.num.wide { width: 130px; }
@@ -62,10 +62,10 @@
   .result-line .neg { color: var(--danger); font-weight: 700; }
   .warn-100 { color: var(--danger); font-size: 11px; font-weight: 700; }
 
-  .lvl-head { font-family: "Shippori Mincho B1", serif; font-weight: 700; font-size: 15px; margin: 20px 0 8px; padding-left: 10px; border-left: 3px solid var(--summer); }
-  .lvl-head.winter { border-left-color: var(--winter); }
+  .lvl-head { font-family: "Shippori Mincho B1", serif; font-weight: 700; font-size: 15px; margin: 24px 0 8px; padding-left: 10px; border-left: 3px solid var(--summer); }
+  .lvl-def { font-size: 12px; color: var(--ink-faint); margin-bottom: 10px; line-height: 1.8; }
 
-  /* regime panel */
+  /* regime cards */
   #regime-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-top: 14px; }
   .regime-card { padding: 12px 14px; border-left: 4px solid #666; background: rgba(255,255,255,0.04); }
   .regime-card.winter { background: rgba(74,123,166,0.22); border-left-color: #7fb3d5; }
@@ -77,9 +77,6 @@
   .regime-card.summer .tag { color: #f0c878; }
   .regime-card .vl { color: var(--paper); font-family: "JetBrains Mono", monospace; font-size: 10.5px; display: block; margin-bottom: 5px; }
   .regime-card .why { color: #9d9484; font-size: 10px; line-height: 1.5; }
-  #regime-headline { font-weight: 700; }
-  #regime-reco { margin-top: 12px; font-size: 12.5px; }
-  .reco-strong { color: var(--paper); font-weight: 700; }
 
   [contenteditable="true"] { outline: none; border-bottom: 1px dashed transparent; }
   [contenteditable="true"]:hover { border-bottom-color: var(--accent-soft); }
@@ -92,7 +89,7 @@
 </head>
 <body>
 
-<div class="eyebrow">PORTFOLIO DESIGN / REV.EE <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
+<div class="eyebrow">PORTFOLIO DESIGN / REV.GG <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
 <h1 class="title">資産運用 <em>ポートフォリオ設計</em></h1>
 <div class="title-rule"></div>
 
@@ -117,7 +114,7 @@
   </table>
 </section>
 
-<!-- ============ 2+3. 資産パラメータ & 配分 ============ -->
+<!-- ============ 2. 冬の時代ポートフォリオ ============ -->
 <section class="block">
   <div class="sec-title">2. 冬の時代ポートフォリオ</div>
   <div class="sec-sub">Winter Allocation</div>
@@ -157,81 +154,156 @@
   <div class="result-line" id="w-result"></div>
 </section>
 
-<section class="block">
-  <div class="sec-title">3. 夏の時代ポートフォリオ(3段階制)</div>
-  <div class="sec-sub">Summer Allocation — Staged (L1 → L2 → L3)</div>
-  <p style="font-size:12px; color: var(--ink-faint); margin-bottom: 10px;">α は冬の表と共通。ここでは各段階の配分のみ設定。</p>
-
-  <table>
-    <thead><tr><th>資産</th><th>α(共通)</th><th>L1 配分</th><th>L2 配分</th><th>L3 配分</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><span class="asset-name-echo" data-a="a1">オンチェーン金融銘柄</span></td>
-        <td id="s-a1-alpha-echo">—</td>
-        <td><input class="num" id="in-a1-l1" value="50"><span class="unit">%</span></td>
-        <td><input class="num" id="in-a1-l2" value="65"><span class="unit">%</span></td>
-        <td><input class="num" id="in-a1-l3" value="80"><span class="unit">%</span></td>
-      </tr>
-      <tr>
-        <td><span class="asset-name-echo" data-a="a2">Slash Earn</span></td>
-        <td id="s-a2-alpha-echo">—</td>
-        <td><input class="num" id="in-a2-l1" value="4"><span class="unit">%</span></td>
-        <td><input class="num" id="in-a2-l2" value="4"><span class="unit">%</span></td>
-        <td><input class="num" id="in-a2-l3" value="4"><span class="unit">%</span></td>
-      </tr>
-      <tr>
-        <td><span class="asset-name-echo" data-a="a3">Apyx</span></td>
-        <td id="s-a3-alpha-echo">—</td>
-        <td><input class="num" id="in-a3-l1" value="46"><span class="unit">%</span></td>
-        <td><input class="num" id="in-a3-l2" value="31"><span class="unit">%</span></td>
-        <td><input class="num" id="in-a3-l3" value="16"><span class="unit">%</span></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="lvl-head">夏L1(夏入りたて)</div>
-  <div class="result-line">冬シグナルが 3/6 に減少した段階。転換の<strong>兆し</strong>を確認しつつ、オンチェーンへ初期投入。まだ偽陽性(false start)の可能性が残るため Apyx を厚めに残し、下振れに耐えられる構え。</div>
-  <div class="lvl-head">夏L2(夏確信 中)</div>
-  <div class="result-line">冬シグナルが 1〜2/6 まで減少。上昇トレンドが<strong>確立</strong>しつつある段階。オンチェーンを主力化し、β の獲得を優先。Apyx は経費の下支え分のみ維持。</div>
-  <div class="lvl-head">夏L3(夏確信 高)</div>
-  <div class="result-line">冬シグナル 0/6。全指標が夏を示す<strong>フルリスクオン</strong>局面。オンチェーン比率最大。Apyx は最低限のアンカーのみ。夏→冬の反転シグナルが出たら段階を踏まず即座に冬配分へ撤退。</div>
-</section>
-
-<!-- ============ 4. 転換オペレーション ============ -->
-<section class="block">
-  <div class="sec-title">4. 転換オペレーション</div>
-  <div class="sec-sub">Rebalance Plan</div>
-  <table id="op-table">
-    <thead><tr><th>資産</th><th>冬</th><th>夏L1</th><th>夏L2</th><th>夏L3</th><th>冬→L1 売買</th><th>L1→L2 売買</th><th>L2→L3 売買</th></tr></thead>
-    <tbody id="op-body"></tbody>
-  </table>
-  <div style="margin-top: 14px; font-size: 12.5px; line-height: 2.0;">
-    <strong>手順(各段階 1〜2ヶ月かけて段階実行)</strong><br>
-    1. 客観指標の変化を確認(下記・毎時自動更新)<br>
-    2. Apyx を段階売却($100 par 付近で流動性あり)→ 売却資金でオンチェーン金融銘柄をドルコスト平均買い<br>
-    3. 夏 → 冬の逆転時(指標が冬に戻る)は逆向きに即実行 — <strong style="color:var(--danger);">冬への撤退は段階を踏まず速く</strong>
-  </div>
-</section>
-
-<!-- ============ 5. 季節判定 ============ -->
+<!-- ============ 3. 季節判定 ============ -->
 <section class="block dark">
-  <div class="sec-title">5. 季節判定(客観指標・自動)</div>
+  <div class="sec-title">3. 季節判定(客観指標・自動)</div>
   <div class="sec-sub">Regime Detection — 毎時20分に自動更新(GitHub Actions)+ ページ読込時に最新取得</div>
   <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
     <span id="regime-headline" style="color: var(--accent-soft);">取得中…</span>
     <span id="regime-ts" style="font-family:'JetBrains Mono',monospace; font-size:10px; color: var(--accent-soft);"></span>
   </div>
   <div id="regime-grid"></div>
-  <div id="regime-reco"></div>
-  <table style="margin-top: 16px; max-width: 760px;">
-    <thead><tr><th>段階</th><th>トリガー(冬シグナル数)</th><th>推奨配分</th></tr></thead>
-    <tbody style="font-size: 12px;">
-      <tr><td>冬</td><td>4/6 以上</td><td id="map-w">—</td></tr>
-      <tr><td>夏L1</td><td>3/6</td><td id="map-l1">—</td></tr>
-      <tr><td>夏L2</td><td>1〜2/6</td><td id="map-l2">—</td></tr>
-      <tr><td>夏L3</td><td>0/6</td><td id="map-l3">—</td></tr>
+
+  <table style="margin-top: 20px;">
+    <thead><tr><th style="width:80px;">段階</th><th style="width:150px; text-align:left;">トリガー(冬シグナル数)</th><th style="text-align:left;">定義</th></tr></thead>
+    <tbody style="font-size:12px;">
+      <tr>
+        <td style="color:#a8d4f0; font-weight:700;">冬</td>
+        <td style="text-align:left; font-family:'JetBrains Mono',monospace;">4/6 以上</td>
+        <td style="text-align:left; font-family:'Noto Sans JP'; line-height:1.7;">防御重視。Apyx を厚く持ち、経費を α のみで賄う。オンチェーンは反転を捕捉する最小限のポジションのみ。</td>
+      </tr>
+      <tr>
+        <td style="color:#f0c878; font-weight:700;">夏L1</td>
+        <td style="text-align:left; font-family:'JetBrains Mono',monospace;">3/6</td>
+        <td style="text-align:left; font-family:'Noto Sans JP'; line-height:1.7;">転換の兆しを確認しつつ、オンチェーンへ初期投入。まだ偽陽性(false start)の可能性が残るため Apyx を厚めに残し、下振れに耐えられる構え。</td>
+      </tr>
+      <tr>
+        <td style="color:#f0c878; font-weight:700;">夏L2</td>
+        <td style="text-align:left; font-family:'JetBrains Mono',monospace;">1〜2/6</td>
+        <td style="text-align:left; font-family:'Noto Sans JP'; line-height:1.7;">上昇トレンドが確立しつつある段階。オンチェーンを主力化し、β の獲得を優先。Apyx は経費の下支え分のみ維持。</td>
+      </tr>
+      <tr>
+        <td style="color:#f0c878; font-weight:700;">夏L3</td>
+        <td style="text-align:left; font-family:'JetBrains Mono',monospace;">0/6</td>
+        <td style="text-align:left; font-family:'Noto Sans JP'; line-height:1.7;">全指標が夏を示すフルリスクオン局面。オンチェーン比率最大。Apyx は最低限のアンカーのみ。夏→冬の反転シグナルが出たら段階を踏まず即座に冬配分へ撤退。</td>
+      </tr>
     </tbody>
   </table>
+</section>
+
+<!-- ============ 4. 夏の時代ポートフォリオ(3段階制) ============ -->
+<section class="block">
+  <div class="sec-title">4. 夏の時代ポートフォリオ(3段階制)</div>
+  <div class="sec-sub">Summer Allocation — Staged (L1 → L2 → L3)</div>
+  <p style="font-size:12px; color: var(--ink-faint); margin-bottom: 4px;">α は冬の表と共通(冬の表で編集)。ここでは各段階の配分のみ設定。</p>
+
+  <div class="lvl-head">夏L1(夏入りたて)</div>
+  <table>
+    <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>年間α寄与</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a1">オンチェーン金融銘柄</span></td>
+        <td><input class="num" id="in-a1-l1" value="50"><span class="unit">%</span></td>
+        <td id="l1-a1-amt">—</td>
+        <td id="l1-a1-alphapct">—</td>
+        <td id="l1-a1-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a2">Slash Earn</span></td>
+        <td><input class="num" id="in-a2-l1" value="4"><span class="unit">%</span></td>
+        <td id="l1-a2-amt">—</td>
+        <td id="l1-a2-alphapct">—</td>
+        <td id="l1-a2-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a3">Apyx</span></td>
+        <td><input class="num" id="in-a3-l1" value="46"><span class="unit">%</span></td>
+        <td id="l1-a3-amt">—</td>
+        <td id="l1-a3-alphapct">—</td>
+        <td id="l1-a3-alpha">—</td>
+      </tr>
+      <tr class="total">
+        <td>合計 <span class="warn-100" id="l1-alloc-warn"></span></td>
+        <td id="l1-alloc-sum">—</td>
+        <td id="l1-amt-sum">—</td>
+        <td></td>
+        <td id="l1-alpha-sum">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="result-line" id="l1-result"></div>
+
+  <div class="lvl-head">夏L2(夏確信 中)</div>
+  <table>
+    <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>年間α寄与</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a1">オンチェーン金融銘柄</span></td>
+        <td><input class="num" id="in-a1-l2" value="65"><span class="unit">%</span></td>
+        <td id="l2-a1-amt">—</td>
+        <td id="l2-a1-alphapct">—</td>
+        <td id="l2-a1-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a2">Slash Earn</span></td>
+        <td><input class="num" id="in-a2-l2" value="4"><span class="unit">%</span></td>
+        <td id="l2-a2-amt">—</td>
+        <td id="l2-a2-alphapct">—</td>
+        <td id="l2-a2-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a3">Apyx</span></td>
+        <td><input class="num" id="in-a3-l2" value="31"><span class="unit">%</span></td>
+        <td id="l2-a3-amt">—</td>
+        <td id="l2-a3-alphapct">—</td>
+        <td id="l2-a3-alpha">—</td>
+      </tr>
+      <tr class="total">
+        <td>合計 <span class="warn-100" id="l2-alloc-warn"></span></td>
+        <td id="l2-alloc-sum">—</td>
+        <td id="l2-amt-sum">—</td>
+        <td></td>
+        <td id="l2-alpha-sum">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="result-line" id="l2-result"></div>
+
+  <div class="lvl-head">夏L3(夏確信 高)</div>
+  <table>
+    <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>年間α寄与</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a1">オンチェーン金融銘柄</span></td>
+        <td><input class="num" id="in-a1-l3" value="80"><span class="unit">%</span></td>
+        <td id="l3-a1-amt">—</td>
+        <td id="l3-a1-alphapct">—</td>
+        <td id="l3-a1-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a2">Slash Earn</span></td>
+        <td><input class="num" id="in-a2-l3" value="4"><span class="unit">%</span></td>
+        <td id="l3-a2-amt">—</td>
+        <td id="l3-a2-alphapct">—</td>
+        <td id="l3-a2-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a3">Apyx</span></td>
+        <td><input class="num" id="in-a3-l3" value="16"><span class="unit">%</span></td>
+        <td id="l3-a3-amt">—</td>
+        <td id="l3-a3-alphapct">—</td>
+        <td id="l3-a3-alpha">—</td>
+      </tr>
+      <tr class="total">
+        <td>合計 <span class="warn-100" id="l3-alloc-warn"></span></td>
+        <td id="l3-alloc-sum">—</td>
+        <td id="l3-amt-sum">—</td>
+        <td></td>
+        <td id="l3-alpha-sum">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="result-line" id="l3-result"></div>
 </section>
 
 <div class="footer-band" contenteditable="true" spellcheck="false">WINTER × SUMMER ◆ STAGED ALLOCATION ◆ EDITABLE</div>
@@ -251,7 +323,6 @@
     if (oku > 0) return sign + '¥' + oku.toLocaleString() + '億' + (rem ? rem.toLocaleString() + '万' : '');
     return sign + '¥' + rem.toLocaleString() + '万';
   }
-  const fmtPct = v => (v >= 0 ? '' : '') + v.toFixed(2) + '%';
   const ASSETS = ['a1', 'a2', 'a3'];
 
   function fmtMoneyInput(el) {
@@ -277,7 +348,6 @@
       alphaSum += yAlpha; allocSum += alloc;
       rows[a] = { alloc, amt, yAlpha };
     });
-    // DD model: portfolio value drops by |dd|% → yen-denominated α drops proportionally
     const ddAlphaSum = alphaSum * (1 + dd / 100);
     return { cap, expenseY, alphaSum, ddAlphaSum, allocSum, dd, rows,
              surplus: alphaSum - expenseY, ddSurplus: ddAlphaSum - expenseY };
@@ -288,55 +358,34 @@
     return `<span class="${cls}">${v >= 0 ? '+' : ''}${fmtYen(v)}</span>`;
   }
 
+  function fillLevel(prefix, allocKey) {
+    const s = levelCalc(allocKey);
+    ASSETS.forEach(a => {
+      $(`${prefix}-${a}-amt`).textContent = fmtYen(s.rows[a].amt);
+      $(`${prefix}-${a}-alpha`).textContent = fmtYen(s.rows[a].yAlpha);
+      const pctEl = $(`${prefix}-${a}-alphapct`);
+      if (pctEl) pctEl.textContent = num(`in-${a}-alpha`) + '%';
+    });
+    $(`${prefix}-alloc-sum`).textContent = s.allocSum.toFixed(0) + '%';
+    $(`${prefix}-alloc-warn`).textContent = Math.abs(s.allocSum - 100) > 0.01 ? '⚠ 合計≠100%' : '';
+    $(`${prefix}-amt-sum`).textContent = fmtYen(s.cap * s.allocSum / 100);
+    $(`${prefix}-alpha-sum`).textContent = fmtYen(s.alphaSum);
+    $(`${prefix}-result`).innerHTML =
+      `通常時:${fmtYen(s.alphaSum)}/年(経費 ${fmtYen(s.expenseY)} → ${diffSpan(s.surplus)}/年)<br>` +
+      `DD ${s.dd}% 時:α ${fmtYen(s.ddAlphaSum)}/年(経費 ${fmtYen(s.expenseY)} → ${diffSpan(s.ddSurplus)}/年)/ 含み損 ${fmtYen(s.cap * s.dd / 100)}`;
+  }
+
   function recalc() {
-    // asset name echo (summer table mirrors winter names)
+    // asset name echo (summer tables mirror winter names)
     document.querySelectorAll('.asset-name').forEach(el => {
-      const echo = document.querySelector(`.asset-name-echo[data-a="${el.dataset.a}"]`);
-      if (echo) echo.textContent = el.textContent;
+      document.querySelectorAll(`.asset-name-echo[data-a="${el.dataset.a}"]`).forEach(echo => {
+        echo.textContent = el.textContent;
+      });
     });
-
-    // ---- Winter ----
-    const w = levelCalc('walloc');
-    ASSETS.forEach(a => {
-      $(`w-${a}-amt`).textContent = fmtYen(w.rows[a].amt);
-      $(`w-${a}-alpha`).textContent = fmtYen(w.rows[a].yAlpha);
-      $(`s-${a}-alpha-echo`).textContent = num(`in-${a}-alpha`) + '%';
-    });
-    $('w-alloc-sum').textContent = w.allocSum.toFixed(0) + '%';
-    $('w-alloc-warn').textContent = Math.abs(w.allocSum - 100) > 0.01 ? '⚠ 合計≠100%' : '';
-    $('w-amt-sum').textContent = fmtYen(w.cap * w.allocSum / 100);
-    $('w-alpha-sum').textContent = fmtYen(w.alphaSum);
-    $('w-result').innerHTML =
-      `通常時:${fmtYen(w.alphaSum)}/年(経費 ${fmtYen(w.expenseY)} → ${diffSpan(w.surplus)}/年)<br>` +
-      `DD ${w.dd}% 時:α ${fmtYen(w.ddAlphaSum)}/年(経費 ${fmtYen(w.expenseY)} → ${diffSpan(w.ddSurplus)}/年)/ 含み損 ${fmtYen(w.cap * w.dd / 100)}`;
-
-
-    // ---- Transition ops ----
-    const cap = num('in-capital');
-    const cols = ['walloc', 'l1', 'l2', 'l3'];
-    let html = '';
-    ASSETS.forEach(a => {
-      const name = document.querySelector(`.asset-name[data-a="${a}"]`).textContent;
-      const amts = cols.map(c => cap * num(`in-${a}-${c}`) / 100);
-      html += `<tr><td>${name}</td>` +
-        amts.map(v => `<td>${fmtYen(v)}</td>`).join('') +
-        [1, 2, 3].map(i => {
-          const d = amts[i] - amts[i - 1];
-          const s = d > 0 ? `<span class="pos">+${fmtYen(d)} 買</span>` : d < 0 ? `<span class="neg">${fmtYen(d)} 売</span>` : '—';
-          return `<td>${s}</td>`;
-        }).join('') + `</tr>`;
-    });
-    $('op-body').innerHTML = html;
-
-    // ---- regime mapping table echo ----
-    const allocStr = k => ASSETS.map(a => {
-      const name = document.querySelector(`.asset-name[data-a="${a}"]`).textContent;
-      return `${name.slice(0, 8)} ${num(`in-${a}-${k}`)}%`;
-    }).join(' / ');
-    $('map-w').textContent = allocStr('walloc');
-    $('map-l1').textContent = allocStr('l1');
-    $('map-l2').textContent = allocStr('l2');
-    $('map-l3').textContent = allocStr('l3');
+    fillLevel('w', 'walloc');
+    fillLevel('l1', 'l1');
+    fillLevel('l2', 'l2');
+    fillLevel('l3', 'l3');
   }
 
   // ====================== regime panel ======================
@@ -368,7 +417,6 @@
           `<span class="why">${WHY[ind.id] || ''}</span>`;
         grid.appendChild(el);
       });
-      $('regime-reco').innerHTML = `推奨: <span class="reco-strong">${d.recommended}</span>`;
       const upd = new Date(d.updated_at);
       $('regime-ts').textContent = `データ更新: ${upd.toLocaleString('ja-JP')} (${((Date.now() - upd.getTime()) / 3600000).toFixed(1)}h前)`;
     } catch (e) {
@@ -419,7 +467,7 @@
   }
 
   function applyState(state) {
-    if (!state || state._page !== PAGE_TAG) return; // ignore old-dashboard state
+    if (!state || state._page !== PAGE_TAG) return;
     isRestoring = true;
     try {
       Object.keys(state).forEach(key => {
