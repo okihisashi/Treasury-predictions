@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>資産運用ポートフォリオ設計 / REV.DD</title>
+<title>資産運用ポートフォリオ設計 / REV.EE</title>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -66,11 +66,17 @@
   .lvl-head.winter { border-left-color: var(--winter); }
 
   /* regime panel */
-  #regime-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 7px; font-size: 10.5px; margin-top: 12px; }
-  .regime-cell { padding: 7px 10px; background: rgba(0,0,0,0.28); border-left: 2px solid #666; }
-  .regime-cell .nm { color: var(--paper-deep); }
-  .regime-cell .vl { color: var(--paper); font-family: "JetBrains Mono", monospace; font-size: 10px; }
-  .regime-cell .tag { float: right; font-weight: 700; }
+  #regime-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-top: 14px; }
+  .regime-card { padding: 12px 14px; border-left: 4px solid #666; background: rgba(255,255,255,0.04); }
+  .regime-card.winter { background: rgba(74,123,166,0.22); border-left-color: #7fb3d5; }
+  .regime-card.summer { background: rgba(201,138,45,0.20); border-left-color: #e0a94e; }
+  .regime-card .rc-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .regime-card .nm { color: var(--paper); font-size: 12px; font-weight: 700; }
+  .regime-card .tag { font-size: 13px; font-weight: 700; }
+  .regime-card.winter .tag { color: #a8d4f0; }
+  .regime-card.summer .tag { color: #f0c878; }
+  .regime-card .vl { color: var(--paper); font-family: "JetBrains Mono", monospace; font-size: 10.5px; display: block; margin-bottom: 5px; }
+  .regime-card .why { color: #9d9484; font-size: 10px; line-height: 1.5; }
   #regime-headline { font-weight: 700; }
   #regime-reco { margin-top: 12px; font-size: 12.5px; }
   .reco-strong { color: var(--paper); font-weight: 700; }
@@ -86,7 +92,7 @@
 </head>
 <body>
 
-<div class="eyebrow">PORTFOLIO DESIGN / REV.DD <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
+<div class="eyebrow">PORTFOLIO DESIGN / REV.EE <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
 <h1 class="title">資産運用 <em>ポートフォリオ設計</em></h1>
 <div class="title-rule"></div>
 
@@ -106,8 +112,7 @@
   <table style="max-width: 660px;">
     <tr><td>元本</td><td><input class="num wide money" id="in-capital" value="500,000,000"><span class="unit">円</span></td></tr>
     <tr><td>経費</td><td><input class="num wide money" id="in-expense" value="5,000,000"><span class="unit">円/月</span></td></tr>
-    <tr><td>想定DD(ポートフォリオ全体)</td><td><input class="num" id="in-dd" value="-30"><span class="unit">%</span></td></tr>
-    <tr><td>夏の β 想定(オンチェーン 1サイクル)</td><td><input class="num" id="in-beta" value="300"><span class="unit">%</span></td></tr>
+    <tr><td>許容DD(ポートフォリオ全体)</td><td><input class="num" id="in-dd" value="-30"><span class="unit">%</span></td></tr>
     <tr><td>投資期間</td><td style="font-family:'Noto Sans JP';">無期限・元本維持(取り崩し不可)</td></tr>
   </table>
 </section>
@@ -185,11 +190,11 @@
   </table>
 
   <div class="lvl-head">夏L1(夏入りたて)</div>
-  <div id="l1-detail"></div>
+  <div class="result-line">冬シグナルが 3/6 に減少した段階。転換の<strong>兆し</strong>を確認しつつ、オンチェーンへ初期投入。まだ偽陽性(false start)の可能性が残るため Apyx を厚めに残し、下振れに耐えられる構え。</div>
   <div class="lvl-head">夏L2(夏確信 中)</div>
-  <div id="l2-detail"></div>
+  <div class="result-line">冬シグナルが 1〜2/6 まで減少。上昇トレンドが<strong>確立</strong>しつつある段階。オンチェーンを主力化し、β の獲得を優先。Apyx は経費の下支え分のみ維持。</div>
   <div class="lvl-head">夏L3(夏確信 高)</div>
-  <div id="l3-detail"></div>
+  <div class="result-line">冬シグナル 0/6。全指標が夏を示す<strong>フルリスクオン</strong>局面。オンチェーン比率最大。Apyx は最低限のアンカーのみ。夏→冬の反転シグナルが出たら段階を踏まず即座に冬配分へ撤退。</div>
 </section>
 
 <!-- ============ 4. 転換オペレーション ============ -->
@@ -211,7 +216,7 @@
 <!-- ============ 5. 季節判定 ============ -->
 <section class="block dark">
   <div class="sec-title">5. 季節判定(客観指標・自動)</div>
-  <div class="sec-sub">Regime Detection — hourly auto-update</div>
+  <div class="sec-sub">Regime Detection — 毎時20分に自動更新(GitHub Actions)+ ページ読込時に最新取得</div>
   <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
     <span id="regime-headline" style="color: var(--accent-soft);">取得中…</span>
     <span id="regime-ts" style="font-family:'JetBrains Mono',monospace; font-size:10px; color: var(--accent-soft);"></span>
@@ -305,21 +310,6 @@
       `通常時:${fmtYen(w.alphaSum)}/年(経費 ${fmtYen(w.expenseY)} → ${diffSpan(w.surplus)}/年)<br>` +
       `DD ${w.dd}% 時:α ${fmtYen(w.ddAlphaSum)}/年(経費 ${fmtYen(w.expenseY)} → ${diffSpan(w.ddSurplus)}/年)/ 含み損 ${fmtYen(w.cap * w.dd / 100)}`;
 
-    // ---- Summer levels ----
-    const beta = num('in-beta');
-    [['l1', 'l1-detail'], ['l2', 'l2-detail'], ['l3', 'l3-detail']].forEach(([lv, elId]) => {
-      const s = levelCalc(lv);
-      const onchainAmt = s.rows.a1.amt;
-      const betaGain = onchainAmt * beta / 100;
-      const betaPct = s.cap ? betaGain / s.cap * 100 : 0;
-      const warn = Math.abs(s.allocSum - 100) > 0.01 ? ' <span class="warn-100">⚠ 配分合計≠100%</span>' : '';
-      $(elId).innerHTML = `<div class="result-line">` +
-        `配分:オンチェーン ${s.rows.a1.alloc}%(${fmtYen(s.rows.a1.amt)})/ Slash ${s.rows.a2.alloc}%(${fmtYen(s.rows.a2.amt)})/ Apyx ${s.rows.a3.alloc}%(${fmtYen(s.rows.a3.amt)})${warn}<br>` +
-        `通常時 α:${fmtYen(s.alphaSum)}/年(経費 ${fmtYen(s.expenseY)} → ${diffSpan(s.surplus)}/年)<br>` +
-        `DD ${s.dd}% 時:α ${fmtYen(s.ddAlphaSum)}/年(経費 ${fmtYen(s.expenseY)} → ${diffSpan(s.ddSurplus)}/年)/ 含み損 ${fmtYen(s.cap * s.dd / 100)}<br>` +
-        `β 期待値:オンチェーン ${fmtYen(onchainAmt)} × +${beta}% = <strong>+${fmtYen(betaGain)}(元本 +${betaPct.toFixed(0)}% → ${fmtYen(s.cap + betaGain)})</strong>` +
-        `</div>`;
-    });
 
     // ---- Transition ops ----
     const cap = num('in-capital');
@@ -358,14 +348,24 @@
       const d = await r.json();
       $('regime-headline').textContent = `${d.regime}(冬シグナル ${d.winter_count}/${d.valid_count} → 冬確信度 ${d.confidence_pct}%)`;
       $('regime-headline').style.color = d.regime === '冬' ? '#7fb3d5' : 'var(--summer)';
+      const WHY = {
+        ma200:   '200日線割れ = 長期下落トレンド入りの古典的サイン',
+        fng:     '30未満 = 恐怖優勢。市場心理が冷え込んでいる',
+        funding: 'マイナス圏 = 先物ロング需要消失、投機資金の撤退',
+        mnav:    'プレミアム縮小 = 機関のBTC強気度が低下',
+        stable:  'ステーブル残高減 = 市場から資金が流出中',
+        etf:     'ETF流出 = 機関投資家がBTCを手放している'
+      };
       const grid = $('regime-grid');
       grid.innerHTML = '';
       d.indicators.forEach(ind => {
         const el = document.createElement('div');
-        el.className = 'regime-cell';
-        el.style.borderLeftColor = ind.ok ? (ind.winter ? '#7fb3d5' : '#d4a04a') : '#666';
+        el.className = 'regime-card ' + (ind.ok ? (ind.winter ? 'winter' : 'summer') : '');
         const tag = ind.ok ? (ind.winter ? '❄ 冬' : '☀ 夏') : '— N/A';
-        el.innerHTML = `<span class="nm">${ind.name}</span><span class="tag">${tag}</span><br><span class="vl">${ind.value}</span>`;
+        el.innerHTML =
+          `<div class="rc-top"><span class="nm">${ind.name}</span><span class="tag">${tag}</span></div>` +
+          `<span class="vl">${ind.value}</span>` +
+          `<span class="why">${WHY[ind.id] || ''}</span>`;
         grid.appendChild(el);
       });
       $('regime-reco').innerHTML = `推奨: <span class="reco-strong">${d.recommended}</span>`;
@@ -492,7 +492,7 @@
   $('btn-reset').addEventListener('click', async () => {
     if (!confirm('全員の編集を初期化します。本当に実行しますか?')) return;
     const defaults = {
-      'in-capital': '500,000,000', 'in-expense': '5,000,000', 'in-beta': '300', 'in-dd': '-30',
+      'in-capital': '500,000,000', 'in-expense': '5,000,000', 'in-dd': '-30',
       'in-a1-walloc': '15', 'in-a2-walloc': '4', 'in-a3-walloc': '81',
       'in-a1-alpha': '6', 'in-a2-alpha': '30', 'in-a3-alpha': '13',
       'in-a1-l1': '50', 'in-a2-l1': '4', 'in-a3-l1': '46',
