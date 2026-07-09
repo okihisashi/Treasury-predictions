@@ -3,1913 +3,448 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treasury Dashboard / Rev.AA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<title>資産運用ポートフォリオ設計 / REV.BB</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #14110d;
-    --ink-soft: #3a342c;
-    --ink-faint: #7a7268;
-    --paper: #f5f0e6;
-    --paper-deep: #ebe4d5;
-    --paper-card: #fdfaf3;
-    --accent: #b8431d;
-    --accent-deep: #8a2f12;
+    --paper: #f2ede3;
+    --paper-card: #faf7f0;
+    --ink: #221d17;
+    --ink-faint: #8a8178;
+    --accent: #a8431f;
     --accent-soft: #d4663d;
-
-    --usdc: #3a6a8a;
-    --sol: #1d4e89;
-    --slash: #6b3a8a;
-    --hype: #d4663d;
-    --apyx: #7b8a3a;
-    --spare1: #8a807a;
-    --spare2: #5e5550;
-
-    --success: #2d6a4f;
+    --divider: #d8d0c2;
+    --dark: #16120e;
+    --dark-card: #201b15;
+    --paper-deep: #cfc7b8;
+    --ok: #3f7a4f;
     --danger: #9d2c2c;
-    --warn: #b8870e;
-    --divider: rgba(20, 17, 13, 0.12);
-    --shadow: 0 1px 0 rgba(20,17,13,0.04), 0 8px 24px -8px rgba(20,17,13,0.08);
+    --winter: #4a7ba6;
+    --summer: #c98a2d;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: "Noto Sans JP", system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  body {
-    padding: 32px 48px 48px;
-    max-width: 1700px;
-    margin: 0 auto;
-  }
-  @media (max-width: 768px) { body { padding: 20px 16px 32px; } }
+  html, body { background: var(--paper); color: var(--ink); font-family: "Noto Sans JP", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { padding: 32px 48px 48px; max-width: 1500px; margin: 0 auto; }
 
-  .deck-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 18px;
-    gap: 24px;
-  }
-  .eyebrow {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 700;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--accent); opacity: 0.4; }
-  h1.title {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 800;
-    font-size: clamp(22px, 2.6vw, 32px);
-    line-height: 1.15;
-  }
-  h1.title .accent { color: var(--accent); font-style: italic; }
-  .meta {
-    text-align: right;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11px;
-    color: var(--ink-faint);
-    line-height: 1.6;
-  }
-  .meta .rev-tag {
-    display: inline-block;
-    background: var(--accent);
-    color: var(--paper);
-    padding: 2px 8px;
-    margin-top: 4px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-  }
-  .accent-rule {
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 18%, var(--accent-soft) 18%, var(--accent-soft) 22%, transparent 22%);
-    margin-bottom: 22px;
-  }
+  .eyebrow { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.22em; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+  h1.title { font-family: "Shippori Mincho B1", serif; font-weight: 800; font-size: 34px; letter-spacing: 0.02em; margin-bottom: 4px; }
+  h1.title em { color: var(--accent); font-style: italic; }
+  .title-rule { width: 340px; border-bottom: 3px solid var(--accent); margin: 10px 0 26px; }
 
-  /* Editor panel */
-  .editor {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 22px 26px;
-    margin-bottom: 28px;
-    box-shadow: var(--shadow);
-  }
-  .editor-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(245,240,230,0.2);
-  }
-  .editor-head h2 {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 800;
-    font-size: 18px;
-  }
-  .editor-head .sub {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--accent-soft);
-  }
-  .editor-buttons { display: flex; gap: 8px; }
-  .editor-btn {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    padding: 6px 12px;
-    background: transparent;
-    color: var(--paper);
-    border: 1px solid var(--paper);
-    cursor: pointer;
-    text-transform: uppercase;
-  }
-  .editor-btn:hover { background: var(--accent); border-color: var(--accent); }
-  .editor-btn.primary { background: var(--accent); border-color: var(--accent); }
+  .topbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+  .topbar .btns { display: flex; gap: 8px; align-items: center; }
+  .btn { font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 8px 16px; border: 1px solid var(--ink); background: var(--paper-card); cursor: pointer; }
+  .btn.warn { border-color: var(--danger); color: var(--danger); }
+  #save-status { font-size: 10.5px; color: var(--accent-soft); font-family: "JetBrains Mono", monospace; }
 
-  .editor-section {
-    background: rgba(245,240,230,0.05);
-    padding: 14px 16px;
-    border-left: 2px solid var(--accent-soft);
-    margin-bottom: 14px;
-  }
-  .editor-section:last-child { margin-bottom: 0; }
-  .editor-section h3 {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--paper);
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 10px;
-  }
-  .editor-section h3 .badge {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 6px;
-    background: var(--success);
-    color: var(--paper);
-  }
-  .editor-section h3 .badge.error { background: var(--danger); }
-  .editor-section h3 .badge.accent { background: var(--accent); }
-  .editor-section h3 .badges { display: flex; gap: 6px; }
+  section.block { background: var(--paper-card); border-left: 4px solid var(--accent); padding: 22px 26px; margin-bottom: 26px; }
+  section.block.dark { background: var(--dark); border-left-color: var(--accent-soft); color: var(--paper-deep); }
+  .sec-title { font-family: "Shippori Mincho B1", serif; font-weight: 800; font-size: 19px; margin-bottom: 4px; }
+  section.dark .sec-title { color: var(--paper); }
+  .sec-sub { font-family: "JetBrains Mono", monospace; font-size: 9.5px; letter-spacing: 0.16em; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 16px; }
 
-  .ddr-grid-editor {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 14px;
-  }
-  @media (max-width: 1100px) { .ddr-grid-editor { grid-template-columns: 1fr; } }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { font-family: "JetBrains Mono", monospace; font-size: 9.5px; letter-spacing: 0.1em; color: var(--accent); font-weight: 700; text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--divider); }
+  th:first-child { text-align: left; }
+  td { padding: 7px 8px; text-align: right; border-bottom: 1px solid var(--divider); font-family: "JetBrains Mono", monospace; font-size: 12.5px; }
+  td:first-child { text-align: left; font-family: "Noto Sans JP", sans-serif; font-weight: 500; }
+  tr.total td { font-weight: 700; border-top: 2px solid var(--ink); border-bottom: none; background: rgba(0,0,0,0.03); }
+  section.dark td { border-bottom-color: #3a332a; }
+  section.dark tr.total td { border-top-color: var(--paper-deep); background: rgba(255,255,255,0.04); }
 
-  .field {
-    display: grid;
-    grid-template-columns: 1.2fr 105px 70px 22px 70px 22px 95px 130px;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 8px;
-    font-size: 11.5px;
-  }
-  .field.simple { grid-template-columns: 1fr 100px 30px; }
-  .field:last-child { margin-bottom: 0; }
-  .field label {
-    color: var(--paper-deep);
-    line-height: 1.3;
-  }
-  .field label .hint {
-    display: block;
-    color: var(--ink-faint);
-    font-size: 9.5px;
-    margin-top: 1px;
-    opacity: 0.7;
-  }
-  .field input[type=number], .field input[type=text] {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 5px 6px;
-    background: var(--paper);
-    color: var(--ink);
-    border: 1px solid var(--paper);
-    text-align: right;
-    width: 100%;
-  }
-  .field input.pred-input {
-    text-align: left;
-    font-size: 10px;
-    font-weight: 600;
-  }
-  .field input:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: -1px;
-  }
-  .field .unit {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    color: var(--paper-deep);
-    text-align: left;
-  }
-  .field .monthly-disp {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--accent-soft);
-    text-align: right;
-    background: rgba(184,67,29,0.12);
-    padding: 4px 8px;
-    border-radius: 2px;
-  }
-  .col-head {
-    display: grid;
-    grid-template-columns: 1.2fr 105px 70px 22px 70px 22px 95px 130px;
-    gap: 8px;
-    padding-bottom: 8px;
-    margin-bottom: 8px;
-    border-bottom: 1px solid rgba(245,240,230,0.15);
-  }
-  .col-head div {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    color: var(--accent-soft);
-    text-transform: uppercase;
-    text-align: right;
-  }
-  .col-head div:first-child { text-align: left; }
+  input.num { width: 76px; padding: 5px 7px; text-align: right; font-family: "JetBrains Mono", monospace; font-size: 12.5px; border: 1px solid var(--divider); background: #fffdf8; color: var(--ink); }
+  input.num.wide { width: 130px; }
+  input.num:focus { outline: 2px solid var(--accent-soft); }
+  .unit { color: var(--ink-faint); font-size: 11px; margin-left: 2px; }
 
-  /* Lead */
-  .lead {
-    padding: 14px 20px;
-    margin-bottom: 24px;
-    background: var(--paper-card);
-    border-left: 3px solid var(--accent);
-    box-shadow: var(--shadow);
-    font-size: 12.5px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-  }
-  .lead strong {
-    color: var(--ink);
-    background: linear-gradient(180deg, transparent 60%, rgba(184,67,29,0.18) 60%);
-    padding: 0 2px;
-    font-weight: 700;
-  }
+  .result-line { margin-top: 10px; font-size: 13px; line-height: 1.9; }
+  .result-line .pos { color: var(--ok); font-weight: 700; }
+  .result-line .neg { color: var(--danger); font-weight: 700; }
+  .warn-100 { color: var(--danger); font-size: 11px; font-weight: 700; }
 
-  .section-title {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 800;
-    font-size: 17px;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-  }
-  .section-title .tag {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-  .section-title .sub {
-    font-size: 12px;
-    color: var(--ink-faint);
-    font-weight: 400;
-    margin-left: auto;
-    font-family: "Noto Sans JP", sans-serif;
-  }
+  .lvl-head { font-family: "Shippori Mincho B1", serif; font-weight: 700; font-size: 15px; margin: 20px 0 8px; padding-left: 10px; border-left: 3px solid var(--summer); }
+  .lvl-head.winter { border-left-color: var(--winter); }
 
-  .pf-section { margin-bottom: 26px; }
-  .pf-grid {
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 16px;
-  }
-  @media (max-width: 900px) { .pf-grid { grid-template-columns: 1fr; } }
+  /* regime panel */
+  #regime-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 7px; font-size: 10.5px; margin-top: 12px; }
+  .regime-cell { padding: 7px 10px; background: rgba(0,0,0,0.28); border-left: 2px solid #666; }
+  .regime-cell .nm { color: var(--paper-deep); }
+  .regime-cell .vl { color: var(--paper); font-family: "JetBrains Mono", monospace; font-size: 10px; }
+  .regime-cell .tag { float: right; font-weight: 700; }
+  #regime-headline { font-weight: 700; }
+  #regime-reco { margin-top: 12px; font-size: 12.5px; }
+  .reco-strong { color: var(--paper); font-weight: 700; }
 
-  .panel {
-    background: var(--paper-card);
-    padding: 18px 22px;
-    box-shadow: var(--shadow);
-    border-left: 3px solid var(--ink);
-  }
-  .panel.accent { border-left-color: var(--accent); }
+  [contenteditable="true"] { outline: none; border-bottom: 1px dashed transparent; }
+  [contenteditable="true"]:hover { border-bottom-color: var(--accent-soft); }
+  [contenteditable="true"]:focus { border-bottom-color: var(--accent); background: rgba(212,102,61,0.06); }
 
-  .alloc-viz {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 12px;
-  }
-  .alloc-donut {
-    width: 160px;
-    height: 160px;
-    flex-shrink: 0;
-    position: relative;
-  }
-  .alloc-donut svg { transform: rotate(-90deg); }
-  .alloc-center {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  .alloc-center .lbl {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-  }
-  .alloc-center .val {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 1.1;
-    margin-top: 2px;
-  }
-  .alloc-legend {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .alloc-item {
-    display: grid;
-    grid-template-columns: 14px 1fr auto auto;
-    gap: 10px;
-    align-items: center;
-    font-size: 12px;
-  }
-  .alloc-item .dot { width: 12px; height: 12px; border-radius: 2px; }
-  .alloc-item .name { color: var(--ink); font-weight: 600; }
-  .alloc-item .pct {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 700;
-    text-align: right;
-    min-width: 38px;
-  }
-  .alloc-item .amt {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 500;
-    color: var(--ink-faint);
-    font-size: 11px;
-    text-align: right;
-    min-width: 60px;
-  }
+  .footer-band { margin-top: 34px; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.25em; color: var(--ink-faint); }
 
-  /* Income headline */
-  .income-headline {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 16px;
-    background: var(--paper);
-    border-left: 4px solid var(--accent);
-    margin-bottom: 12px;
-    gap: 16px;
-  }
-  .income-headline .lbl {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 800;
-    font-size: 14px;
-    color: var(--ink);
-    flex-shrink: 0;
-  }
-  .income-headline .lbl .nt {
-    display: block;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 9px;
-    color: var(--ink-faint);
-    letter-spacing: 0.1em;
-    margin-top: 2px;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-  .income-headline .val { flex-grow: 1; }
-  .income-headline .triplet {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1.2fr;
-    gap: 10px;
-  }
-  .income-headline .cell {
-    padding: 8px 12px;
-    border-radius: 4px;
-    background: rgba(255,255,255,0.6);
-    border-left: 3px solid var(--ink-faint);
-  }
-  .income-headline .cell.alpha  { border-left-color: var(--ok); }
-  .income-headline .cell.beta   { border-left-color: var(--accent-soft); }
-  .income-headline .cell.total  {
-    background: rgba(157,71,44,0.08);
-    border-left-color: var(--accent);
-  }
-  .income-headline .cell-lbl {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 9px;
-    color: var(--ink-faint);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 2px;
-  }
-  .income-headline .cell-val {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 800;
-    font-size: 22px;
-    line-height: 1;
-    color: var(--ink);
-  }
-  .income-headline .cell.total .cell-val { color: var(--accent); font-size: 26px; }
-  .income-headline .cell-cash {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    color: var(--ink-faint);
-    margin-top: 4px;
-    white-space: nowrap;
-  }
-
-  .income-table {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .income-row {
-    display: grid;
-    grid-template-columns: 12px 1fr auto auto auto;
-    gap: 10px;
-    align-items: center;
-    padding: 7px 10px;
-    background: var(--paper);
-    border-left: 3px solid var(--ink);
-    font-size: 11.5px;
-  }
-  .income-row.usdc { border-left-color: var(--usdc); }
-  .income-row.sol { border-left-color: var(--sol); }
-  .income-row.slash { border-left-color: var(--slash); }
-  .income-row.hype { border-left-color: var(--hype); }
-  .income-row.apyx { border-left-color: var(--apyx); }
-  .income-row.total {
-    background: var(--ink);
-    color: var(--paper);
-    border-left-color: var(--accent);
-    font-weight: 700;
-  }
-  .income-row .dot { width: 10px; height: 10px; border-radius: 2px; }
-  .income-row .dot.usdc { background: var(--usdc); }
-  .income-row .dot.sol { background: var(--sol); }
-  .income-row .dot.slash { background: var(--slash); }
-  .income-row .dot.hype { background: var(--hype); }
-  .income-row .dot.apyx { background: var(--apyx); }
-  .income-row .name { color: var(--ink); font-weight: 600; }
-  .income-row.total .name { color: var(--paper); }
-  .income-row .calc {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10.5px;
-    color: var(--ink-soft);
-    white-space: nowrap;
-  }
-  .income-row.total .calc { color: var(--paper-deep); }
-  .income-row .contrib {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 700;
-    font-size: 12px;
-    white-space: nowrap;
-    text-align: right;
-    min-width: 55px;
-  }
-  .income-row.total .contrib { font-size: 14px; }
-  .income-row .monthly {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 600;
-    font-size: 11px;
-    color: var(--ink-faint);
-    white-space: nowrap;
-    text-align: right;
-    min-width: 80px;
-  }
-  .income-row.total .monthly { color: var(--paper-deep); font-size: 12px; font-weight: 700; }
-
-  /* Capital Planner */
-  .planner-section { margin-bottom: 26px; }
-  .actuals-section { margin-bottom: 26px; }
-  .actuals-col-head, .actuals-row {
-    display: grid;
-    grid-template-columns: 90px repeat(5, 1fr) 100px 90px 70px;
-    gap: 8px;
-    padding: 6px 8px;
-    align-items: center;
-  }
-  .actuals-col-head {
-    padding-bottom: 8px;
-    margin-bottom: 8px;
-    border-bottom: 1px solid var(--divider);
-  }
-  .actuals-col-head div {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    font-weight: 700;
-    text-align: right;
-  }
-  .actuals-col-head div:first-child { text-align: left; }
-  .actuals-row {
-    background: var(--paper);
-    border-left: 3px solid var(--ink-faint);
-    margin-bottom: 6px;
-    font-size: 12px;
-  }
-  .actuals-row:last-child { margin-bottom: 0; }
-  .actuals-row .month-label {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 700;
-    color: var(--ink);
-    font-size: 12.5px;
-  }
-  .actuals-row input.act-asset {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 5px 6px;
-    background: var(--paper-card);
-    color: var(--ink);
-    border: 1px solid var(--divider);
-    text-align: right;
-    width: 100%;
-  }
-  .actuals-row input.act-asset:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: -1px;
-  }
-  .actuals-row .act-total {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 700;
-    color: var(--ink);
-    font-size: 12px;
-    text-align: right;
-  }
-  .actuals-row .act-expected {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 600;
-    color: var(--ink-faint);
-    font-size: 11px;
-    text-align: right;
-  }
-  .actuals-row .act-rate {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 800;
-    font-size: 12px;
-    text-align: right;
-  }
-  .actuals-row .act-rate.good { color: var(--success); }
-  .actuals-row .act-rate.bad { color: var(--danger); }
-  .actuals-row .act-rate.warn { color: var(--warn); }
-  .actuals-row.has-data { border-left-color: var(--accent); background: var(--paper-card); }
-  .planner-table {
-    background: var(--paper-card);
-    padding: 16px 18px;
-    box-shadow: var(--shadow);
-    border-left: 3px solid var(--ink);
-    overflow-x: auto;
-  }
-  .planner-col-head, .planner-row {
-    display: grid;
-    grid-template-columns: 80px 105px repeat(5, 58px) 88px 70px 70px 130px;
-    gap: 6px;
-    padding: 0 8px 8px 8px;
-    align-items: center;
-  }
-  .planner-row .memo-cell input,
-  .field .memo-cell input {
-    font-family: "Noto Sans JP", sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 5px 7px;
-    background: var(--paper-card);
-    color: var(--ink);
-    border: 1px solid var(--divider);
-    width: 100%;
-  }
-  .planner-row .memo-cell input:focus,
-  .field .memo-cell input:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: -1px;
-  }
-  .planner-col-head {
-    margin-bottom: 8px;
-    border-bottom: 1px solid var(--divider);
-  }
-  .planner-col-head div {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    font-weight: 700;
-    text-align: center;
-  }
-  .planner-col-head div:first-child { text-align: left; }
-  .planner-col-head .alloc-h { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-  .planner-col-head .alloc-h .d { width: 8px; height: 8px; border-radius: 1px; }
-
-  .planner-row {
-    background: var(--paper);
-    border-left: 3px solid var(--accent-soft);
-    margin-bottom: 6px;
-    padding: 8px 10px;
-    font-size: 12px;
-  }
-  .planner-row:last-child { margin-bottom: 0; }
-  .planner-row input[type=text], .planner-row input[type=number] {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 5px;
-    background: var(--paper-card);
-    color: var(--ink);
-    border: 1px solid var(--divider);
-    width: 100%;
-  }
-  .planner-row input[type=text] { text-align: left; font-size: 11px; }
-  .planner-row input[type=number] { text-align: right; }
-  .planner-row input:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: -1px;
-  }
-  .planner-row .pct-input {
-    text-align: center !important;
-  }
-  .planner-row .cumul {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 700;
-    color: var(--ink);
-    text-align: right;
-    font-size: 11.5px;
-  }
-  .planner-row .yield {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 700;
-    color: var(--accent);
-    text-align: right;
-    font-size: 11.5px;
-  }
-  .planner-row .monthly-cash {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 700;
-    color: var(--ink);
-    text-align: right;
-    font-size: 11.5px;
-  }
-  .planner-row .pct-warn {
-    /* visual highlight disabled per user preference */
-  }
-  .planner-row.empty {
-    /* visual treatment removed per user preference — empty rows look the same */
-  }
-
-  /* DDR sections */
-  .ddr-block { margin-bottom: 20px; }
-  .ddr-intro {
-    background: var(--paper-card);
-    padding: 18px 22px;
-    margin-bottom: 18px;
-    box-shadow: var(--shadow);
-    border-left: 3px solid var(--accent);
-  }
-  .ddr-intro h4 {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 800;
-    font-size: 14px;
-    color: var(--ink);
-    margin-bottom: 10px;
-  }
-  .ddr-intro p {
-    font-size: 12px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    margin-bottom: 10px;
-  }
-  .ddr-intro p:last-child { margin-bottom: 0; }
-  .ddr-intro p strong { color: var(--ink); font-weight: 700; }
-  .ddr-intro .scale {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    margin-top: 8px;
-  }
-  .ddr-intro .scale-item {
-    padding: 8px 10px;
-    border: 1px solid var(--divider);
-    background: var(--paper);
-    text-align: center;
-  }
-  .ddr-intro .scale-item.excellent { border-color: var(--success); background: rgba(45,106,79,0.06); }
-  .ddr-intro .scale-item.good { border-color: var(--success); }
-  .ddr-intro .scale-item.caution { border-color: var(--warn); background: rgba(184,135,14,0.06); }
-  .ddr-intro .scale-item.poor { border-color: var(--danger); background: rgba(157,44,44,0.06); }
-  .ddr-intro .scale-item .range {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--ink);
-  }
-  .ddr-intro .scale-item.excellent .range { color: var(--success); }
-  .ddr-intro .scale-item.good .range { color: var(--success); }
-  .ddr-intro .scale-item.caution .range { color: var(--warn); }
-  .ddr-intro .scale-item.poor .range { color: var(--danger); }
-  .ddr-intro .scale-item .verdict-label {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    margin: 2px 0;
-  }
-  .ddr-intro .scale-item .verdict-desc {
-    font-size: 10px;
-    color: var(--ink-faint);
-    line-height: 1.4;
-  }
-  .ddr-block-title {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 800;
-    font-size: 14px;
-    margin-bottom: 10px;
-    padding-left: 12px;
-    border-left: 4px solid;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .ddr-block-title .strategy-tag {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 9px;
-    color: var(--paper);
-    padding: 2px 8px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-  .ddr-block.eth-put .ddr-block-title { border-left-color: var(--usdc); }
-  .ddr-block.eth-put .strategy-tag { background: var(--usdc); }
-  .ddr-block.sol-lst .ddr-block-title { border-left-color: var(--sol); }
-  .ddr-block.sol-lst .strategy-tag { background: var(--sol); }
-  .ddr-block.apyx-risk .ddr-block-title { border-left-color: var(--apyx); }
-  .ddr-block.apyx-risk .strategy-tag { background: var(--apyx); }
-
-  .ddr-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 14px;
-  }
-  @media (max-width: 900px) { .ddr-grid { grid-template-columns: 1fr; } }
-
-  .ddr-card {
-    background: var(--paper-card);
-    padding: 20px 24px;
-    box-shadow: var(--shadow);
-    border-top: 4px solid var(--accent);
-    text-align: center;
-  }
-  .ddr-block.eth-put .ddr-card { border-top-color: var(--usdc); }
-  .ddr-block.sol-lst .ddr-card { border-top-color: var(--sol); }
-  .ddr-block.apyx-risk .ddr-card { border-top-color: var(--apyx); }
-
-  .ddr-card .ddr-label {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-  .ddr-card .ddr-name {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 800;
-    font-size: 13px;
-    color: var(--ink);
-    margin-bottom: 10px;
-    line-height: 1.3;
-  }
-  .ddr-card .ddr-value {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 800;
-    font-size: 56px;
-    line-height: 1;
-    color: var(--accent);
-  }
-  .ddr-card .ddr-formula {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10.5px;
-    color: var(--ink-soft);
-    margin-top: 8px;
-    line-height: 1.5;
-  }
-  .ddr-bars {
-    margin-top: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    text-align: left;
-  }
-  .ddr-bar-row {
-    display: grid;
-    grid-template-columns: 60px 1fr 80px;
-    gap: 8px;
-    align-items: center;
-    font-size: 10.5px;
-  }
-  .ddr-bar-row .bar-label {
-    color: var(--ink-soft);
-    font-weight: 600;
-    font-size: 10px;
-  }
-  .ddr-bar-row .bar-track {
-    height: 14px;
-    background: var(--paper-deep);
-    border-radius: 1px;
-    overflow: hidden;
-    position: relative;
-  }
-  .ddr-bar-row .bar-fill {
-    height: 100%;
-    transition: width 0.3s ease;
-  }
-  .ddr-bar-row.gain .bar-fill { background: var(--success); }
-  .ddr-bar-row.loss .bar-fill { background: var(--danger); }
-  .ddr-bar-row .bar-value {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 700;
-    text-align: right;
-    font-size: 10.5px;
-    color: var(--ink);
-  }
-  .ddr-card .verdict {
-    margin-top: 12px;
-    padding: 5px 12px;
-    background: var(--success);
-    color: var(--paper);
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    display: inline-block;
-  }
-  .ddr-card .verdict.warn { background: var(--warn); }
-  .ddr-card .verdict.bad { background: var(--danger); }
-
-  .ddr-detail {
-    background: var(--paper-card);
-    padding: 16px 20px;
-    box-shadow: var(--shadow);
-    border-left: 3px solid var(--ink);
-  }
-  .ddr-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 12px;
-    align-items: center;
-    padding: 7px 0;
-    border-bottom: 1px dotted var(--divider);
-    font-size: 11.5px;
-  }
-  .ddr-row:last-of-type { border-bottom: none; }
-  .ddr-row .label {
-    color: var(--ink-soft);
-    line-height: 1.4;
-  }
-  .ddr-row .label .nt {
-    display: block;
-    font-size: 10.5px;
-    color: var(--ink-faint);
-    margin-top: 2px;
-  }
-  .ddr-row .val {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 700;
-    color: var(--ink);
-    font-size: 12.5px;
-    text-align: right;
-  }
-
-  /* KGI */
-  .kgi-list {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    margin-top: 6px;
-  }
-  .kgi-row {
-    display: grid;
-    grid-template-columns: 28px 1fr auto;
-    gap: 10px;
-    align-items: center;
-    padding: 9px 12px;
-    background: var(--paper);
-    border-left: 3px solid var(--ink);
-  }
-  .kgi-row.primary { border-left-color: var(--accent); background: rgba(184,67,29,0.04); }
-  .kgi-row.secondary { border-left-color: var(--ink-faint); }
-  .kgi-row .num {
-    font-family: "Shippori Mincho B1", serif;
-    font-weight: 800;
-    font-size: 14px;
-    color: var(--accent);
-    text-align: center;
-  }
-  .kgi-row .label-jp {
-    font-size: 12.5px;
-    color: var(--ink);
-    line-height: 1.4;
-    font-weight: 600;
-  }
-  .kgi-row .label-jp .note {
-    display: block;
-    font-size: 10.5px;
-    color: var(--ink-faint);
-    font-weight: 400;
-    margin-top: 2px;
-  }
-  .kgi-row .target {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 12px;
-    font-weight: 700;
-    background: var(--paper-deep);
-    padding: 3px 8px;
-    white-space: nowrap;
-  }
-  .kgi-row.primary .target { background: var(--accent); color: var(--paper); }
-
-  .footer-band { margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--divider); font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--ink-faint); letter-spacing: 0.05em; text-align: center; }
-
-  /* contenteditable */
-  [contenteditable="true"] {
-    outline: none;
-    cursor: text;
-    border-radius: 2px;
-    transition: background 0.15s, box-shadow 0.15s;
-  }
-  [contenteditable="true"]:hover { background: rgba(184, 67, 29, 0.06); }
-  [contenteditable="true"]:focus {
-    background: rgba(184, 67, 29, 0.10);
-    box-shadow: 0 0 0 1px var(--accent);
-  }
-  .editor [contenteditable="true"]:hover { background: rgba(245, 240, 230, 0.08); }
-  .editor [contenteditable="true"]:focus { background: rgba(245, 240, 230, 0.15); box-shadow: 0 0 0 1px var(--accent-soft); }
-  @media print {
-    [contenteditable="true"] { background: transparent !important; box-shadow: none !important; }
-    .editor, .editor-buttons { display: none !important; }
-  }
+  @media print { .topbar .btns { display: none; } body { padding: 10px; } }
 </style>
 </head>
 <body>
 
-<header class="deck-header">
-  <div>
-    <div class="eyebrow">Treasury Dashboard / Rev.AA</div>
-    <h1 class="title">オンチェーン<span class="accent">資産運用計画</span></h1>
+<div class="eyebrow">PORTFOLIO DESIGN / REV.BB <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
+<h1 class="title">資産運用 <em>ポートフォリオ設計</em></h1>
+<div class="title-rule"></div>
+
+<div class="topbar">
+  <span style="font-size:12px; color: var(--ink-faint);">数字は全て編集可 → 自動再計算・チーム共有保存</span>
+  <div class="btns">
+    <span id="save-status">初期化中...</span>
+    <button class="btn warn" id="btn-reset">RESET</button>
+    <button class="btn" onclick="window.print()">PRINT</button>
   </div>
-  <div class="meta">
-    <span class="rev-tag">Editable</span>
-  </div>
-</header>
-
-<div class="accent-rule"></div>
-
-<!-- ============================== EDITOR ============================== -->
-<div class="editor">
-  <div class="editor-head">
-    <div>
-      <h2>編集パネル</h2>
-      <div class="sub">配分・利回り・DDRパラメーターを変更すると下が自動再計算</div>
-    </div>
-    <div class="editor-buttons">
-      <button class="editor-btn" id="btn-refresh-pred" onclick="window.refreshPredictions && window.refreshPredictions()">↻ β 自動更新</button>
-      <span id="save-status" style="font-size: 10.5px; color: var(--accent-soft); margin-right: 10px; min-width: 180px; display: inline-block; text-align: right;">初期化中...</span>
-      <button class="editor-btn" id="btn-export" title="現在の状態を JSON ファイルとして保存">⬇ Export</button>
-      <button class="editor-btn" id="btn-import" title="保存した JSON を読み込み">⬆ Import</button>
-      <input type="file" id="import-file" accept=".json" style="display:none">
-      <button class="editor-btn" id="btn-reset">Reset</button>
-      <button class="editor-btn primary" id="btn-print">Print</button>
-    </div>
-  </div>
-
-  <!-- Asset Allocation -->
-  <div class="editor-section">
-    <h3>
-      資産配分
-      <div class="badges">
-        <span class="badge accent" id="alloc-yield">合計 α 15.23%</span>
-        <span class="badge" style="background: var(--warn);" id="alloc-beta">合計 α+β 41.0%</span>
-        <span class="badge" id="alloc-monthly">月額 ¥508万</span>
-        <span class="badge" id="alloc-total-badge">¥4.0億</span>
-      </div>
-    </h3>
-    <div class="col-head">
-      <div>資産</div>
-      <div>金額(円)</div>
-      <div>α(%)</div>
-      <div></div>
-      <div>β(Prediction)</div>
-      <div></div>
-      <div>月額(円)</div>
-      <div>メモ</div>
-    </div>
-    <div class="field">
-      <label>USDC(ETHプット売り待機)</label>
-      <input type="text" inputmode="numeric" class="money-input" id="in-usdc-amt" value="100,000,000">
-      <input type="number" id="in-usdc-y" value="15" min="0" max="100" step="0.5">
-      <span class="unit">%</span>
-      <input type="number" id="in-usdc-b" value="0" min="-100" max="500" step="1">
-      <span class="unit">%</span>
-      <span class="monthly-disp" id="ed-usdc-monthly">¥125万</span>
-    
-      <div class="memo-cell"><input type="text" class="asset-memo" id="memo-usdc" placeholder="メモ"></div>
-    </div>
-    <div class="field">
-      <label>SOL</label>
-      <input type="text" inputmode="numeric" class="money-input" id="in-sol-amt" value="50,000,000">
-      <input type="number" id="in-sol-y" value="8" min="0" max="100" step="0.5">
-      <span class="unit">%</span>
-      <input type="number" id="in-sol-b" value="50" min="-100" max="500" step="1">
-      <span class="unit">%</span>
-      <span class="monthly-disp" id="ed-sol-monthly">¥33万</span>
-    
-      <div class="memo-cell"><input type="text" class="asset-memo" id="memo-sol" placeholder="メモ"></div>
-    </div>
-    <div class="field">
-      <label>Slash Earn</label>
-      <input type="text" inputmode="numeric" class="money-input" id="in-slash-amt" value="20,000,000">
-      <input type="number" id="in-slash-y" value="50" min="0" max="100" step="0.5">
-      <span class="unit">%</span>
-      <input type="number" id="in-slash-b" value="0" min="-100" max="500" step="1">
-      <span class="unit">%</span>
-      <span class="monthly-disp" id="ed-slash-monthly">¥83万</span>
-    
-      <div class="memo-cell"><input type="text" class="asset-memo" id="memo-slash" placeholder="メモ"></div>
-    </div></div>
-    <div class="field">
-      <label>Apyx</label>
-      <input type="text" inputmode="numeric" class="money-input" id="in-apyx-amt" value="100,000,000">
-      <input type="number" id="in-apyx-y" value="15" min="0" max="100" step="0.5">
-      <span class="unit">%</span>
-      <input type="number" id="in-apyx-b" value="0" min="-100" max="500" step="1">
-      <span class="unit">%</span>
-      <span class="monthly-disp" id="ed-apyx-monthly">¥125万</span>
-    
-      <div class="memo-cell"><input type="text" class="asset-memo" id="memo-apyx" placeholder="メモ"></div>
-    </div></div>
-    <div class="field" id="spare2-row">
-      <label contenteditable="true" spellcheck="false">予備②(編集可)</label>
-      <input type="text" inputmode="numeric" class="money-input" id="in-spare2-amt" value="0">
-      <input type="number" id="in-spare2-y" value="0" min="0" max="100" step="0.5">
-      <span class="unit">%</span>
-      <input type="number" id="in-spare2-b" value="0" min="-100" max="500" step="1">
-      <span class="unit">%</span>
-      <span class="monthly-disp" id="ed-spare2-monthly">¥0</span>
-      <div class="memo-cell"><input type="text" class="asset-memo" id="memo-spare2" placeholder="メモ"></div>
-    </div>
-    <div style="margin-top: 12px; padding: 12px 14px; background: rgba(245,240,230,0.04); border-left: 2px solid var(--accent-soft); font-size: 11px; line-height: 1.65; color: var(--paper-deep);">
-      <div style="font-family: 'Shippori Mincho B1', serif; font-weight: 800; font-size: 12.5px; color: var(--paper); margin-bottom: 6px;">
-        β の算出方式:Method B(確率重み付き・極端値カット)
-      </div>
-      <p style="margin-bottom: 6px;">
-        Polymarket のバイナリー契約(↑$X 到達確率)を価格分布とみなし、<strong style="color:var(--paper);">レンジごとの代表値で期待価格 E[price] を計算</strong>。極端な上昇シナリオは保守的にキャップ(>$100 ゾーンを $130 ではなく $110 で代表)。
-      </p>
-      <p style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; background: rgba(20,17,13,0.4); padding: 8px 10px; margin: 6px 0; color: var(--paper-deep);">
-        E[price] = Σ ( レンジ確率 × レンジ代表値 [上限キャップ付き] )<br>
-        β(年率) = ( E[price] / 現在価格 − 1 ) × ( 12 / 残月数 )
-      </p>
-      <p style="margin-bottom: 4px;"><strong style="color:var(--paper);">HYPE 計算例</strong>(現価格 $40・残 7ヶ月):</p>
-      <p style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; line-height: 1.7;">
-        E = 0.58×$110 + 0.25×$90 + 0.02×$50 + 0.06×$18 + 0.09×$12 = $89.5<br>
-        期間収益 = $89.5 / $40 − 1 = +124%<br>
-        β(年率・線形換算)= +124% × (12/7) ≈ <strong style="color:var(--accent-soft);">+212%</strong>
-      </p>
-      <p style="margin-top: 6px; font-size: 10px; color: var(--ink-faint);">
-        ※ <strong style="color:var(--paper-deep);">α</strong> = ネイティブインカム利回り(月額キャッシュフロー)。<strong style="color:var(--paper-deep);">α+β</strong> = 1年あたり期待トータルリターン。複利でなく線形換算(保守的)。
-      </p>
-    </div><div style="margin-top: 6px; padding: 9px 12px; background: rgba(20,17,13,0.4); border-left: 2px solid var(--accent); font-size: 11px; color: var(--paper-deep); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-      <span><strong style="color: var(--paper);">SOL β 自動更新:</strong> <span id="pred-status-sol">取得中…</span></span>
-      <span id="pred-timestamp-sol" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent-soft);"></span>
-    </div>
-
-    <!-- ============ 季節判定パネル (regime.json) ============ -->
-    <div style="margin-top: 6px; padding: 12px 14px; background: rgba(20,17,13,0.4); border-left: 2px solid var(--accent);">
-      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-        <span style="font-size: 12px;"><strong style="color: var(--paper);">季節判定(冬/夏 自動検出):</strong> <span id="regime-headline" style="color: var(--accent-soft); font-weight: 700;">取得中…</span></span>
-        <span id="regime-timestamp" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent-soft);"></span>
-      </div>
-      <div id="regime-indicators" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 6px; font-size: 10.5px;"></div>
-      <div id="regime-recommend" style="margin-top: 8px; font-size: 11px; color: var(--paper-deep);"></div>
-    </div>
-    </div>
-
 </div>
 
-<!-- ============================== PF + INCOME ============================== -->
-<section class="pf-section">
-  <div class="pf-grid">
+<!-- ============ 1. 前提条件 ============ -->
+<section class="block">
+  <div class="sec-title">1. 前提条件</div>
+  <div class="sec-sub">Assumptions</div>
+  <table style="max-width: 660px;">
+    <tr><td>元本</td><td><input class="num wide money" id="in-capital" value="500,000,000"><span class="unit">円</span></td></tr>
+    <tr><td>月次生活費 / 固定費</td><td><input class="num wide money" id="in-expense" value="5,000,000"><span class="unit">円/月</span></td></tr>
+    <tr><td>夏の β 想定(オンチェーン 1サイクル)</td><td><input class="num" id="in-beta" value="300"><span class="unit">%</span></td></tr>
+    <tr><td>投資期間</td><td style="font-family:'Noto Sans JP';">無期限・元本維持(取り崩し不可)</td></tr>
+  </table>
+</section>
 
-    <div class="panel">
-      <div class="section-title" style="margin-bottom: 10px;">
-        <span>PF 構成</span>
-        <span class="tag">5-Asset Allocation</span>
-      </div>
+<!-- ============ 2+3. 資産パラメータ & 配分 ============ -->
+<section class="block">
+  <div class="sec-title">2. 冬の時代ポートフォリオ</div>
+  <div class="sec-sub">Winter Allocation</div>
+  <table>
+    <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>DD想定</th><th>年間α寄与</th><th>DD時α/年</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a1">オンチェーン金融銘柄</span></td>
+        <td><input class="num" id="in-a1-walloc" value="15"><span class="unit">%</span></td>
+        <td id="w-a1-amt">—</td>
+        <td><input class="num" id="in-a1-alpha" value="6"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a1-wdd" value="-70"><span class="unit">%</span></td>
+        <td id="w-a1-alpha">—</td>
+        <td id="w-a1-ddalpha">—</td>
+      </tr>
+      <tr>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a2">Slash Earn</span></td>
+        <td><input class="num" id="in-a2-walloc" value="4"><span class="unit">%</span></td>
+        <td id="w-a2-amt">—</td>
+        <td><input class="num" id="in-a2-alpha" value="30"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a2-wdd" value="-20"><span class="unit">%</span></td>
+        <td id="w-a2-alpha">—</td>
+        <td id="w-a2-ddalpha">—</td>
+      </tr>
+      <tr>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a3">Apyx</span></td>
+        <td><input class="num" id="in-a3-walloc" value="81"><span class="unit">%</span></td>
+        <td id="w-a3-amt">—</td>
+        <td><input class="num" id="in-a3-alpha" value="13"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a3-wdd" value="-5"><span class="unit">%</span></td>
+        <td id="w-a3-alpha">—</td>
+        <td id="w-a3-ddalpha">—</td>
+      </tr>
+      <tr class="total">
+        <td>合計 <span class="warn-100" id="w-alloc-warn"></span></td>
+        <td id="w-alloc-sum">—</td>
+        <td id="w-amt-sum">—</td>
+        <td></td><td></td>
+        <td id="w-alpha-sum">—</td>
+        <td id="w-ddalpha-sum">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="result-line" id="w-result"></div>
+</section>
 
-      <div class="alloc-viz">
-        <div class="alloc-donut">
-          <svg width="160" height="160" viewBox="0 0 160 160">
-            <circle id="seg-usdc" r="55" cx="80" cy="80" fill="transparent" stroke="#3a6a8a" stroke-width="26" />
-            <circle id="seg-sol" r="55" cx="80" cy="80" fill="transparent" stroke="#1d4e89" stroke-width="26" />
-            <circle id="seg-slash" r="55" cx="80" cy="80" fill="transparent" stroke="#6b3a8a" stroke-width="26" />
-            <circle id="seg-apyx" r="55" cx="80" cy="80" fill="transparent" stroke="#7b8a3a" stroke-width="26" />
-            <circle id="seg-spare2" r="55" cx="80" cy="80" fill="transparent" stroke="#5e5550" stroke-width="26" />
-          </svg>
-          <div class="alloc-center">
-            <div class="lbl">PF 総額</div>
-            <div class="val" id="alloc-total">¥4.0億</div>
-          </div>
-        </div>
+<section class="block">
+  <div class="sec-title">3. 夏の時代ポートフォリオ(3段階制)</div>
+  <div class="sec-sub">Summer Allocation — Staged (L1 → L2 → L3)</div>
+  <p style="font-size:12px; color: var(--ink-faint); margin-bottom: 10px;">α は冬の表と共通。夏 DD 想定と各段階の配分のみここで設定。</p>
 
-        <div class="alloc-legend">
-          <div class="alloc-item">
-            <div class="dot" style="background: var(--usdc);"></div>
-            <div class="name">BTC/ETH スペクトラ運用</div>
-            <div class="pct" id="leg-usdc-pct">25%</div>
-            <div class="amt" id="leg-usdc-amt">¥1.0億</div>
-          </div>
-          <div class="alloc-item">
-            <div class="dot" style="background: var(--sol);"></div>
-            <div class="name">SOL</div>
-            <div class="pct" id="leg-sol-pct">12.5%</div>
-            <div class="amt" id="leg-sol-amt">¥0.5億</div>
-          </div>
-          <div class="alloc-item">
-            <div class="dot" style="background: var(--slash);"></div>
-            <div class="name">Slash Earn</div>
-            <div class="pct" id="leg-slash-pct">5%</div>
-            <div class="amt" id="leg-slash-amt">¥0.2億</div>
-          </div>
-          <div class="alloc-item">
-            <div class="dot" style="background: var(--apyx);"></div>
-            <div class="name">Apyx</div>
-            <div class="pct" id="leg-apyx-pct">25%</div>
-            <div class="amt" id="leg-apyx-amt">¥1.0億</div>
-          </div>
-          <div class="alloc-item">
-            <div class="dot" style="background: var(--spare2);"></div>
-            <div class="name">待機資金</div>
-            <div class="pct" id="leg-spare2-pct">0%</div>
-            <div class="amt" id="leg-spare2-amt">¥0</div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <table>
+    <thead><tr><th>資産</th><th>α(共通)</th><th>夏DD想定</th><th>L1 配分</th><th>L2 配分</th><th>L3 配分</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a1">オンチェーン金融銘柄</span></td>
+        <td id="s-a1-alpha-echo">—</td>
+        <td><input class="num" id="in-a1-sdd" value="-40"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a1-l1" value="50"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a1-l2" value="65"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a1-l3" value="80"><span class="unit">%</span></td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a2">Slash Earn</span></td>
+        <td id="s-a2-alpha-echo">—</td>
+        <td><input class="num" id="in-a2-sdd" value="-20"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a2-l1" value="4"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a2-l2" value="4"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a2-l3" value="4"><span class="unit">%</span></td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a3">Apyx</span></td>
+        <td id="s-a3-alpha-echo">—</td>
+        <td><input class="num" id="in-a3-sdd" value="-5"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a3-l1" value="46"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a3-l2" value="31"><span class="unit">%</span></td>
+        <td><input class="num" id="in-a3-l3" value="16"><span class="unit">%</span></td>
+      </tr>
+    </tbody>
+  </table>
 
-    <div class="panel accent">
-      <div class="section-title" style="margin-bottom: 10px;">
-        <span>円建てインカム構成</span>
-        <span class="tag">Base Case</span>
-      </div>
+  <div class="lvl-head">夏L1(夏入りたて)</div>
+  <div id="l1-detail"></div>
+  <div class="lvl-head">夏L2(夏確信 中)</div>
+  <div id="l2-detail"></div>
+  <div class="lvl-head">夏L3(夏確信 高)</div>
+  <div id="l3-detail"></div>
+</section>
 
-      <div class="income-headline">
-        <div class="lbl">PF 全体 年率<span class="nt">Total Annual Rate</span></div>
-        <div class="val">
-          <div class="triplet">
-            <div class="cell alpha">
-              <div class="cell-lbl">α のみ</div>
-              <div class="cell-val" id="tot-alpha">15.23%</div>
-              <div class="cell-cash" id="tot-alpha-cash">¥6,090万 / 年 (月 ¥508万)</div>
-            </div>
-            <div class="cell beta">
-              <div class="cell-lbl">β のみ</div>
-              <div class="cell-val" id="tot-beta">0.00%</div>
-              <div class="cell-cash" id="tot-beta-cash">¥0 / 年 (月 ¥0)</div>
-            </div>
-            <div class="cell total">
-              <div class="cell-lbl">α + β</div>
-              <div class="cell-val" id="tot-yield">15.23%</div>
-              <div class="cell-cash" id="tot-cash">¥6,090万 / 年 (月 ¥508万)</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="income-table">
-        <div class="income-row usdc">
-          <div class="dot usdc"></div>
-          <div class="name">USDC(ETHプット売り)</div>
-          <div class="calc" id="row-usdc-calc">25.0% × 15%</div>
-          <div class="monthly" id="row-usdc-monthly">¥125万/月</div>
-          <div class="contrib" id="row-usdc-contrib">+3.75%</div>
-        </div>
-        <div class="income-row sol">
-          <div class="dot sol"></div>
-          <div class="name">SOL ステーキング</div>
-          <div class="calc" id="row-sol-calc">12.5% × 8%</div>
-          <div class="monthly" id="row-sol-monthly">¥33万/月</div>
-          <div class="contrib" id="row-sol-contrib">+1.00%</div>
-        </div>
-        <div class="income-row slash">
-          <div class="dot slash"></div>
-          <div class="name">Slash Earn</div>
-          <div class="calc" id="row-slash-calc">5.0% × 50%</div>
-          <div class="monthly" id="row-slash-monthly">¥83万/月</div>
-          <div class="contrib" id="row-slash-contrib">+2.50%</div>
-        </div>
-        <div class="income-row apyx">
-          <div class="dot apyx"></div>
-          <div class="name">Apyx</div>
-          <div class="calc" id="row-apyx-calc">25.0% × 15%</div>
-          <div class="monthly" id="row-apyx-monthly">¥125万/月</div>
-          <div class="contrib" id="row-apyx-contrib">+3.75%</div>
-        </div>
-        <div class="income-row" style="border-left-color: var(--spare2);">
-          <div class="dot" style="background: var(--spare2);"></div>
-          <div class="name">待機資金</div>
-          <div class="calc" id="row-spare2-calc">0% × 0%</div>
-          <div class="monthly" id="row-spare2-monthly">¥0/月</div>
-          <div class="contrib" id="row-spare2-contrib">+0.00%</div>
-        </div>
-        <div class="income-row total">
-          <div></div>
-          <div class="name">PF 全体</div>
-          <div class="calc" id="row-total-calc">¥6,090万 / 年</div>
-          <div class="monthly" id="row-total-monthly">¥508万/月</div>
-          <div class="contrib" id="row-total-contrib">15.23%</div>
-        </div>
-      </div>
-    </div>
-
+<!-- ============ 4. 転換オペレーション ============ -->
+<section class="block">
+  <div class="sec-title">4. 転換オペレーション</div>
+  <div class="sec-sub">Rebalance Plan</div>
+  <table id="op-table">
+    <thead><tr><th>資産</th><th>冬</th><th>夏L1</th><th>夏L2</th><th>夏L3</th><th>冬→L1 売買</th><th>L1→L2 売買</th><th>L2→L3 売買</th></tr></thead>
+    <tbody id="op-body"></tbody>
+  </table>
+  <div style="margin-top: 14px; font-size: 12.5px; line-height: 2.0;">
+    <strong>手順(各段階 1〜2ヶ月かけて段階実行)</strong><br>
+    1. 客観指標の変化を確認(下記・毎時自動更新)<br>
+    2. Apyx を段階売却($100 par 付近で流動性あり)→ 売却資金でオンチェーン金融銘柄をドルコスト平均買い<br>
+    3. 夏 → 冬の逆転時(指標が冬に戻る)は逆向きに即実行 — <strong style="color:var(--danger);">冬への撤退は段階を踏まず速く</strong>
   </div>
 </section>
 
-<!-- ============================== CAPITAL INJECTION PLANNER ============================== -->
-<section class="planner-section">
-  <div class="section-title">
-    <span>資金注入計画</span>
-    <span class="tag">Capital Injection Plan</span>
-    <span class="sub">各資金の % を入力(合計100%) → 累計PFと利回りが自動再計算</span>
+<!-- ============ 5. 季節判定 ============ -->
+<section class="block dark">
+  <div class="sec-title">5. 季節判定(客観指標・自動)</div>
+  <div class="sec-sub">Regime Detection — hourly auto-update</div>
+  <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+    <span id="regime-headline" style="color: var(--accent-soft);">取得中…</span>
+    <span id="regime-ts" style="font-family:'JetBrains Mono',monospace; font-size:10px; color: var(--accent-soft);"></span>
   </div>
-
-  <div class="planner-table">
-    <div class="planner-col-head">
-      <div>時期</div>
-      <div>追加金額(円)</div>
-      <div class="alloc-h"><div class="d" style="background:var(--usdc);"></div>USDC%</div>
-      <div class="alloc-h"><div class="d" style="background:var(--sol);"></div>SOL%</div>
-      <div class="alloc-h"><div class="d" style="background:var(--slash);"></div>Slash%</div>
-      <div class="alloc-h"><div class="d" style="background:var(--hype);"></div>HYPE%</div>
-      <div class="alloc-h"><div class="d" style="background:var(--apyx);"></div>Apyx%</div>
-      <div>累計 PF</div>
-      <div>年率</div>
-      <div>月額</div>
-      <div>メモ</div>
-    </div>
-
-    <div class="planner-row" data-row="1">
-      <input type="text" class="p-month" value="2026年7月">
-      <input type="text" inputmode="numeric" class="p-amount money-input" value="50,000,000">
-      <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
-      <div class="cumul">—</div>
-      <div class="yield">—</div>
-      <div class="monthly-cash">—</div>
-      <div class="memo-cell"><input type="text" class="p-memo" placeholder="メモ"></div>
-    </div>
-
-    <div class="planner-row" data-row="2">
-      <input type="text" class="p-month" value="2026年10月">
-      <input type="text" inputmode="numeric" class="p-amount money-input" value="30,000,000">
-      <input type="number" class="p-pct" data-asset="usdc" value="100" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
-      <div class="cumul">—</div>
-      <div class="yield">—</div>
-      <div class="monthly-cash">—</div>
-      <div class="memo-cell"><input type="text" class="p-memo" placeholder="メモ"></div>
-    </div>
-
-    <div class="planner-row" data-row="3">
-      <input type="text" class="p-month" value="2027年1月">
-      <input type="text" inputmode="numeric" class="p-amount money-input" value="50,000,000">
-      <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="sol" value="20" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="apyx" value="50" min="0" max="100" step="5">
-      <div class="cumul">—</div>
-      <div class="yield">—</div>
-      <div class="monthly-cash">—</div>
-      <div class="memo-cell"><input type="text" class="p-memo" placeholder="メモ"></div>
-    </div>
-
-    <div class="planner-row" data-row="4">
-      <input type="text" class="p-month" value="2027年4月">
-      <input type="text" inputmode="numeric" class="p-amount money-input" value="100,000,000">
-      <input type="number" class="p-pct" data-asset="usdc" value="25" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="sol" value="15" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="slash" value="5" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="apyx" value="25" min="0" max="100" step="5">
-      <div class="cumul">—</div>
-      <div class="yield">—</div>
-      <div class="monthly-cash">—</div>
-      <div class="memo-cell"><input type="text" class="p-memo" placeholder="メモ"></div>
-    </div>
-
-    <div class="planner-row" data-row="5">
-      <input type="text" class="p-month" value="2027年7月">
-      <input type="text" inputmode="numeric" class="p-amount money-input" value="70,000,000">
-      <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
-      <div class="cumul">—</div>
-      <div class="yield">—</div>
-      <div class="monthly-cash">—</div>
-      <div class="memo-cell"><input type="text" class="p-memo" placeholder="メモ"></div>
-    </div>
-
-    <div class="planner-row" data-row="6">
-      <input type="text" class="p-month" value="2027年10月">
-      <input type="text" inputmode="numeric" class="p-amount money-input" value="0">
-      <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
-      <div class="cumul">—</div>
-      <div class="yield">—</div>
-      <div class="monthly-cash">—</div>
-      <div class="memo-cell"><input type="text" class="p-memo" placeholder="メモ"></div>
-    </div>
-    <div class="planner-row" data-row="7">
-      <input type="text" class="p-month" value="2028年1月">
-      <input type="text" inputmode="numeric" class="p-amount money-input" value="0">
-      <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
-      <div class="cumul">—</div>
-      <div class="yield">—</div>
-      <div class="monthly-cash">—</div>
-      <div class="memo-cell"><input type="text" class="p-memo" placeholder="メモ"></div>
-    </div>
-    <div class="planner-row" data-row="8">
-      <input type="text" class="p-month" value="2028年4月">
-      <input type="text" inputmode="numeric" class="p-amount money-input" value="0">
-      <input type="number" class="p-pct" data-asset="usdc" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="sol" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="slash" value="0" min="0" max="100" step="5">
-      <input type="number" class="p-pct" data-asset="apyx" value="0" min="0" max="100" step="5">
-      <div class="cumul">—</div>
-      <div class="yield">—</div>
-      <div class="monthly-cash">—</div>
-      <div class="memo-cell"><input type="text" class="p-memo" placeholder="メモ"></div>
-    </div>
-    
+  <div id="regime-grid"></div>
+  <div id="regime-reco"></div>
+  <table style="margin-top: 16px; max-width: 760px;">
+    <thead><tr><th>段階</th><th>トリガー(冬シグナル数)</th><th>推奨配分</th></tr></thead>
+    <tbody style="font-size: 12px;">
+      <tr><td>冬</td><td>4/6 以上</td><td id="map-w">—</td></tr>
+      <tr><td>夏L1</td><td>3/6</td><td id="map-l1">—</td></tr>
+      <tr><td>夏L2</td><td>1〜2/6</td><td id="map-l2">—</td></tr>
+      <tr><td>夏L3</td><td>0/6</td><td id="map-l3">—</td></tr>
+    </tbody>
+  </table>
 </section>
 
-<!-- ============================== ACTUAL VALUES ============================== -->
-<section class="actuals-section">
-  <div class="section-title">
-    <span>実績値 vs シミュレーション</span>
-    <span class="tag">Actuals</span>
-    <span class="sub">月次の実際の収入を入力 → 予想との差分が自動表示</span>
-  </div>
-
-  <div class="planner-table">
-    <div class="actuals-col-head">
-      <div>月</div>
-      <div>USDC 実績</div>
-      <div>SOL 実績</div>
-      <div>Slash 実績</div>
-      <div>Apyx 実績</div>
-      <div>予備② 実績</div>
-      <div>実績合計</div>
-      <div>予想</div>
-      <div>達成率</div>
-    </div>
-
-    <div class="actuals-row" data-month="2026-06"><div class="month-label">2026年6月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-07"><div class="month-label">2026年7月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-08"><div class="month-label">2026年8月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-09"><div class="month-label">2026年9月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-10"><div class="month-label">2026年10月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-11"><div class="month-label">2026年11月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-    <div class="actuals-row" data-month="2026-12"><div class="month-label">2026年12月</div><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="usdc" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="sol" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="slash" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="apyx" value="0"><input type="text" inputmode="numeric" class="money-input act-asset" data-asset="spare2" value="0"><div class="act-total">—</div><div class="act-expected">—</div><div class="act-rate">—</div></div>
-  </div>
-</section>
-
-
-<!-- ============================== KGI ============================== -->
-<div class="footer-band">
-  USDC × SOL × Slash Earn × HYPE × Apyx ◆ ETH PUT-SELL ◆ EDITABLE
-</div>
+<div class="footer-band" contenteditable="true" spellcheck="false">WINTER × SUMMER ◆ STAGED ALLOCATION ◆ EDITABLE</div>
 
 <script>
-  const ASSETS = ['usdc', 'sol', 'slash', 'apyx', 'spare2'];
+  // ====================== helpers ======================
+  const $ = id => document.getElementById(id);
+  const num = id => {
+    const v = parseFloat(($(id).value || '0').replace(/,/g, ''));
+    return isNaN(v) ? 0 : v;
+  };
+  function fmtYen(v) {
+    const sign = v < 0 ? '-' : '';
+    v = Math.abs(v);
+    const man = Math.round(v / 10000);
+    const oku = Math.floor(man / 10000), rem = man % 10000;
+    if (oku > 0) return sign + '¥' + oku.toLocaleString() + '億' + (rem ? rem.toLocaleString() + '万' : '');
+    return sign + '¥' + rem.toLocaleString() + '万';
+  }
+  const fmtPct = v => (v >= 0 ? '' : '') + v.toFixed(2) + '%';
+  const ASSETS = ['a1', 'a2', 'a3'];
 
-  function fmtYen(yen) {
-    if (yen === 0) return "¥0";
-    const oku = yen / 100_000_000;
-    const man = yen / 10_000;
-    if (Math.abs(yen) >= 100_000_000) {
-      return "¥" + oku.toFixed(2).replace(/\.?0+$/, '') + "億";
-    } else if (Math.abs(yen) >= 10_000) {
-      return "¥" + Math.round(man).toLocaleString() + "万";
-    } else {
-      return "¥" + yen.toLocaleString();
-    }
+  function fmtMoneyInput(el) {
+    const v = parseFloat((el.value || '').replace(/,/g, ''));
+    if (!isNaN(v)) el.value = Math.round(v).toLocaleString();
   }
-  function fmtPct(n, d = 2) { return n.toFixed(d) + "%"; }
-
-  // ============ Money input formatting ============
-  function formatCommas(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
-  function parseMoney(input) {
-    if (!input || input.value === undefined) return 0;
-    return +String(input.value).replace(/,/g, '') || 0;
-  }
-  function getMoneyById(id) {
-    return parseMoney(document.getElementById(id));
-  }
-  function setMoneyById(id, num) {
-    const el = document.getElementById(id);
-    if (el) el.value = formatCommas(num);
-  }
-  function handleMoneyInput(e) {
-    const input = e.target;
-    const start = input.selectionStart || 0;
-    const beforeText = input.value.substring(0, start);
-    const beforeDigits = (beforeText.match(/\d/g) || []).length;
-    const digits = input.value.replace(/\D/g, '');
-    const formatted = digits ? formatCommas(parseInt(digits, 10)) : '';
-    input.value = formatted;
-    // Restore cursor
-    let newPos = 0;
-    let digitCount = 0;
-    for (let i = 0; i < formatted.length; i++) {
-      if (digitCount === beforeDigits) { newPos = i; break; }
-      if (/\d/.test(formatted[i])) digitCount++;
-      if (i === formatted.length - 1) newPos = formatted.length;
-    }
-    try { input.setSelectionRange(newPos, newPos); } catch(_) {}
-  }
-  // Attach to all money inputs
-  document.querySelectorAll('.money-input').forEach(el => {
-    el.addEventListener('input', handleMoneyInput);
+  document.querySelectorAll('input.money').forEach(el => {
+    el.addEventListener('blur', () => { fmtMoneyInput(el); recalc(); });
   });
 
-  function getState() {
-    const s = {};
+  // ====================== recalc ======================
+  function levelCalc(allocKey, ddKey) {
+    const cap = num('in-capital');
+    const expenseY = num('in-expense') * 12;
+    let alphaSum = 0, ddAlphaSum = 0, allocSum = 0;
+    const rows = {};
     ASSETS.forEach(a => {
-      s[a] = {
-        amt: getMoneyById(`in-${a}-amt`),
-        y: +document.getElementById(`in-${a}-y`).value || 0,
-        b: +document.getElementById(`in-${a}-b`).value || 0
-      };
+      const alloc = num(`in-${a}-${allocKey}`);
+      const alpha = num(`in-${a}-alpha`);
+      const dd = num(`in-${a}-${ddKey}`);
+      const amt = cap * alloc / 100;
+      const yAlpha = amt * alpha / 100;
+      const yDdAlpha = amt * (1 + dd / 100) * alpha / 100;
+      alphaSum += yAlpha; ddAlphaSum += yDdAlpha; allocSum += alloc;
+      rows[a] = { alloc, amt, yAlpha, yDdAlpha };
     });
-    return s;
+    return { cap, expenseY, alphaSum, ddAlphaSum, allocSum, rows,
+             surplus: alphaSum - expenseY, ddSurplus: ddAlphaSum - expenseY };
   }
 
-  function setVerdict(el, ratio) {
-    el.className = 'verdict';
-    if (ratio === Infinity) { el.textContent = 'NO RISK'; }
-    else if (ratio >= 3) { el.textContent = 'EXCELLENT'; }
-    else if (ratio >= 2) { el.textContent = 'GOOD'; }
-    else if (ratio >= 1) { el.textContent = 'CAUTION'; el.classList.add('warn'); }
-    else { el.textContent = 'POOR'; el.classList.add('bad'); }
+  function diffSpan(v) {
+    const cls = v >= 0 ? 'pos' : 'neg';
+    return `<span class="${cls}">${v >= 0 ? '+' : ''}${fmtYen(v)}</span>`;
   }
 
   function recalc() {
-    const s = getState();
-    const total = ASSETS.reduce((sum, a) => sum + s[a].amt, 0);
+    // asset name echo (summer table mirrors winter names)
+    document.querySelectorAll('.asset-name').forEach(el => {
+      const echo = document.querySelector(`.asset-name-echo[data-a="${el.dataset.a}"]`);
+      if (echo) echo.textContent = el.textContent;
+    });
 
-    document.getElementById('alloc-total-badge').textContent = fmtYen(total);
-    document.getElementById('alloc-total').textContent = fmtYen(total);
-
-    const C = 2 * Math.PI * 55;
-    let offset = 0;
+    // ---- Winter ----
+    const w = levelCalc('walloc', 'wdd');
     ASSETS.forEach(a => {
-      const pct = total > 0 ? s[a].amt / total * 100 : 0;
-      const len = C * pct / 100;
-      const el = document.getElementById(`seg-${a}`);
-      el.setAttribute('stroke-dasharray', len + ' ' + C);
-      el.setAttribute('stroke-dashoffset', -offset);
-      offset += len;
+      $(`w-${a}-amt`).textContent = fmtYen(w.rows[a].amt);
+      $(`w-${a}-alpha`).textContent = fmtYen(w.rows[a].yAlpha);
+      $(`w-${a}-ddalpha`).textContent = fmtYen(w.rows[a].yDdAlpha);
+      $(`s-${a}-alpha-echo`).textContent = num(`in-${a}-alpha`) + '%';
+    });
+    $('w-alloc-sum').textContent = w.allocSum.toFixed(0) + '%';
+    $('w-alloc-warn').textContent = Math.abs(w.allocSum - 100) > 0.01 ? '⚠ 合計≠100%' : '';
+    $('w-amt-sum').textContent = fmtYen(w.cap * w.allocSum / 100);
+    $('w-alpha-sum').textContent = fmtYen(w.alphaSum);
+    $('w-ddalpha-sum').textContent = fmtYen(w.ddAlphaSum);
+    $('w-result').innerHTML =
+      `通常時:${fmtYen(w.alphaSum)}/年(経費 ${fmtYen(w.expenseY)} → ${diffSpan(w.surplus)}/年)<br>` +
+      `DD時:${fmtYen(w.ddAlphaSum)}/年(経費 ${fmtYen(w.expenseY)} → ${diffSpan(w.ddSurplus)}/年)`;
+
+    // ---- Summer levels ----
+    const beta = num('in-beta');
+    [['l1', 'l1-detail'], ['l2', 'l2-detail'], ['l3', 'l3-detail']].forEach(([lv, elId]) => {
+      const s = levelCalc(lv, 'sdd');
+      const onchainAmt = s.rows.a1.amt;
+      const betaGain = onchainAmt * beta / 100;
+      const betaPct = s.cap ? betaGain / s.cap * 100 : 0;
+      const warn = Math.abs(s.allocSum - 100) > 0.01 ? ' <span class="warn-100">⚠ 配分合計≠100%</span>' : '';
+      $(elId).innerHTML = `<div class="result-line">` +
+        `配分:オンチェーン ${s.rows.a1.alloc}%(${fmtYen(s.rows.a1.amt)})/ Slash ${s.rows.a2.alloc}%(${fmtYen(s.rows.a2.amt)})/ Apyx ${s.rows.a3.alloc}%(${fmtYen(s.rows.a3.amt)})${warn}<br>` +
+        `通常時 α:${fmtYen(s.alphaSum)}/年(経費 ${fmtYen(s.expenseY)} → ${diffSpan(s.surplus)}/年)<br>` +
+        `DD時 α:${fmtYen(s.ddAlphaSum)}/年(経費 ${fmtYen(s.expenseY)} → ${diffSpan(s.ddSurplus)}/年)<br>` +
+        `β 期待値:オンチェーン ${fmtYen(onchainAmt)} × +${beta}% = <strong>+${fmtYen(betaGain)}(元本 +${betaPct.toFixed(0)}% → ${fmtYen(s.cap + betaGain)})</strong>` +
+        `</div>`;
     });
 
-    let totalContrib = 0;
-    let totalBeta = 0;
+    // ---- Transition ops ----
+    const cap = num('in-capital');
+    const cols = ['walloc', 'l1', 'l2', 'l3'];
+    let html = '';
     ASSETS.forEach(a => {
-      const pct = total > 0 ? s[a].amt / total * 100 : 0;
-      const contribAlpha = pct * s[a].y / 100;
-      const contribBeta = pct * s[a].b / 100;
-      const contribTotal = contribAlpha + contribBeta;
-      totalContrib += contribAlpha;
-      totalBeta += contribBeta;
-      const annualCash = s[a].amt * s[a].y / 100;
-      const monthlyCash = annualCash / 12;
-      document.getElementById(`leg-${a}-pct`).textContent = pct.toFixed(1) + '%';
-      document.getElementById(`leg-${a}-amt`).textContent = fmtYen(s[a].amt);
-      // Show "weight% × (α+β)%" — both α and β reflected in calc and contrib
-      const sumYB = s[a].y + s[a].b;
-      document.getElementById(`row-${a}-calc`).textContent = `${pct.toFixed(1)}% × (${s[a].y}+${s[a].b})%`;
-      document.getElementById(`row-${a}-monthly`).textContent = fmtYen(monthlyCash) + '/月';
-      document.getElementById(`row-${a}-contrib`).textContent = '+' + fmtPct(contribTotal);
-      const edMonthly = document.getElementById(`ed-${a}-monthly`);
-      if (edMonthly) edMonthly.textContent = fmtYen(monthlyCash);
+      const name = document.querySelector(`.asset-name[data-a="${a}"]`).textContent;
+      const amts = cols.map(c => cap * num(`in-${a}-${c}`) / 100);
+      html += `<tr><td>${name}</td>` +
+        amts.map(v => `<td>${fmtYen(v)}</td>`).join('') +
+        [1, 2, 3].map(i => {
+          const d = amts[i] - amts[i - 1];
+          const s = d > 0 ? `<span class="pos">+${fmtYen(d)} 買</span>` : d < 0 ? `<span class="neg">${fmtYen(d)} 売</span>` : '—';
+          return `<td>${s}</td>`;
+        }).join('') + `</tr>`;
     });
-    const totalCashAlpha   = total * totalContrib / 100;
-    const totalCashBeta    = total * totalBeta / 100;
-    const totalCashTotal   = totalCashAlpha + totalCashBeta;
-    const totalMonthlyAlpha = totalCashAlpha / 12;
-    const totalMonthlyBeta  = totalCashBeta / 12;
-    const totalMonthlyTotal = totalCashTotal / 12;
-    const totalAlphaBeta    = totalContrib + totalBeta;
+    $('op-body').innerHTML = html;
 
-    // Three-cell headline
-    document.getElementById('tot-alpha').textContent     = fmtPct(totalContrib);
-    document.getElementById('tot-alpha-cash').textContent = fmtYen(totalCashAlpha) + ' / 年 (月 ' + fmtYen(totalMonthlyAlpha) + ')';
-    document.getElementById('tot-beta').textContent      = fmtPct(totalBeta);
-    document.getElementById('tot-beta-cash').textContent  = fmtYen(totalCashBeta) + ' / 年 (月 ' + fmtYen(totalMonthlyBeta) + ')';
-    document.getElementById('tot-yield').textContent     = fmtPct(totalAlphaBeta);
-    document.getElementById('tot-cash').textContent       = fmtYen(totalCashTotal) + ' / 年 (月 ' + fmtYen(totalMonthlyTotal) + ')';
-
-    // Income table total row (preserve readability)
-    document.getElementById('row-total-calc').textContent    = 'α ' + fmtPct(totalContrib) + ' + β ' + fmtPct(totalBeta);
-    document.getElementById('row-total-monthly').textContent = fmtYen(totalMonthlyAlpha) + '/月 (α実現)';
-    document.getElementById('row-total-contrib').textContent = fmtPct(totalAlphaBeta);
-    document.getElementById('alloc-yield').textContent = '合計 α ' + fmtPct(totalContrib);
-    document.getElementById('alloc-beta').textContent = '合計 α+β ' + fmtPct(totalAlphaBeta);
-    document.getElementById('alloc-monthly').textContent = '月額 ' + fmtYen(totalMonthly);
-    const kgiNote = document.getElementById('kgi1-note');
-    if (kgiNote) kgiNote.textContent = `α ${fmtPct(totalContrib)} / 月額 ${fmtYen(totalMonthly)} / α+β ${fmtPct(totalAlphaBeta)}`;
-
-    // Planner
-    let runningAssets = {};
-    ASSETS.forEach(a => { runningAssets[a] = s[a].amt; });
-    let runningTotal = total;
-
-    for (let i = 1; i <= 8; i++) {
-      const row = document.querySelector(`.planner-row[data-row="${i}"]`);
-      const amt = parseMoney(row.querySelector('.p-amount'));
-      const pctInputs = row.querySelectorAll('.p-pct');
-      let pctSum = 0;
-      const pcts = {};
-      pctInputs.forEach(inp => {
-        const a = inp.dataset.asset;
-        const v = +inp.value || 0;
-        pcts[a] = v;
-        pctSum += v;
-      });
-      // Visual warning if sum != 100
-      pctInputs.forEach(inp => {
-        inp.classList.toggle('pct-warn', amt > 0 && Math.abs(pctSum - 100) > 0.01);
-      });
-
-      // Status logic:
-      //   amt=0 OR pctSum=0          → "—" (not filled in)
-      //   amt>0 AND pctSum≈100        → compute
-      //   amt>0 AND pctSum>0 AND ≠100 → "合計≠100%" (partial / error)
-      const isComplete = amt > 0 && Math.abs(pctSum - 100) < 0.01;
-      const isPartial  = amt > 0 && pctSum > 0 && Math.abs(pctSum - 100) >= 0.01;
-      if (isComplete) {
-        runningTotal += amt;
-        ASSETS.forEach(a => {
-          runningAssets[a] += amt * (pcts[a] || 0) / 100;
-        });
-        let newContrib = 0;
-        ASSETS.forEach(a => {
-          const w = runningAssets[a] / runningTotal * 100;
-          newContrib += w * (s[a].y + s[a].b) / 100;
-        });
-        const newCash = runningTotal * newContrib / 100;
-        const newMonthly = newCash / 12;
-        row.querySelector('.cumul').textContent = fmtYen(runningTotal);
-        row.querySelector('.yield').textContent = fmtPct(newContrib);
-        row.querySelector('.monthly-cash').textContent = fmtYen(newMonthly);
-        row.classList.remove('empty');
-      } else if (isPartial) {
-        row.querySelector('.cumul').textContent = '合計≠100%';
-        row.querySelector('.yield').textContent = '—';
-        row.querySelector('.monthly-cash').textContent = '—';
-        row.classList.add('empty');
-      } else {
-        row.querySelector('.cumul').textContent = '—';
-        row.querySelector('.yield').textContent = '—';
-        row.querySelector('.monthly-cash').textContent = '—';
-        row.classList.add('empty');
-      }
-    }
-
-    // ============ Actuals vs Expected ============
-    document.querySelectorAll('.actuals-row').forEach(row => {
-      let actualTotal = 0;
-      let hasData = false;
-      row.querySelectorAll('.act-asset').forEach(input => {
-        const v = parseMoney(input);
-        actualTotal += v;
-        if (v > 0) hasData = true;
-      });
-      // Expected = current total monthly cash from simulation
-      const expected = totalMonthly;
-      row.querySelector('.act-total').textContent = hasData ? fmtYen(actualTotal) : '—';
-      row.querySelector('.act-expected').textContent = expected > 0 ? fmtYen(expected) : '—';
-      const rateEl = row.querySelector('.act-rate');
-      if (hasData && expected > 0) {
-        const rate = actualTotal / expected * 100;
-        rateEl.textContent = rate.toFixed(0) + '%';
-        rateEl.className = 'act-rate';
-        if (rate >= 100) rateEl.classList.add('good');
-        else if (rate >= 85) rateEl.classList.add('warn');
-        else rateEl.classList.add('bad');
-        row.classList.add('has-data');
-      } else {
-        rateEl.textContent = '—';
-        rateEl.className = 'act-rate';
-        row.classList.remove('has-data');
-      }
-    });
+    // ---- regime mapping table echo ----
+    const allocStr = k => ASSETS.map(a => {
+      const name = document.querySelector(`.asset-name[data-a="${a}"]`).textContent;
+      return `${name.slice(0, 8)} ${num(`in-${a}-${k}`)}%`;
+    }).join(' / ');
+    $('map-w').textContent = allocStr('walloc');
+    $('map-l1').textContent = allocStr('l1');
+    $('map-l2').textContent = allocStr('l2');
+    $('map-l3').textContent = allocStr('l3');
   }
 
-  document.querySelectorAll('input[type=number], .money-input').forEach(el => {
-    el.addEventListener('input', recalc);
-  });
-
-  document.getElementById('btn-reset').addEventListener('click', async () => {
-    if (!confirm('全員の編集を初期化します。\n他のチームメンバーの編集も失われます。\n本当に実行しますか?')) return;
-    // Reset values locally
-    setMoneyById('in-usdc-amt', 100000000);
-    document.getElementById('in-usdc-y').value = 15;
-    document.getElementById('in-usdc-b').value = 0;
-    setMoneyById('in-sol-amt', 50000000);
-    document.getElementById('in-sol-y').value = 8;
-    document.getElementById('in-sol-b').value = 50;
-    setMoneyById('in-slash-amt', 20000000);
-    document.getElementById('in-slash-y').value = 50;
-    document.getElementById('in-slash-b').value = 0;
-    setMoneyById('in-apyx-amt', 100000000);
-    document.getElementById('in-apyx-y').value = 15;
-    document.getElementById('in-apyx-b').value = 0;
-    setMoneyById('in-spare2-amt', 0);
-    document.getElementById('in-spare2-y').value = 0;
-    document.getElementById('in-spare2-b').value = 0;
-    recalc();
-    // Save reset state to server, then reload to also reset contenteditable text
-    await saveStateToServer();
-    setTimeout(() => location.reload(), 300);
-  });
-
-  document.getElementById('btn-print').addEventListener('click', () => window.print());
-
-  // ============ Auto-update HYPE & SOL β from Polymarket ============
-  // Set asset → URL mapping. Leave empty string '' to disable.
-  // See treasury-predictions/README.md for setup.
-  const PREDICTIONS = {
-    sol:  'https://raw.githubusercontent.com/okihisashi/Treasury-predictions/main/predictions/sol.json'
-  };
-
-  async function loadAssetBeta(assetKey, manual = false) {
-    const url = PREDICTIONS[assetKey];
-    const statusEl = document.getElementById(`pred-status-${assetKey}`);
-    const tsEl = document.getElementById(`pred-timestamp-${assetKey}`);
-    if (!url) {
-      if (statusEl && manual) statusEl.textContent = `PREDICTIONS[${assetKey}] が空。設定してください。`;
-      return;
-    }
-    if (statusEl) statusEl.textContent = '取得中…';
-    console.log(`[β-update:${assetKey}] fetching ${url}`);
+  // ====================== regime panel ======================
+  const REGIME_URL = 'https://raw.githubusercontent.com/okihisashi/Treasury-predictions/main/predictions/regime.json';
+  async function loadRegime() {
     try {
-      const fetchUrl = manual ? `${url}?t=${Date.now()}` : url;
-      const r = await fetch(fetchUrl, { cache: manual ? 'no-cache' : 'default' });
-      console.log(`[β-update:${assetKey}] response ${r.status}`);
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const data = await r.json();
-      console.log(`[β-update:${assetKey}] data:`, {
-        beta: data.beta_annualized_pct,
-        spot: data.current_price_usd,
-        updated_at: data.updated_at
+      const r = await fetch(REGIME_URL + '?t=' + Date.now(), { cache: 'no-cache' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const d = await r.json();
+      $('regime-headline').textContent = `${d.regime}(冬シグナル ${d.winter_count}/${d.valid_count} → 冬確信度 ${d.confidence_pct}%)`;
+      $('regime-headline').style.color = d.regime === '冬' ? '#7fb3d5' : 'var(--summer)';
+      const grid = $('regime-grid');
+      grid.innerHTML = '';
+      d.indicators.forEach(ind => {
+        const el = document.createElement('div');
+        el.className = 'regime-cell';
+        el.style.borderLeftColor = ind.ok ? (ind.winter ? '#7fb3d5' : '#d4a04a') : '#666';
+        const tag = ind.ok ? (ind.winter ? '❄ 冬' : '☀ 夏') : '— N/A';
+        el.innerHTML = `<span class="nm">${ind.name}</span><span class="tag">${tag}</span><br><span class="vl">${ind.value}</span>`;
+        grid.appendChild(el);
       });
-      const beta = Math.round(data.beta_annualized_pct);
-      const input = document.getElementById(`in-${assetKey}-b`);
-      if (input) input.value = beta;
-      const updated = new Date(data.updated_at);
-      const ageHrs = (Date.now() - updated.getTime()) / (1000 * 60 * 60);
-      if (statusEl) {
-        statusEl.innerHTML = `β = <strong style="color: var(--paper);">${beta}%</strong> ` +
-          `(spot $${data.current_price_usd}, E[price] $${data.expected_price_usd}, ` +
-          `${data.months_to_resolution}ヶ月先)`;
-      }
-      const fetchedAt = new Date().toLocaleTimeString('ja-JP');
-      if (tsEl) tsEl.textContent = `データ更新: ${updated.toLocaleString('ja-JP')} (${ageHrs.toFixed(1)}h前) | 取得: ${fetchedAt}`;
-    } catch (err) {
-      if (statusEl) statusEl.textContent = `自動更新失敗: ${err.message} — 手動値を使用`;
-      if (tsEl) tsEl.textContent = '';
-      console.warn(`loadAssetBeta(${assetKey}) error:`, err);
+      $('regime-reco').innerHTML = `推奨: <span class="reco-strong">${d.recommended}</span>`;
+      const upd = new Date(d.updated_at);
+      $('regime-ts').textContent = `データ更新: ${upd.toLocaleString('ja-JP')} (${((Date.now() - upd.getTime()) / 3600000).toFixed(1)}h前)`;
+    } catch (e) {
+      $('regime-headline').textContent = '取得失敗: ' + e.message;
+      $('regime-headline').style.color = 'var(--danger)';
     }
   }
 
-  async function loadAllPredictions(manual = false) {
-    console.log('[β-update] loadAllPredictions called, manual=' + manual);
-    const btn = document.getElementById('btn-refresh-pred');
-    const originalText = btn ? btn.textContent : '';
-    if (manual && btn) {
-      btn.disabled = true;
-      btn.textContent = '更新中…';
-      btn.style.opacity = '0.6';
-    }
-    const keys = Object.keys(PREDICTIONS).filter(k => PREDICTIONS[k]);
-    console.log('[β-update] keys to fetch:', keys);
-    const results = await Promise.allSettled(keys.map(k => loadAssetBeta(k, manual)));
-    console.log('[β-update] all results:', results.map(r => r.status));
-    recalc();
-    if (manual && btn) {
-      const successCount = results.filter(r => r.status === 'fulfilled').length;
-      btn.textContent = successCount === keys.length
-        ? `✓ 更新完了 ${new Date().toLocaleTimeString('ja-JP')}`
-        : `⚠ ${successCount}/${keys.length} 成功`;
-      btn.style.opacity = '1';
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.disabled = false;
-      }, 2500);
-    }
+  // ====================== persistence (server-backed) ======================
+  const PAGE_TAG = 'portfolio-bb';
+  let currentSha = null, saveTimer = null, isRestoring = false, saveInFlight = false, pendingSave = false;
+  let isReadonly = false, editorEmail = '';
+  const SAVE_DEBOUNCE_MS = 2000;
+
+  function showSaveStatus(text, color = 'var(--accent-soft)') {
+    const el = $('save-status'); if (!el) return;
+    el.textContent = text; el.style.color = color;
   }
-
-  // Expose globally so inline onclick can reach it
-  window.refreshPredictions = () => loadAllPredictions(true);
-
-  // Also attach via addEventListener for robustness
-  const refreshBtn = document.getElementById('btn-refresh-pred');
-  if (refreshBtn) {
-    refreshBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      console.log('[β-update] button clicked via addEventListener');
-      loadAllPredictions(true);
-    });
-  } else {
-    console.error('[β-update] btn-refresh-pred not found!');
-  }
-
-
-  // ====================== Persistence (server-backed via /api/state) ======================
-  let currentSha = null;
-  let saveTimer  = null;
-  let isRestoring = false;
-  let saveInFlight = false;
-  let pendingSave = false;
-  let isReadonly = false;       // true for non-editors — disables saving & UI editing
-  let editorEmail = '';         // shown in the read-only banner
 
   async function loadWhoAmI() {
     try {
       const r = await fetch('/api/whoami', { cache: 'no-cache' });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const data = await r.json();
-      editorEmail = data.editor_email || '';
-      isReadonly = !data.is_editor;
-      return data;
-    } catch (err) {
-      console.warn('whoami failed:', err);
-      isReadonly = true; // fail-closed: if we can't determine, assume readonly
-      return { is_editor: false };
-    }
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const d = await r.json();
+      editorEmail = d.editor_email || '';
+      isReadonly = !d.is_editor;
+    } catch (e) { isReadonly = true; }
   }
 
   function applyReadonlyMode() {
     if (!isReadonly) return;
     document.body.classList.add('readonly-mode');
-    // Disable all inputs (visually + functionally)
-    document.querySelectorAll('input, textarea').forEach(el => {
-      el.setAttribute('readonly', 'readonly');
-      el.setAttribute('tabindex', '-1');
-    });
-    // Strip contenteditable
-    document.querySelectorAll('[contenteditable="true"]').forEach(el => {
-      el.setAttribute('contenteditable', 'false');
-    });
-    // Hide edit-only buttons
-    ['btn-import', 'btn-reset'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'none';
-    });
-    // Replace save status with read-only marker
-    const ss = document.getElementById('save-status');
-    if (ss) {
-      ss.textContent = '🔒 閲覧のみ';
-      ss.style.color = 'var(--ink-faint)';
-    }
-    // Banner at top of body
+    document.querySelectorAll('input').forEach(el => { el.setAttribute('readonly', 'readonly'); el.setAttribute('tabindex', '-1'); });
+    document.querySelectorAll('[contenteditable="true"]').forEach(el => el.setAttribute('contenteditable', 'false'));
+    const rb = $('btn-reset'); if (rb) rb.style.display = 'none';
+    showSaveStatus('🔒 閲覧のみ(編集者: ' + editorEmail + ')', 'var(--ink-faint)');
     const banner = document.createElement('div');
-    banner.id = 'readonly-banner';
-    banner.style.cssText = 'background:#3a2a1a;color:#e8b886;padding:8px 20px;text-align:center;font-size:12px;font-family:"JetBrains Mono",monospace;border-bottom:1px solid #5c4332;letter-spacing:0.05em;';
-    banner.innerHTML = '🔒 READ ONLY — 編集権限なし(編集者: <strong>' + editorEmail + '</strong>)';
+    banner.style.cssText = 'background:#3a2a1a;color:#e8b886;padding:8px 20px;text-align:center;font-size:12px;font-family:"JetBrains Mono",monospace;letter-spacing:0.05em;margin:-32px -48px 20px;';
+    banner.textContent = '🔒 READ ONLY — 編集権限なし';
     document.body.insertBefore(banner, document.body.firstChild);
   }
 
-  const SAVE_DEBOUNCE_MS = 2000;  // bunch up rapid edits before committing
-
-  function showSaveStatus(text, color = 'var(--accent-soft)') {
-    const el = document.getElementById('save-status');
-    if (!el) return;
-    el.textContent = text;
-    el.style.color = color;
-  }
-
   function captureState() {
-    const state = { _v: 1, _ts: new Date().toISOString() };
-    document.querySelectorAll('input[id]').forEach(el => {
-      state[`#${el.id}`] = el.value;
-    });
-    document.querySelectorAll('.planner-row').forEach(row => {
-      const r = row.getAttribute('data-row');
-      row.querySelectorAll('input').forEach(input => {
-        if (input.classList.contains('p-month'))       state[`p${r}_month`]  = input.value;
-        else if (input.classList.contains('p-amount')) state[`p${r}_amount`] = input.value;
-        else if (input.classList.contains('p-memo'))   state[`p${r}_memo`]   = input.value;
-        else if (input.classList.contains('p-pct'))    state[`p${r}_pct_${input.dataset.asset}`] = input.value;
-      });
-    });
-    document.querySelectorAll('.actuals-row').forEach(row => {
-      const m = row.getAttribute('data-month');
-      row.querySelectorAll('input.act-asset').forEach(input => {
-        state[`act_${m}_${input.dataset.asset}`] = input.value;
-      });
-    });
-    document.querySelectorAll('[contenteditable="true"]').forEach((el, idx) => {
-      state[`edit_${idx}`] = el.innerHTML;
-    });
+    const state = { _v: 1, _page: PAGE_TAG, _ts: new Date().toISOString() };
+    document.querySelectorAll('input[id]').forEach(el => { state['#' + el.id] = el.value; });
+    document.querySelectorAll('[contenteditable="true"]').forEach((el, i) => { state['edit_' + i] = el.innerHTML; });
     return state;
   }
 
   function applyState(state) {
+    if (!state || state._page !== PAGE_TAG) return; // ignore old-dashboard state
     isRestoring = true;
     try {
       Object.keys(state).forEach(key => {
-        if (key.startsWith('_')) return;
         if (key.startsWith('#')) {
           const el = document.getElementById(key.slice(1));
           if (el && 'value' in el) el.value = state[key];
           return;
         }
-        let m = key.match(/^p(\d+)_(month|amount|memo)$/);
+        const m = key.match(/^edit_(\d+)$/);
         if (m) {
-          const row = document.querySelector(`.planner-row[data-row="${m[1]}"]`);
-          if (row) {
-            const el = row.querySelector('.p-' + m[2]);
-            if (el) el.value = state[key];
-          }
-          return;
-        }
-        m = key.match(/^p(\d+)_pct_(.+)$/);
-        if (m) {
-          const row = document.querySelector(`.planner-row[data-row="${m[1]}"]`);
-          if (row) {
-            const el = row.querySelector(`.p-pct[data-asset="${m[2]}"]`);
-            if (el) el.value = state[key];
-          }
-          return;
-        }
-        m = key.match(/^act_(\d{4}-\d{2})_(.+)$/);
-        if (m) {
-          const el = document.querySelector(`.actuals-row[data-month="${m[1]}"] input[data-asset="${m[2]}"]`);
-          if (el) el.value = state[key];
-          return;
-        }
-        m = key.match(/^edit_(\d+)$/);
-        if (m) {
-          const idx = parseInt(m[1], 10);
           const els = document.querySelectorAll('[contenteditable="true"]');
-          if (els[idx]) els[idx].innerHTML = state[key];
-          return;
+          if (els[+m[1]]) els[+m[1]].innerHTML = state[key];
         }
       });
-    } catch (e) { console.warn('applyState failed:', e); }
+    } catch (e) { console.warn(e); }
     isRestoring = false;
   }
 
@@ -1917,55 +452,41 @@
     showSaveStatus('読み込み中...');
     try {
       const r = await fetch('/api/state', { cache: 'no-cache' });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
       const data = await r.json();
       currentSha = data.sha;
-      if (data.state) {
+      if (data.state && data.state._page === PAGE_TAG) {
         applyState(data.state);
         showSaveStatus('✓ 最新を読み込み済み');
-        return true;
       } else {
-        showSaveStatus('(初期状態 — まだ何も保存されていません)');
-        return false;
+        showSaveStatus('(初期状態)');
       }
-    } catch (err) {
-      showSaveStatus(`読み込み失敗: ${err.message}`, 'var(--danger)');
-      console.warn('loadStateFromServer error:', err);
-      return false;
-    }
+    } catch (e) { showSaveStatus('読み込み失敗: ' + e.message, 'var(--danger)'); }
   }
 
   async function saveStateToServer() {
-    if (isRestoring) return;
-    if (isReadonly) return;
+    if (isRestoring || isReadonly) return;
     if (saveInFlight) { pendingSave = true; return; }
     saveInFlight = true;
     showSaveStatus('保存中...');
     try {
-      const state = captureState();
       const r = await fetch('/api/state', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ state, sha: currentSha })
+        body: JSON.stringify({ state: captureState(), sha: currentSha })
       });
       if (r.status === 409) {
-        showSaveStatus('⚠ 他の人が編集中。ページを再読み込みします...', 'var(--danger)');
+        showSaveStatus('⚠ 他の人が編集中。再読み込みします...', 'var(--danger)');
         setTimeout(() => location.reload(), 2000);
         return;
       }
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const data = await r.json();
-      currentSha = data.sha;
-      showSaveStatus(`✓ 保存済み ${new Date().toLocaleTimeString('ja-JP')}`);
-    } catch (err) {
-      showSaveStatus(`保存失敗: ${err.message}`, 'var(--danger)');
-      console.warn('saveStateToServer error:', err);
-    } finally {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      currentSha = (await r.json()).sha;
+      showSaveStatus('✓ 保存済み ' + new Date().toLocaleTimeString('ja-JP'));
+    } catch (e) { showSaveStatus('保存失敗: ' + e.message, 'var(--danger)'); }
+    finally {
       saveInFlight = false;
-      if (pendingSave) {
-        pendingSave = false;
-        debouncedSave();
-      }
+      if (pendingSave) { pendingSave = false; debouncedSave(); }
     }
   }
 
@@ -1975,132 +496,35 @@
     saveTimer = setTimeout(saveStateToServer, SAVE_DEBOUNCE_MS);
   }
 
-  // ============ Export / Import (local file backup, independent of server) ============
-  function exportState() {
-    const state = captureState();
-    const blob  = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-    const url   = URL.createObjectURL(blob);
-    const a     = document.createElement('a');
-    const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
-    a.href = url;
-    a.download = `treasury-state-${stamp}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
+  document.body.addEventListener('input', () => { if (!isRestoring) { recalc(); debouncedSave(); } });
+  document.body.addEventListener('blur', e => { if (e.target.isContentEditable && !isRestoring) { recalc(); debouncedSave(); } }, true);
 
-  function importStateFromFile(file) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      try {
-        const state = JSON.parse(e.target.result);
-        applyState(state);
-        recalc();
-        saveStateToServer();  // push to server immediately
-        alert('インポート完了 — サーバーに保存しました');
-      } catch (err) {
-        alert('インポート失敗: ' + err.message);
-      }
+  $('btn-reset').addEventListener('click', async () => {
+    if (!confirm('全員の編集を初期化します。本当に実行しますか?')) return;
+    const defaults = {
+      'in-capital': '500,000,000', 'in-expense': '5,000,000', 'in-beta': '300',
+      'in-a1-walloc': '15', 'in-a2-walloc': '4', 'in-a3-walloc': '81',
+      'in-a1-alpha': '6', 'in-a2-alpha': '30', 'in-a3-alpha': '13',
+      'in-a1-wdd': '-70', 'in-a2-wdd': '-20', 'in-a3-wdd': '-5',
+      'in-a1-sdd': '-40', 'in-a2-sdd': '-20', 'in-a3-sdd': '-5',
+      'in-a1-l1': '50', 'in-a2-l1': '4', 'in-a3-l1': '46',
+      'in-a1-l2': '65', 'in-a2-l2': '4', 'in-a3-l2': '31',
+      'in-a1-l3': '80', 'in-a2-l3': '4', 'in-a3-l3': '16'
     };
-    reader.readAsText(file);
-  }
-
-  document.body.addEventListener('input', () => {
-    if (isRestoring) return;
-    debouncedSave();
-  });
-  document.body.addEventListener('blur', (e) => {
-    if (e.target.isContentEditable && !isRestoring) debouncedSave();
-  }, true);
-
-  document.getElementById('btn-export').addEventListener('click', exportState);
-  document.getElementById('btn-import').addEventListener('click', () => {
-    document.getElementById('import-file').click();
-  });
-  document.getElementById('import-file').addEventListener('change', (e) => {
-    if (e.target.files[0]) importStateFromFile(e.target.files[0]);
-    e.target.value = '';
+    Object.keys(defaults).forEach(id => { const el = $(id); if (el) el.value = defaults[id]; });
+    recalc();
+    await saveStateToServer();
+    setTimeout(() => location.reload(), 300);
   });
 
-  // ============ 季節判定 (regime.json) ============
-  const REGIME_URL = 'https://raw.githubusercontent.com/okihisashi/Treasury-predictions/main/predictions/regime.json';
-
-  async function loadRegime() {
-    const headline = document.getElementById('regime-headline');
-    const grid = document.getElementById('regime-indicators');
-    const rec = document.getElementById('regime-recommend');
-    const ts = document.getElementById('regime-timestamp');
-    try {
-      const r = await fetch(REGIME_URL + '?t=' + Date.now(), { cache: 'no-cache' });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      const d = await r.json();
-
-      headline.textContent = `${d.regime}(冬シグナル ${d.winter_count}/${d.valid_count} → 冬確信度 ${d.confidence_pct}%)`;
-      headline.style.color = d.regime === '冬' ? '#7fb3d5' : 'var(--accent-soft)';
-
-      grid.innerHTML = '';
-      d.indicators.forEach(ind => {
-        const el = document.createElement('div');
-        el.style.cssText = 'padding:5px 8px;background:rgba(0,0,0,0.25);border-left:2px solid ' +
-          (ind.ok ? (ind.winter ? '#7fb3d5' : '#d4a04a') : '#666') + ';';
-        const tag = ind.ok ? (ind.winter ? '❄ 冬' : '☀ 夏') : '— N/A';
-        el.innerHTML = `<span style="color:var(--paper-deep);">${ind.name}</span><br>` +
-          `<span style="color:var(--paper);font-family:'JetBrains Mono',monospace;font-size:10px;">${ind.value}</span> ` +
-          `<strong style="float:right;">${tag}</strong>`;
-        grid.appendChild(el);
-      });
-
-      rec.innerHTML = `推奨: <strong style="color: var(--paper);">${d.recommended}</strong>`;
-      const upd = new Date(d.updated_at);
-      const ageH = ((Date.now() - upd.getTime()) / 3600000).toFixed(1);
-      ts.textContent = `データ更新: ${upd.toLocaleString('ja-JP')} (${ageH}h前)`;
-    } catch (e) {
-      headline.textContent = '取得失敗: ' + e.message + '(regime.json 未生成の可能性)';
-      headline.style.color = 'var(--danger)';
-    }
-  }
-
-  // Page-load sequence:
-  //   1. whoami (decide editor vs readonly)
-  //   2. state.json restore (before Polymarket so saved values don't clobber fresh β)
-  //   3. recalc
-  //   4. Polymarket β (overrides saved β with latest data)
-  //   5. apply readonly mode AFTER all loads (so listeners are set up and DOM is final)
+  // ====================== page load ======================
   (async () => {
     await loadWhoAmI();
     await loadStateFromServer();
     recalc();
-    await loadAllPredictions(false);
     loadRegime();
     applyReadonlyMode();
   })();
-
-  // contenteditable
-  const EDITABLE = [
-    'h1.title', '.eyebrow', '.meta strong',
-    '.lead',
-    '.section-title > span:first-child', '.section-title .sub',
-    '.income-headline .lbl',
-    '.kgi-row .label-jp', '.kgi-row .target',
-    '.footer-band',
-    '.editor-head h2', '.editor-head .sub',
-    '.editor-section h3',
-    '.field label', '.col-head div',
-    '.planner-col-head div',
-    '.income-row .name',
-    '.alloc-item .name',
-    '.actuals-col-head div'
-  ];
-  EDITABLE.forEach(sel => {
-    document.querySelectorAll(sel).forEach(el => {
-      el.setAttribute('contenteditable', 'true');
-      el.setAttribute('spellcheck', 'false');
-    });
-  });
-
-  recalc();
 </script>
-
 </body>
 </html>
