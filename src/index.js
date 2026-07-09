@@ -1,11 +1,9 @@
-// Cloudflare Worker: serves static dashboard + state API backed by GitHub
-// Access control:
-//   - Read access (GET /api/state, GET /, etc.): any authenticated user (via Cloudflare Access policy)
-//   - Write access (PUT /api/state): only env.EDITOR_EMAIL
+// Cloudflare Worker: static dashboard + state API + regime proxy (GitHub-backed)
 
 const GITHUB_API = 'https://api.github.com';
 const REPO       = 'okihisashi/Treasury-predictions';
 const STATE_PATH = 'state.json';
+const REGIME_PATH = 'predictions/regime.json';
 const BRANCH     = 'main';
 
 export default {
@@ -18,19 +16,16 @@ export default {
 
     try {
       if (path === '/api/whoami' && method === 'GET') {
-        return jsonResponse({
-          email: userEmail,
-          editor_email: env.EDITOR_EMAIL || '',
-          is_editor: isEditor
-        });
+        return jsonResponse({ email: userEmail, editor_email: env.EDITOR_EMAIL || '', is_editor: isEditor });
+      }
+      if (path === '/api/regime' && method === 'GET') {
+        return await loadFile(env, REGIME_PATH);
       }
       if (path === '/api/state' && method === 'GET') {
         return await loadState(env);
       }
       if (path === '/api/state' && method === 'PUT') {
-        if (!isEditor) {
-          return jsonResponse({ error: 'forbidden', reason: 'read-only access' }, 403);
-        }
+        if (!isEditor) return jsonResponse({ error: 'forbidden', reason: 'read-only access' }, 403);
         return await saveState(request, env);
       }
     } catch (err) {
@@ -41,70 +36,63 @@ export default {
   }
 };
 
-async function loadState(env) {
-  const r = await fetch(
-    `${GITHUB_API}/repos/${REPO}/contents/${STATE_PATH}?ref=${BRANCH}`,
-    {
-      headers: {
-        'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
-        'User-Agent': 'treasury-dashboard',
-        'Accept': 'application/vnd.github.v3+json'
-      }
+async function ghGet(env, filePath) {
+  const r = await fetch(`${GITHUB_API}/repos/${REPO}/contents/${filePath}?ref=${BRANCH}`, {
+    headers: {
+      'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
+      'User-Agent': 'treasury-dashboard',
+      'Accept': 'application/vnd.github.v3+json'
     }
-  );
+  });
+  return r;
+}
+
+async function loadFile(env, filePath) {
+  const r = await ghGet(env, filePath);
+  if (r.status === 404) return jsonResponse({ error: 'not found' }, 404);
+  if (!r.ok) throw new Error(`GitHub GET ${r.status}`);
+  const data = await r.json();
+  return new Response(decodeBase64(data.content), {
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=120' }
+  });
+}
+
+async function loadState(env) {
+  const r = await ghGet(env, STATE_PATH);
   if (r.status === 404) return jsonResponse({ state: null, sha: null });
-  if (!r.ok) {
-    const txt = await r.text();
-    throw new Error(`GitHub GET ${r.status}: ${txt.slice(0,200)}`);
-  }
-  const data    = await r.json();
-  const content = decodeBase64(data.content);
-  const state   = JSON.parse(content);
+  if (!r.ok) throw new Error(`GitHub GET ${r.status}`);
+  const data = await r.json();
+  const state = JSON.parse(decodeBase64(data.content));
   return jsonResponse({ state, sha: data.sha });
 }
 
 async function saveState(request, env) {
-  const body = await request.json();
-  const { state, sha } = body;
+  const { state, sha } = await request.json();
   if (!state) return jsonResponse({ error: 'state is required' }, 400);
-
   const payload = {
     message: `Update dashboard state ${new Date().toISOString()}`,
     content: encodeBase64(JSON.stringify(state, null, 2)),
-    branch:  BRANCH
+    branch: BRANCH
   };
   if (sha) payload.sha = sha;
-
-  const r = await fetch(
-    `${GITHUB_API}/repos/${REPO}/contents/${STATE_PATH}`,
-    {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
-        'User-Agent': 'treasury-dashboard',
-        'Accept': 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    }
-  );
-
-  if (r.status === 409 || r.status === 422) {
-    return jsonResponse({ error: 'conflict' }, 409);
-  }
-  if (!r.ok) {
-    const txt = await r.text();
-    throw new Error(`GitHub PUT ${r.status}: ${txt.slice(0,200)}`);
-  }
+  const r = await fetch(`${GITHUB_API}/repos/${REPO}/contents/${STATE_PATH}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
+      'User-Agent': 'treasury-dashboard',
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+  if (r.status === 409 || r.status === 422) return jsonResponse({ error: 'conflict' }, 409);
+  if (!r.ok) throw new Error(`GitHub PUT ${r.status}`);
   const data = await r.json();
   return jsonResponse({ sha: data.content.sha });
 }
 
 function jsonResponse(obj, status = 200) {
-  return new Response(JSON.stringify(obj), {
-    status,
-    headers: { 'Content-Type': 'application/json' }
-  });
+  return new Response(JSON.stringify(obj), { status, headers: { 'Content-Type': 'application/json' } });
 }
 
 function encodeBase64(str) {
