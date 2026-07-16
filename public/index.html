@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>資産運用ポートフォリオ設計 / REV.RR</title>
+<title>資産運用ポートフォリオ設計 / REV.SS</title>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -108,7 +108,7 @@
 </head>
 <body>
 
-<div class="eyebrow">PORTFOLIO DESIGN / REV.RR <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
+<div class="eyebrow">PORTFOLIO DESIGN / REV.SS <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
 <h1 class="title">資産運用 <em>ポートフォリオ設計</em></h1>
 <div class="title-rule"></div>
 
@@ -200,7 +200,7 @@
         <td>合計 <span class="warn-100" id="w-alloc-warn"></span></td>
         <td id="w-alloc-sum">—</td>
         <td id="w-amt-sum">—</td>
-        <td></td>
+        <td id="w-alphapct-sum">—</td>
         <td id="w-alpha-sum">—</td>
       </tr>
     </tbody>
@@ -333,7 +333,7 @@
         <td>合計 <span class="warn-100" id="s-alloc-warn"></span></td>
         <td id="s-alloc-sum">—</td>
         <td id="s-amt-sum">—</td>
-        <td></td>
+        <td id="s-alphapct-sum">—</td>
         <td id="s-alpha-sum">—</td>
       </tr>
     </tbody>
@@ -419,6 +419,9 @@
     $(`${prefix}-alloc-warn`).textContent = Math.abs(s.allocSum - 100) > 0.01 ? '⚠ 合計≠100%' : '';
     $(`${prefix}-amt-sum`).textContent = fmtYen(s.cap * s.allocSum / 100);
     $(`${prefix}-alpha-sum`).textContent = fmtYen(s.alphaSum);
+    const wAlphaPct = s.cap > 0 ? s.alphaSum / s.cap * 100 : 0;
+    const pctSumEl = $(`${prefix}-alphapct-sum`);
+    if (pctSumEl) pctSumEl.textContent = wAlphaPct.toFixed(2) + '%';
     $(`${prefix}-result`).innerHTML =
       `通常時:${fmtYen(s.alphaSum)}/年(経費 ${fmtYen(s.expenseY)} → ${diffSpan(s.surplus)}/年)`;
     renderDdChart(prefix, s);
