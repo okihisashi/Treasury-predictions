@@ -1,7 +1,7 @@
 {
   "_v": 1,
   "_page": "portfolio-mm",
-  "_ts": "2026-07-16T09:21:33.071Z",
+  "_ts": "2026-07-16T09:21:44.238Z",
   "#in-capital": "600,000,000",
   "#in-expense": "5,000,000",
   "#in-dd": "-30",
@@ -15,7 +15,7 @@
   "#in-a3-walloc": "0.3",
   "#in-a3-alpha": "20",
   "#in-a4-name": "BTC",
-  "#in-a4-walloc": "15",
+  "#in-a4-walloc": "10",
   "#in-a4-alpha": "0",
   "#in-a5-name": "ETH",
   "#in-a5-walloc": "3.5",
