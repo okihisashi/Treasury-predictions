@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>資産運用ポートフォリオ設計 / REV.PP</title>
+<title>資産運用ポートフォリオ設計 / REV.QQ</title>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -52,6 +52,9 @@
   section.dark th { border-bottom-color: #3a332a; }
   section.dark td:first-child { color: var(--paper); }
 
+  input.name-input { width: 92%; max-width: 340px; padding: 6px 9px; text-align: left; font-family: "Noto Sans JP", sans-serif; font-size: 13px; font-weight: 500; border: 1px solid var(--divider); background: #fffdf8; color: var(--ink); }
+  input.name-input::placeholder { color: var(--ink-faint); }
+  input.name-input:focus { outline: 2px solid var(--accent-soft); }
   input.num { width: 76px; padding: 5px 7px; text-align: right; font-family: "JetBrains Mono", monospace; font-size: 12.5px; border: 1px solid var(--divider); background: #fffdf8; color: var(--ink); }
   input.num.wide { width: 130px; }
   input.num:focus { outline: 2px solid var(--accent-soft); }
@@ -105,7 +108,7 @@
 </head>
 <body>
 
-<div class="eyebrow">PORTFOLIO DESIGN / REV.PP <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
+<div class="eyebrow">PORTFOLIO DESIGN / REV.QQ <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
 <h1 class="title">資産運用 <em>ポートフォリオ設計</em></h1>
 <div class="title-rule"></div>
 
@@ -138,56 +141,56 @@
     <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>年間α寄与</th></tr></thead>
     <tbody>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a1" data-ek="name-a1">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a1-name" data-a="a1" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a1-walloc" value="15"><span class="unit">%</span></td>
         <td id="w-a1-amt">—</td>
         <td><input class="num" id="in-a1-alpha" value="6"><span class="unit">%</span></td>
         <td id="w-a1-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a2" data-ek="name-a2">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a2-name" data-a="a2" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a2-walloc" value="4"><span class="unit">%</span></td>
         <td id="w-a2-amt">—</td>
         <td><input class="num" id="in-a2-alpha" value="30"><span class="unit">%</span></td>
         <td id="w-a2-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a3" data-ek="name-a3">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a3-name" data-a="a3" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a3-walloc" value="81"><span class="unit">%</span></td>
         <td id="w-a3-amt">—</td>
         <td><input class="num" id="in-a3-alpha" value="13"><span class="unit">%</span></td>
         <td id="w-a3-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a4" data-ek="name-a4">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a4-name" data-a="a4" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a4-walloc" value="0"><span class="unit">%</span></td>
         <td id="w-a4-amt">—</td>
         <td><input class="num" id="in-a4-alpha" value="0"><span class="unit">%</span></td>
         <td id="w-a4-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a5" data-ek="name-a5">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a5-name" data-a="a5" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a5-walloc" value="0"><span class="unit">%</span></td>
         <td id="w-a5-amt">—</td>
         <td><input class="num" id="in-a5-alpha" value="0"><span class="unit">%</span></td>
         <td id="w-a5-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a6" data-ek="name-a6">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a6-name" data-a="a6" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a6-walloc" value="0"><span class="unit">%</span></td>
         <td id="w-a6-amt">—</td>
         <td><input class="num" id="in-a6-alpha" value="0"><span class="unit">%</span></td>
         <td id="w-a6-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a7" data-ek="name-a7">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a7-name" data-a="a7" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a7-walloc" value="0"><span class="unit">%</span></td>
         <td id="w-a7-amt">—</td>
         <td><input class="num" id="in-a7-alpha" value="0"><span class="unit">%</span></td>
         <td id="w-a7-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a8" data-ek="name-a8">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a8-name" data-a="a8" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a8-walloc" value="0"><span class="unit">%</span></td>
         <td id="w-a8-amt">—</td>
         <td><input class="num" id="in-a8-alpha" value="0"><span class="unit">%</span></td>
@@ -271,56 +274,56 @@
     <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>年間α寄与</th></tr></thead>
     <tbody>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a1">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a1-sname" data-a="a1" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a1-salloc" value="50"><span class="unit">%</span></td>
         <td id="s-a1-amt">—</td>
         <td id="s-a1-alphapct">—</td>
         <td id="s-a1-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a2">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a2-sname" data-a="a2" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a2-salloc" value="4"><span class="unit">%</span></td>
         <td id="s-a2-amt">—</td>
         <td id="s-a2-alphapct">—</td>
         <td id="s-a2-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a3">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a3-sname" data-a="a3" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a3-salloc" value="46"><span class="unit">%</span></td>
         <td id="s-a3-amt">—</td>
         <td id="s-a3-alphapct">—</td>
         <td id="s-a3-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a4">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a4-sname" data-a="a4" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a4-salloc" value="0"><span class="unit">%</span></td>
         <td id="s-a4-amt">—</td>
         <td id="s-a4-alphapct">—</td>
         <td id="s-a4-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a5">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a5-sname" data-a="a5" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a5-salloc" value="0"><span class="unit">%</span></td>
         <td id="s-a5-amt">—</td>
         <td id="s-a5-alphapct">—</td>
         <td id="s-a5-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a6">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a6-sname" data-a="a6" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a6-salloc" value="0"><span class="unit">%</span></td>
         <td id="s-a6-amt">—</td>
         <td id="s-a6-alphapct">—</td>
         <td id="s-a6-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a7">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a7-sname" data-a="a7" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a7-salloc" value="0"><span class="unit">%</span></td>
         <td id="s-a7-amt">—</td>
         <td id="s-a7-alphapct">—</td>
         <td id="s-a7-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a8">(銘柄を入力)</span></td>
+        <td><input type="text" class="name-input" id="in-a8-sname" data-a="a8" placeholder="銘柄を入力" value=""></td>
         <td><input class="num" id="in-a8-salloc" value="0"><span class="unit">%</span></td>
         <td id="s-a8-amt">—</td>
         <td id="s-a8-alphapct">—</td>
@@ -386,30 +389,18 @@
              surplus: alphaSum - expenseY, ddSurplus: ddAlphaSum - expenseY };
   }
 
-  // ---- asset name sync (winter <-> summer, edit either side) ----
-  const NAME_PLACEHOLDER = '(銘柄を入力)';
-  function syncNames(src) {
-    const a = src.dataset.a;
-    document.querySelectorAll(`.asset-name[data-a="${a}"], .asset-name-echo[data-a="${a}"]`).forEach(el => {
-      if (el !== src && el.textContent !== src.textContent) el.textContent = src.textContent;
-    });
-  }
+  // ---- asset name sync (winter <-> summer name inputs, edit either side) ----
   function syncAllFromWinter() {
-    document.querySelectorAll('.asset-name').forEach(el => syncNames(el));
-  }
-  document.querySelectorAll('.asset-name, .asset-name-echo').forEach(el => {
-    el.addEventListener('input', () => syncNames(el));
-    el.addEventListener('focus', () => {
-      if (el.textContent.trim() === NAME_PLACEHOLDER) {
-        window.getSelection().selectAllChildren(el);
-      }
+    ASSETS.forEach(a => {
+      const w = $(`in-${a}-name`), s = $(`in-${a}-sname`);
+      if (w && s && s.value !== w.value) s.value = w.value;
     });
-    // echo edits must persist: copy into the winter span (holds data-ek) before save
-    el.addEventListener('blur', () => {
-      if (el.classList.contains('asset-name-echo')) {
-        const w = document.querySelector(`.asset-name[data-a="${el.dataset.a}"]`);
-        if (w && w.textContent !== el.textContent) w.textContent = el.textContent;
-      }
+  }
+  document.querySelectorAll('input.name-input').forEach(el => {
+    el.addEventListener('input', () => {
+      const a = el.dataset.a;
+      const other = el.id.endsWith('-sname') ? $(`in-${a}-name`) : $(`in-${a}-sname`);
+      if (other && other.value !== el.value) other.value = el.value;
     });
   });
 
@@ -628,7 +619,8 @@
       'in-a1-salloc': '50', 'in-a2-salloc': '4', 'in-a3-salloc': '46',
       'in-a4-walloc': '0', 'in-a5-walloc': '0', 'in-a6-walloc': '0', 'in-a7-walloc': '0', 'in-a8-walloc': '0',
       'in-a4-alpha': '0', 'in-a5-alpha': '0', 'in-a6-alpha': '0', 'in-a7-alpha': '0', 'in-a8-alpha': '0',
-      'in-a4-salloc': '0', 'in-a5-salloc': '0', 'in-a6-salloc': '0', 'in-a7-salloc': '0', 'in-a8-salloc': '0'
+      'in-a4-salloc': '0', 'in-a5-salloc': '0', 'in-a6-salloc': '0', 'in-a7-salloc': '0', 'in-a8-salloc': '0',
+      'in-a1-name': '', 'in-a2-name': '', 'in-a3-name': '', 'in-a4-name': '', 'in-a5-name': '', 'in-a6-name': '', 'in-a7-name': '', 'in-a8-name': '', 'in-a1-sname': '', 'in-a2-sname': '', 'in-a3-sname': '', 'in-a4-sname': '', 'in-a5-sname': '', 'in-a6-sname': '', 'in-a7-sname': '', 'in-a8-sname': ''
     };
     Object.keys(defaults).forEach(id => { const el = $(id); if (el) el.value = defaults[id]; });
     recalc();
