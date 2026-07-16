@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>資産運用ポートフォリオ設計 / REV.LL</title>
+<title>資産運用ポートフォリオ設計 / REV.NN</title>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -93,7 +93,7 @@
 </head>
 <body>
 
-<div class="eyebrow">PORTFOLIO DESIGN / REV.LL <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
+<div class="eyebrow">PORTFOLIO DESIGN / REV.NN <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
 <h1 class="title">資産運用 <em>ポートフォリオ設計</em></h1>
 <div class="title-rule"></div>
 
@@ -126,25 +126,60 @@
     <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>年間α寄与</th></tr></thead>
     <tbody>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a1">オンチェーン金融銘柄</span></td>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a1" data-ek="name-a1">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a1-walloc" value="15"><span class="unit">%</span></td>
         <td id="w-a1-amt">—</td>
         <td><input class="num" id="in-a1-alpha" value="6"><span class="unit">%</span></td>
         <td id="w-a1-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a2">Slash Earn</span></td>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a2" data-ek="name-a2">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a2-walloc" value="4"><span class="unit">%</span></td>
         <td id="w-a2-amt">—</td>
         <td><input class="num" id="in-a2-alpha" value="30"><span class="unit">%</span></td>
         <td id="w-a2-alpha">—</td>
       </tr>
       <tr>
-        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a3">Apyx</span></td>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a3" data-ek="name-a3">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a3-walloc" value="81"><span class="unit">%</span></td>
         <td id="w-a3-amt">—</td>
         <td><input class="num" id="in-a3-alpha" value="13"><span class="unit">%</span></td>
         <td id="w-a3-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a4" data-ek="name-a4">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a4-walloc" value="0"><span class="unit">%</span></td>
+        <td id="w-a4-amt">—</td>
+        <td><input class="num" id="in-a4-alpha" value="0"><span class="unit">%</span></td>
+        <td id="w-a4-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a5" data-ek="name-a5">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a5-walloc" value="0"><span class="unit">%</span></td>
+        <td id="w-a5-amt">—</td>
+        <td><input class="num" id="in-a5-alpha" value="0"><span class="unit">%</span></td>
+        <td id="w-a5-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a6" data-ek="name-a6">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a6-walloc" value="0"><span class="unit">%</span></td>
+        <td id="w-a6-amt">—</td>
+        <td><input class="num" id="in-a6-alpha" value="0"><span class="unit">%</span></td>
+        <td id="w-a6-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a7" data-ek="name-a7">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a7-walloc" value="0"><span class="unit">%</span></td>
+        <td id="w-a7-amt">—</td>
+        <td><input class="num" id="in-a7-alpha" value="0"><span class="unit">%</span></td>
+        <td id="w-a7-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name" data-a="a8" data-ek="name-a8">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a8-walloc" value="0"><span class="unit">%</span></td>
+        <td id="w-a8-amt">—</td>
+        <td><input class="num" id="in-a8-alpha" value="0"><span class="unit">%</span></td>
+        <td id="w-a8-alpha">—</td>
       </tr>
       <tr class="total">
         <td>合計 <span class="warn-100" id="w-alloc-warn"></span></td>
@@ -223,25 +258,60 @@
     <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>年間α寄与</th></tr></thead>
     <tbody>
       <tr>
-        <td><span class="asset-name-echo" data-a="a1">オンチェーン金融銘柄</span></td>
-        <td><input class="num" id="in-a1-salloc" value="80"><span class="unit">%</span></td>
+        <td><span class="asset-name-echo" data-a="a1">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a1-salloc" value="50"><span class="unit">%</span></td>
         <td id="s-a1-amt">—</td>
         <td id="s-a1-alphapct">—</td>
         <td id="s-a1-alpha">—</td>
       </tr>
       <tr>
-        <td><span class="asset-name-echo" data-a="a2">Slash Earn</span></td>
+        <td><span class="asset-name-echo" data-a="a2">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a2-salloc" value="4"><span class="unit">%</span></td>
         <td id="s-a2-amt">—</td>
         <td id="s-a2-alphapct">—</td>
         <td id="s-a2-alpha">—</td>
       </tr>
       <tr>
-        <td><span class="asset-name-echo" data-a="a3">Apyx</span></td>
-        <td><input class="num" id="in-a3-salloc" value="16"><span class="unit">%</span></td>
+        <td><span class="asset-name-echo" data-a="a3">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a3-salloc" value="46"><span class="unit">%</span></td>
         <td id="s-a3-amt">—</td>
         <td id="s-a3-alphapct">—</td>
         <td id="s-a3-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a4">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a4-salloc" value="0"><span class="unit">%</span></td>
+        <td id="s-a4-amt">—</td>
+        <td id="s-a4-alphapct">—</td>
+        <td id="s-a4-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a5">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a5-salloc" value="0"><span class="unit">%</span></td>
+        <td id="s-a5-amt">—</td>
+        <td id="s-a5-alphapct">—</td>
+        <td id="s-a5-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a6">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a6-salloc" value="0"><span class="unit">%</span></td>
+        <td id="s-a6-amt">—</td>
+        <td id="s-a6-alphapct">—</td>
+        <td id="s-a6-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a7">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a7-salloc" value="0"><span class="unit">%</span></td>
+        <td id="s-a7-amt">—</td>
+        <td id="s-a7-alphapct">—</td>
+        <td id="s-a7-alpha">—</td>
+      </tr>
+      <tr>
+        <td><span class="asset-name-echo" data-a="a8">(銘柄を入力)</span></td>
+        <td><input class="num" id="in-a8-salloc" value="0"><span class="unit">%</span></td>
+        <td id="s-a8-amt">—</td>
+        <td id="s-a8-alphapct">—</td>
+        <td id="s-a8-alpha">—</td>
       </tr>
       <tr class="total">
         <td>合計 <span class="warn-100" id="s-alloc-warn"></span></td>
@@ -255,7 +325,7 @@
   <div class="result-line" id="s-result"></div>
 </section>
 
-<div class="footer-band" contenteditable="true" spellcheck="false">WINTER × SUMMER ◆ STAGED ALLOCATION ◆ EDITABLE</div>
+<div class="footer-band" contenteditable="true" spellcheck="false" data-ek="footer">WINTER × SUMMER ◆ STAGED ALLOCATION ◆ EDITABLE</div>
 
 <script>
   // ====================== helpers ======================
@@ -272,7 +342,7 @@
     if (oku > 0) return sign + '¥' + oku.toLocaleString() + '億' + (rem ? rem.toLocaleString() + '万' : '');
     return sign + '¥' + rem.toLocaleString() + '万';
   }
-  const ASSETS = ['a1', 'a2', 'a3'];
+  const ASSETS = ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8'];
 
   function fmtMoneyInput(el) {
     const v = parseFloat((el.value || '').replace(/,/g, ''));
@@ -377,7 +447,7 @@
   }
 
   // ====================== persistence (server-backed) ======================
-  const PAGE_TAG = 'portfolio-bb';
+  const PAGE_TAG = 'portfolio-mm';
   let currentSha = null, saveTimer = null, isRestoring = false, saveInFlight = false, pendingSave = false;
   let isReadonly = false, editorEmail = '';
   const SAVE_DEBOUNCE_MS = 2000;
@@ -413,7 +483,7 @@
   function captureState() {
     const state = { _v: 1, _page: PAGE_TAG, _ts: new Date().toISOString() };
     document.querySelectorAll('input[id]').forEach(el => { state['#' + el.id] = el.value; });
-    document.querySelectorAll('[contenteditable="true"]').forEach((el, i) => { state['edit_' + i] = el.innerHTML; });
+    document.querySelectorAll('[contenteditable="true"][data-ek]').forEach(el => { state['edit_' + el.dataset.ek] = el.innerHTML; });
     return state;
   }
 
@@ -427,10 +497,10 @@
           if (el && 'value' in el) el.value = state[key];
           return;
         }
-        const m = key.match(/^edit_(\d+)$/);
+        const m = key.match(/^edit_(.+)$/);
         if (m) {
-          const els = document.querySelectorAll('[contenteditable="true"]');
-          if (els[+m[1]]) els[+m[1]].innerHTML = state[key];
+          const el = document.querySelector(`[contenteditable="true"][data-ek="${m[1]}"]`);
+          if (el) el.innerHTML = state[key];
         }
       });
     } catch (e) { console.warn(e); }
@@ -494,7 +564,10 @@
       'in-capital': '500,000,000', 'in-expense': '5,000,000', 'in-dd': '-30',
       'in-a1-walloc': '15', 'in-a2-walloc': '4', 'in-a3-walloc': '81',
       'in-a1-alpha': '6', 'in-a2-alpha': '30', 'in-a3-alpha': '13',
-      'in-a1-salloc': '80', 'in-a2-salloc': '4', 'in-a3-salloc': '16'
+      'in-a1-salloc': '50', 'in-a2-salloc': '4', 'in-a3-salloc': '46',
+      'in-a4-walloc': '0', 'in-a5-walloc': '0', 'in-a6-walloc': '0', 'in-a7-walloc': '0', 'in-a8-walloc': '0',
+      'in-a4-alpha': '0', 'in-a5-alpha': '0', 'in-a6-alpha': '0', 'in-a7-alpha': '0', 'in-a8-alpha': '0',
+      'in-a4-salloc': '0', 'in-a5-salloc': '0', 'in-a6-salloc': '0', 'in-a7-salloc': '0', 'in-a8-salloc': '0'
     };
     Object.keys(defaults).forEach(id => { const el = $(id); if (el) el.value = defaults[id]; });
     recalc();
