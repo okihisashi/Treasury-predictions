@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>資産運用ポートフォリオ設計 / REV.OO</title>
+<title>資産運用ポートフォリオ設計 / REV.PP</title>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -105,7 +105,7 @@
 </head>
 <body>
 
-<div class="eyebrow">PORTFOLIO DESIGN / REV.OO <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
+<div class="eyebrow">PORTFOLIO DESIGN / REV.PP <span style="float:right; background: var(--accent); color: var(--paper); padding: 2px 10px; font-size: 10px;">Editable</span></div>
 <h1 class="title">資産運用 <em>ポートフォリオ設計</em></h1>
 <div class="title-rule"></div>
 
@@ -271,56 +271,56 @@
     <thead><tr><th>資産</th><th>配分</th><th>金額</th><th>α</th><th>年間α寄与</th></tr></thead>
     <tbody>
       <tr>
-        <td><span class="asset-name-echo" data-a="a1">(銘柄を入力)</span></td>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a1">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a1-salloc" value="50"><span class="unit">%</span></td>
         <td id="s-a1-amt">—</td>
         <td id="s-a1-alphapct">—</td>
         <td id="s-a1-alpha">—</td>
       </tr>
       <tr>
-        <td><span class="asset-name-echo" data-a="a2">(銘柄を入力)</span></td>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a2">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a2-salloc" value="4"><span class="unit">%</span></td>
         <td id="s-a2-amt">—</td>
         <td id="s-a2-alphapct">—</td>
         <td id="s-a2-alpha">—</td>
       </tr>
       <tr>
-        <td><span class="asset-name-echo" data-a="a3">(銘柄を入力)</span></td>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a3">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a3-salloc" value="46"><span class="unit">%</span></td>
         <td id="s-a3-amt">—</td>
         <td id="s-a3-alphapct">—</td>
         <td id="s-a3-alpha">—</td>
       </tr>
       <tr>
-        <td><span class="asset-name-echo" data-a="a4">(銘柄を入力)</span></td>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a4">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a4-salloc" value="0"><span class="unit">%</span></td>
         <td id="s-a4-amt">—</td>
         <td id="s-a4-alphapct">—</td>
         <td id="s-a4-alpha">—</td>
       </tr>
       <tr>
-        <td><span class="asset-name-echo" data-a="a5">(銘柄を入力)</span></td>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a5">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a5-salloc" value="0"><span class="unit">%</span></td>
         <td id="s-a5-amt">—</td>
         <td id="s-a5-alphapct">—</td>
         <td id="s-a5-alpha">—</td>
       </tr>
       <tr>
-        <td><span class="asset-name-echo" data-a="a6">(銘柄を入力)</span></td>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a6">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a6-salloc" value="0"><span class="unit">%</span></td>
         <td id="s-a6-amt">—</td>
         <td id="s-a6-alphapct">—</td>
         <td id="s-a6-alpha">—</td>
       </tr>
       <tr>
-        <td><span class="asset-name-echo" data-a="a7">(銘柄を入力)</span></td>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a7">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a7-salloc" value="0"><span class="unit">%</span></td>
         <td id="s-a7-amt">—</td>
         <td id="s-a7-alphapct">—</td>
         <td id="s-a7-alpha">—</td>
       </tr>
       <tr>
-        <td><span class="asset-name-echo" data-a="a8">(銘柄を入力)</span></td>
+        <td><span contenteditable="true" spellcheck="false" class="asset-name-echo" data-a="a8">(銘柄を入力)</span></td>
         <td><input class="num" id="in-a8-salloc" value="0"><span class="unit">%</span></td>
         <td id="s-a8-amt">—</td>
         <td id="s-a8-alphapct">—</td>
@@ -386,6 +386,33 @@
              surplus: alphaSum - expenseY, ddSurplus: ddAlphaSum - expenseY };
   }
 
+  // ---- asset name sync (winter <-> summer, edit either side) ----
+  const NAME_PLACEHOLDER = '(銘柄を入力)';
+  function syncNames(src) {
+    const a = src.dataset.a;
+    document.querySelectorAll(`.asset-name[data-a="${a}"], .asset-name-echo[data-a="${a}"]`).forEach(el => {
+      if (el !== src && el.textContent !== src.textContent) el.textContent = src.textContent;
+    });
+  }
+  function syncAllFromWinter() {
+    document.querySelectorAll('.asset-name').forEach(el => syncNames(el));
+  }
+  document.querySelectorAll('.asset-name, .asset-name-echo').forEach(el => {
+    el.addEventListener('input', () => syncNames(el));
+    el.addEventListener('focus', () => {
+      if (el.textContent.trim() === NAME_PLACEHOLDER) {
+        window.getSelection().selectAllChildren(el);
+      }
+    });
+    // echo edits must persist: copy into the winter span (holds data-ek) before save
+    el.addEventListener('blur', () => {
+      if (el.classList.contains('asset-name-echo')) {
+        const w = document.querySelector(`.asset-name[data-a="${el.dataset.a}"]`);
+        if (w && w.textContent !== el.textContent) w.textContent = el.textContent;
+      }
+    });
+  });
+
   function diffSpan(v) {
     const cls = v >= 0 ? 'pos' : 'neg';
     return `<span class="${cls}">${v >= 0 ? '+' : ''}${fmtYen(v)}</span>`;
@@ -413,7 +440,7 @@
     const el = $(`${prefix}-chart`);
     if (!el) return;
     const allowDd = num('in-dd');
-    const levels = [-10, -20, -30, -40, -50];
+    const levels = [0, -10, -20, -30];
     if (!levels.includes(allowDd) && allowDd < 0) { levels.push(allowDd); levels.sort((a, b) => b - a); }
     const maxLoss = Math.abs(s.cap * Math.min(...levels) / 100) || 1;
     let html = '<div class="dd-chart-title">DD 段階別:含み損とキャッシュフロー(◀ 許容DD ライン)</div>';
@@ -435,12 +462,6 @@
   }
 
   function recalc() {
-    // asset name echo (summer tables mirror winter names)
-    document.querySelectorAll('.asset-name').forEach(el => {
-      document.querySelectorAll(`.asset-name-echo[data-a="${el.dataset.a}"]`).forEach(echo => {
-        echo.textContent = el.textContent;
-      });
-    });
     fillLevel('w', 'walloc');
     fillLevel('s', 'salloc');
   }
@@ -619,6 +640,7 @@
   (async () => {
     await loadWhoAmI();
     await loadStateFromServer();
+    syncAllFromWinter();
     recalc();
     loadRegime();
     applyReadonlyMode();
