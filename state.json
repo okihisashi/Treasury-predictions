@@ -1,7 +1,7 @@
 {
   "_v": 1,
   "_page": "portfolio-mm",
-  "_ts": "2026-07-16T09:15:47.326Z",
+  "_ts": "2026-07-16T09:16:02.089Z",
   "#in-capital": "500,000,000",
   "#in-expense": "5,000,000",
   "#in-dd": "-30",
@@ -12,7 +12,7 @@
   "#in-a2-walloc": "14",
   "#in-a2-alpha": "6",
   "#in-a3-name": "APY USD/USDC (Morpho)",
-  "#in-a3-walloc": "",
+  "#in-a3-walloc": "0.1",
   "#in-a3-alpha": "20",
   "#in-a4-name": "",
   "#in-a4-walloc": "0",
