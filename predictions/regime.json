@@ -1,17 +1,17 @@
 {
-  "updated_at": "2026-07-29T23:14:57.573Z",
+  "updated_at": "2026-07-30T00:11:40.856Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$63,847 vs MA $71,800",
+      "value": "$63,971 vs MA $71,669",
       "winter": true,
       "ok": true
     },
     {
       "id": "fng",
       "name": "Fear & Greed",
-      "value": "29 (Fear)",
+      "value": "28 (Fear)",
       "winter": true,
       "ok": true
     },
@@ -25,7 +25,7 @@
     {
       "id": "mom30",
       "name": "BTC 30日モメンタム",
-      "value": "+6.1% / 30日",
+      "value": "+9.2% / 30日",
       "winter": false,
       "ok": true
     },
@@ -46,7 +46,7 @@
     {
       "id": "etf",
       "name": "ETF 純フロー(5日平均)",
-      "value": "+$10344M/日",
+      "value": "+$10338M/日",
       "winter": false,
       "ok": true
     }
