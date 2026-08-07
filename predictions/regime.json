@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-08-07T15:09:48.506Z",
+  "updated_at": "2026-08-07T16:09:27.650Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$64,922 vs MA $70,463",
+      "value": "$64,940 vs MA $70,463",
       "winter": true,
       "ok": true
     },
@@ -18,7 +18,7 @@
     {
       "id": "funding",
       "name": "BTC Funding Rate",
-      "value": "0.0005% / 8h",
+      "value": "0.0013% / 8h",
       "winter": true,
       "ok": true
     },
