@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-08-08T13:13:27.671Z",
+  "updated_at": "2026-08-08T13:57:52.220Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$64,968 vs MA $70,353",
+      "value": "$64,972 vs MA $70,353",
       "winter": true,
       "ok": true
     },
