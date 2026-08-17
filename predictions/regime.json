@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-08-17T13:07:11.910Z",
+  "updated_at": "2026-08-17T13:54:07.957Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$63,463 vs MA $69,192",
+      "value": "$63,613 vs MA $69,193",
       "winter": true,
       "ok": true
     },
@@ -25,14 +25,14 @@
     {
       "id": "mom30",
       "name": "BTC 30日モメンタム",
-      "value": "-2.1% / 30日",
+      "value": "-1.8% / 30日",
       "winter": true,
       "ok": true
     },
     {
       "id": "mnav",
       "name": "MSTR mNAV",
-      "value": "0.98x",
+      "value": "0.99x",
       "winter": true,
       "ok": true
     },
