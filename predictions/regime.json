@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-18T15:47:15.353Z",
+  "updated_at": "2026-08-18T16:49:08.805Z",
   "indicators": [
     {
       "id": "ma200",
@@ -18,7 +18,7 @@
     {
       "id": "funding",
       "name": "BTC Funding Rate",
-      "value": "0.0022% / 8h",
+      "value": "0.0013% / 8h",
       "winter": true,
       "ok": true
     },
