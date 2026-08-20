@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-08-20T21:44:24.670Z",
+  "updated_at": "2026-08-20T22:46:03.788Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$72,778 vs MA $68,995",
+      "value": "$72,700 vs MA $68,994",
       "winter": false,
       "ok": true
     },
@@ -18,14 +18,14 @@
     {
       "id": "funding",
       "name": "BTC Funding Rate",
-      "value": "0.0011% / 8h",
+      "value": "0.0007% / 8h",
       "winter": true,
       "ok": true
     },
     {
       "id": "mom30",
       "name": "BTC 30日モメンタム",
-      "value": "+9.4% / 30日",
+      "value": "+9.3% / 30日",
       "winter": false,
       "ok": true
     },
@@ -39,8 +39,8 @@
     {
       "id": "stable",
       "name": "Stablecoin 時価総額",
-      "value": "$51836204B (30d +16837612.0%)",
-      "winter": false,
+      "value": "$307B (30d -0.2%)",
+      "winter": true,
       "ok": true
     },
     {
@@ -51,9 +51,9 @@
       "ok": true
     }
   ],
-  "winter_count": 2,
+  "winter_count": 3,
   "valid_count": 7,
-  "confidence_pct": 29,
+  "confidence_pct": 43,
   "regime": "夏L2",
   "recommended": "夏L2(オンチェーン65%)"
 }
