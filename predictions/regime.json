@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-08-22T14:39:47.542Z",
+  "updated_at": "2026-08-22T15:35:51.746Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$77,086 vs MA $68,996",
+      "value": "$77,046 vs MA $68,996",
       "winter": false,
       "ok": true
     },
@@ -32,9 +32,9 @@
     {
       "id": "mnav",
       "name": "MSTR mNAV",
-      "value": "取得失敗 (HTTP 429 https://query1.finance.yahoo.com/v8/finance/chart/M)",
-      "winter": null,
-      "ok": false
+      "value": "0.95x",
+      "winter": true,
+      "ok": true
     },
     {
       "id": "stable",
@@ -51,9 +51,9 @@
       "ok": true
     }
   ],
-  "winter_count": 0,
-  "valid_count": 6,
-  "confidence_pct": 0,
+  "winter_count": 1,
+  "valid_count": 7,
+  "confidence_pct": 14,
   "regime": "夏L3",
   "recommended": "夏L3(オンチェーン80%)"
 }
