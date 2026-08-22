@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-08-22T19:36:43.435Z",
+  "updated_at": "2026-08-22T20:41:14.562Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$77,314 vs MA $68,997",
+      "value": "$77,299 vs MA $68,997",
       "winter": false,
       "ok": true
     },
@@ -39,7 +39,7 @@
     {
       "id": "stable",
       "name": "Stablecoin 時価総額",
-      "value": "$308B (30d +0.3%)",
+      "value": "$309B (30d +0.3%)",
       "winter": false,
       "ok": true
     },
