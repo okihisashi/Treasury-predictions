@@ -1,17 +1,17 @@
 {
-  "updated_at": "2026-08-22T23:36:09.799Z",
+  "updated_at": "2026-08-23T02:00:27.900Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$76,926 vs MA $68,995",
+      "value": "$77,163 vs MA $69,004",
       "winter": false,
       "ok": true
     },
     {
       "id": "fng",
       "name": "Fear & Greed",
-      "value": "71 (Greed)",
+      "value": "66 (Greed)",
       "winter": false,
       "ok": true
     },
@@ -25,7 +25,7 @@
     {
       "id": "mom30",
       "name": "BTC 30日モメンタム",
-      "value": "+18.3% / 30日",
+      "value": "+20.4% / 30日",
       "winter": false,
       "ok": true
     },
