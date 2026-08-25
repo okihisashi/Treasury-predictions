@@ -1,19 +1,19 @@
 {
-  "updated_at": "2026-08-25T13:12:31.030Z",
+  "updated_at": "2026-08-25T14:05:09.928Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$78,850 vs MA $69,116",
+      "value": "$78,618 vs MA $69,115",
       "winter": false,
       "ok": true
     },
     {
       "id": "fng",
       "name": "Fear & Greed",
-      "value": "74 (Greed)",
-      "winter": false,
-      "ok": true
+      "value": "取得失敗 (HTTP 502 https://api.alternative.me/fng/?limit=1)",
+      "winter": null,
+      "ok": false
     },
     {
       "id": "funding",
@@ -25,14 +25,14 @@
     {
       "id": "mom30",
       "name": "BTC 30日モメンタム",
-      "value": "+20.7% / 30日",
+      "value": "+20.4% / 30日",
       "winter": false,
       "ok": true
     },
     {
       "id": "mnav",
       "name": "MSTR mNAV",
-      "value": "0.94x",
+      "value": "0.95x",
       "winter": true,
       "ok": true
     },
@@ -52,8 +52,8 @@
     }
   ],
   "winter_count": 1,
-  "valid_count": 7,
-  "confidence_pct": 14,
-  "regime": "夏L3",
-  "recommended": "夏L3(オンチェーン80%)"
+  "valid_count": 6,
+  "confidence_pct": 17,
+  "regime": "夏L2",
+  "recommended": "夏L2(オンチェーン65%)"
 }
