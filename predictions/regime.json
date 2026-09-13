@@ -1,24 +1,24 @@
 {
-  "updated_at": "2026-09-12T22:19:43.107Z",
+  "updated_at": "2026-09-13T00:02:53.225Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$77,233 vs MA $70,052",
+      "value": "$77,259 vs MA $70,052",
       "winter": false,
       "ok": true
     },
     {
       "id": "fng",
       "name": "Fear & Greed",
-      "value": "63 (Greed)",
+      "value": "61 (Greed)",
       "winter": false,
       "ok": true
     },
     {
       "id": "funding",
       "name": "BTC Funding Rate",
-      "value": "0.0079% / 8h",
+      "value": "0.0049% / 8h",
       "winter": true,
       "ok": true
     },
