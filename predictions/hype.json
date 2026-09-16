@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-15T04:54:47.684Z",
+  "updated_at": "2026-09-16T04:49:17.927Z",
   "asset": "HYPE",
   "method": "B (probability-weighted, capped extremes)",
   "method_parameters": {
@@ -12,15 +12,15 @@
     "polymarket_event_title": "What price will Hyperliquid hit in 2026?",
     "coingecko_id": "hyperliquid"
   },
-  "current_price_usd": 79.44,
+  "current_price_usd": 77.27,
   "resolution_date": "2027-01-01T00:00:00.000Z",
-  "months_to_resolution": 3.54,
+  "months_to_resolution": 3.51,
   "raw_markets": [
     {
       "question": "Will Hyperliquid reach $90 by December 31, 2026?",
       "slug": "will-hyperliquid-reach-90-by-december-31-2026-from-june-8",
-      "yes_probability": 0.731,
-      "volume": 53127.355998999985,
+      "yes_probability": 0.709,
+      "volume": 53127.355999000014,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 90,
       "direction": "up",
@@ -30,8 +30,8 @@
     {
       "question": "Will Hyperliquid dip to $50 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-50-by-december-31-2026-from-june-8-456",
-      "yes_probability": 0.18,
-      "volume": 9286.670511000002,
+      "yes_probability": 0.205,
+      "volume": 9289.910511000002,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 50,
       "direction": "down",
@@ -41,8 +41,8 @@
     {
       "question": "Will Hyperliquid dip to $40 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-40-by-december-31-2026-from-june-8-272",
-      "yes_probability": 0.09,
-      "volume": 20152.269474999997,
+      "yes_probability": 0.105,
+      "volume": 20666.549475,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 40,
       "direction": "down",
@@ -53,7 +53,7 @@
       "question": "Will Hyperliquid dip to $30 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-30-by-december-31-2026-from-june-8-794",
       "yes_probability": 0.06,
-      "volume": 35681.657714999994,
+      "volume": 35681.65771499999,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 30,
       "direction": "down",
@@ -63,8 +63,8 @@
     {
       "question": "Will Hyperliquid reach $200 by December 31, 2026?",
       "slug": "will-hyperliquid-reach-200-by-december-31-2026",
-      "yes_probability": 0.06,
-      "volume": 21185.428757000005,
+      "yes_probability": 0.055,
+      "volume": 21835.461452000007,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 200,
       "direction": "up",
@@ -74,8 +74,8 @@
     {
       "question": "Will Hyperliquid dip to $75 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-75-by-december-31-2026",
-      "yes_probability": 0.87,
-      "volume": 3021.244475,
+      "yes_probability": 0.9545,
+      "volume": 3651.2592809999996,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 75,
       "direction": "down",
@@ -85,8 +85,8 @@
     {
       "question": "Will Hyperliquid reach $150 by December 31, 2026?",
       "slug": "will-hyperliquid-reach-150-by-december-31-2026",
-      "yes_probability": 0.09,
-      "volume": 5591.046084,
+      "yes_probability": 0.085,
+      "volume": 5619.046083999999,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 150,
       "direction": "up",
@@ -96,8 +96,8 @@
     {
       "question": "Will Hyperliquid reach $140 by December 31, 2026?",
       "slug": "will-hyperliquid-reach-140-by-december-31-2026",
-      "yes_probability": 0.17,
-      "volume": 142.468708,
+      "yes_probability": 0.13,
+      "volume": 170.468708,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 140,
       "direction": "up",
@@ -107,7 +107,7 @@
     {
       "question": "Will Hyperliquid dip to $70 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-70-by-december-31-2026",
-      "yes_probability": 0.62,
+      "yes_probability": 0.65,
       "volume": 206.136358,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 70,
@@ -118,8 +118,8 @@
     {
       "question": "Will Hyperliquid dip to $60 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-60-by-december-31-2026",
-      "yes_probability": 0.355,
-      "volume": 1236.253263,
+      "yes_probability": 0.39,
+      "volume": 1672.161597,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 60,
       "direction": "down",
@@ -129,7 +129,7 @@
     {
       "question": "Will Hyperliquid reach $120 by December 31, 2026?",
       "slug": "will-hyperliquid-reach-120-by-december-31-2026",
-      "yes_probability": 0.24,
+      "yes_probability": 0.25,
       "volume": 1582.732607,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 120,
@@ -140,7 +140,7 @@
     {
       "question": "Will Hyperliquid reach $130 by December 31, 2026?",
       "slug": "will-hyperliquid-reach-130-by-december-31-2026",
-      "yes_probability": 0.125,
+      "yes_probability": 0.135,
       "volume": 162.347058,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 130,
@@ -151,8 +151,8 @@
     {
       "question": "Will Hyperliquid reach $110 by December 31, 2026?",
       "slug": "will-hyperliquid-reach-110-by-december-31-2026",
-      "yes_probability": 0.395,
-      "volume": 3990.998809999999,
+      "yes_probability": 0.33,
+      "volume": 4420.355220000001,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 110,
       "direction": "up",
@@ -162,8 +162,8 @@
     {
       "question": "Will Hyperliquid dip to $65 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-65-by-december-31-2026",
-      "yes_probability": 0.585,
-      "volume": 235.76490900000002,
+      "yes_probability": 0.6,
+      "volume": 455.764909,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 65,
       "direction": "down",
@@ -173,8 +173,8 @@
     {
       "question": "Will Hyperliquid reach $100 by December 31, 2026?",
       "slug": "will-hyperliquid-reach-100-by-december-31-2026",
-      "yes_probability": 0.53,
-      "volume": 632248.687474,
+      "yes_probability": 0.47,
+      "volume": 632898.5219539998,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 100,
       "direction": "up",
@@ -184,8 +184,8 @@
     {
       "question": "Will Hyperliquid dip to $20 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-20-by-december-31-2026-588-679",
-      "yes_probability": 0.0455,
-      "volume": 264547.3960050001,
+      "yes_probability": 0.0465,
+      "volume": 264659.9160050001,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 20,
       "direction": "down",
@@ -195,8 +195,8 @@
     {
       "question": "Will Hyperliquid dip to $16 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-16-by-december-31-2026-358-943",
-      "yes_probability": 0.0355,
-      "volume": 201062.26104800004,
+      "yes_probability": 0.0365,
+      "volume": 201173.301048,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 16,
       "direction": "down",
@@ -207,7 +207,7 @@
       "question": "Will Hyperliquid dip to $12 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-12-by-december-31-2026-633-552",
       "yes_probability": 0.0395,
-      "volume": 251740.82552899997,
+      "volume": 251780.82552899997,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 12,
       "direction": "down",
@@ -218,7 +218,7 @@
       "question": "Will Hyperliquid dip to $8 by December 31, 2026?",
       "slug": "will-hyperliquid-dip-to-8-by-december-31-2026-513",
       "yes_probability": 0.026,
-      "volume": 252860.46196999997,
+      "volume": 252900.46196999997,
       "end_date": "2027-01-01T05:00:00Z",
       "target_price": 8,
       "direction": "down",
@@ -229,7 +229,7 @@
   "zones": [
     {
       "range": ">$200",
-      "probability": 0.06,
+      "probability": 0.055,
       "representative_usd": 220,
       "note": "cap × 1.1"
     },
@@ -241,13 +241,13 @@
     },
     {
       "range": "$140-$150",
-      "probability": 0.08,
+      "probability": 0.045,
       "representative_usd": 145,
       "note": "midpoint"
     },
     {
       "range": "$130-$140",
-      "probability": 0,
+      "probability": 0.005,
       "representative_usd": 135,
       "note": "midpoint"
     },
@@ -259,19 +259,19 @@
     },
     {
       "range": "$110-$120",
-      "probability": 0.155,
+      "probability": 0.08,
       "representative_usd": 115,
       "note": "midpoint"
     },
     {
       "range": "$100-$110",
-      "probability": 0.135,
+      "probability": 0.14,
       "representative_usd": 105,
       "note": "midpoint"
     },
     {
       "range": "$90-$100",
-      "probability": 0.201,
+      "probability": 0.239,
       "representative_usd": 95,
       "note": "midpoint"
     },
@@ -283,43 +283,43 @@
     },
     {
       "range": "$70-$75",
-      "probability": 0.25,
+      "probability": 0.3045,
       "representative_usd": 72.5,
       "note": "midpoint"
     },
     {
       "range": "$65-$70",
-      "probability": 0.035,
+      "probability": 0.05,
       "representative_usd": 67.5,
       "note": "midpoint"
     },
     {
       "range": "$60-$65",
-      "probability": 0.23,
+      "probability": 0.21,
       "representative_usd": 62.5,
       "note": "midpoint"
     },
     {
       "range": "$50-$60",
-      "probability": 0.175,
+      "probability": 0.185,
       "representative_usd": 55,
       "note": "midpoint"
     },
     {
       "range": "$40-$50",
-      "probability": 0.09,
+      "probability": 0.1,
       "representative_usd": 45,
       "note": "midpoint"
     },
     {
       "range": "$30-$40",
-      "probability": 0.03,
+      "probability": 0.045,
       "representative_usd": 35,
       "note": "midpoint"
     },
     {
       "range": "$20-$30",
-      "probability": 0.0145,
+      "probability": 0.0135,
       "representative_usd": 25,
       "note": "midpoint"
     },
@@ -348,7 +348,7 @@
       "note": "cap × 0.75"
     }
   ],
-  "expected_price_usd": 145.94,
-  "period_return_pct": 83.71,
-  "beta_annualized_pct": 283.65
+  "expected_price_usd": 141.16,
+  "period_return_pct": 82.69,
+  "beta_annualized_pct": 282.8
 }
