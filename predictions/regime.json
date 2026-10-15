@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-10-15T17:03:21.914Z",
+  "updated_at": "2026-10-15T20:21:04.150Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$82,045 vs MA $72,247",
+      "value": "$82,316 vs MA $72,248",
       "winter": false,
       "ok": true
     },
@@ -18,28 +18,28 @@
     {
       "id": "funding",
       "name": "BTC Funding Rate",
-      "value": "0.0069% / 8h",
-      "winter": true,
+      "value": "0.0100% / 8h",
+      "winter": false,
       "ok": true
     },
     {
       "id": "mom30",
       "name": "BTC 30日モメンタム",
-      "value": "+8.5% / 30日",
+      "value": "+8.8% / 30日",
       "winter": false,
       "ok": true
     },
     {
       "id": "mnav",
       "name": "MSTR mNAV",
-      "value": "1.03x",
+      "value": "1.05x",
       "winter": true,
       "ok": true
     },
     {
       "id": "stable",
       "name": "Stablecoin 時価総額",
-      "value": "$305B (30d +0.6%)",
+      "value": "$306B (30d +0.6%)",
       "winter": false,
       "ok": true
     },
@@ -51,9 +51,9 @@
       "ok": true
     }
   ],
-  "winter_count": 2,
+  "winter_count": 1,
   "valid_count": 7,
-  "confidence_pct": 29,
-  "regime": "夏L2",
-  "recommended": "夏L2(オンチェーン65%)"
+  "confidence_pct": 14,
+  "regime": "夏L3",
+  "recommended": "夏L3(オンチェーン80%)"
 }
