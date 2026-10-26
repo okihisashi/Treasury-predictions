@@ -1,40 +1,40 @@
 {
-  "updated_at": "2026-10-25T22:34:52.556Z",
+  "updated_at": "2026-10-26T01:12:43.202Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$80,498 vs MA $72,937",
+      "value": "$79,962 vs MA $72,982",
       "winter": false,
       "ok": true
     },
     {
       "id": "fng",
       "name": "Fear & Greed",
-      "value": "54 (Neutral)",
+      "value": "50 (Neutral)",
       "winter": false,
       "ok": true
     },
     {
       "id": "funding",
       "name": "BTC Funding Rate",
-      "value": "0.0084% / 8h",
+      "value": "0.0063% / 8h",
       "winter": true,
       "ok": true
     },
     {
       "id": "mom30",
       "name": "BTC 30日モメンタム",
-      "value": "-4.3% / 30日",
+      "value": "-5.3% / 30日",
       "winter": true,
       "ok": true
     },
     {
       "id": "mnav",
       "name": "MSTR mNAV",
-      "value": "1.05x",
-      "winter": true,
-      "ok": true
+      "value": "取得失敗 (HTTP 429 https://query1.finance.yahoo.com/v8/finance/chart/M)",
+      "winter": null,
+      "ok": false
     },
     {
       "id": "stable",
@@ -51,9 +51,9 @@
       "ok": true
     }
   ],
-  "winter_count": 4,
-  "valid_count": 7,
-  "confidence_pct": 57,
+  "winter_count": 3,
+  "valid_count": 6,
+  "confidence_pct": 50,
   "regime": "夏L1",
   "recommended": "夏L1(オンチェーン50%)"
 }
