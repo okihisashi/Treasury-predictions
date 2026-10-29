@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-10-29T20:19:47.788Z",
+  "updated_at": "2026-10-29T23:59:34.793Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$80,290 vs MA $73,107",
+      "value": "$77,866 vs MA $73,094",
       "winter": false,
       "ok": true
     },
@@ -25,14 +25,14 @@
     {
       "id": "mom30",
       "name": "BTC 30日モメンタム",
-      "value": "-4.0% / 30日",
+      "value": "-6.9% / 30日",
       "winter": true,
       "ok": true
     },
     {
       "id": "mnav",
       "name": "MSTR mNAV",
-      "value": "1.03x",
+      "value": "1.06x",
       "winter": true,
       "ok": true
     },
@@ -46,14 +46,14 @@
     {
       "id": "etf",
       "name": "ETF 純フロー(5日平均)",
-      "value": "+$11603M/日",
-      "winter": false,
-      "ok": true
+      "value": "取得失敗 (HTTP 522)",
+      "winter": null,
+      "ok": false
     }
   ],
   "winter_count": 3,
-  "valid_count": 7,
-  "confidence_pct": 43,
-  "regime": "夏L2",
-  "recommended": "夏L2(オンチェーン65%)"
+  "valid_count": 6,
+  "confidence_pct": 50,
+  "regime": "夏L1",
+  "recommended": "夏L1(オンチェーン50%)"
 }
