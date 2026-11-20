@@ -1,31 +1,31 @@
 {
-  "updated_at": "2026-11-19T21:37:17.906Z",
+  "updated_at": "2026-11-20T03:19:08.198Z",
   "indicators": [
     {
       "id": "ma200",
       "name": "BTC vs 200日MA",
-      "value": "$61,463 vs MA $72,672",
+      "value": "$61,993 vs MA $72,592",
       "winter": true,
       "ok": true
     },
     {
       "id": "fng",
       "name": "Fear & Greed",
-      "value": "10 (Extreme Fear)",
+      "value": "12 (Extreme Fear)",
       "winter": true,
       "ok": true
     },
     {
       "id": "funding",
       "name": "BTC Funding Rate",
-      "value": "0.0044% / 8h",
+      "value": "0.0011% / 8h",
       "winter": true,
       "ok": true
     },
     {
       "id": "mom30",
       "name": "BTC 30日モメンタム",
-      "value": "-25.9% / 30日",
+      "value": "-26.3% / 30日",
       "winter": true,
       "ok": true
     },
@@ -39,14 +39,14 @@
     {
       "id": "stable",
       "name": "Stablecoin 時価総額",
-      "value": "$285B (30d -5.4%)",
+      "value": "$284B (30d -5.9%)",
       "winter": true,
       "ok": true
     },
     {
       "id": "etf",
       "name": "ETF 純フロー(5日平均)",
-      "value": "+$10900M/日",
+      "value": "+$10883M/日",
       "winter": false,
       "ok": true
     }
